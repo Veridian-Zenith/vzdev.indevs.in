@@ -187,7 +187,7 @@ export const TerminalEmulator: React.FC<TerminalEmulatorProps> = ({ isOpen, onCl
             <div className="p-4 h-80 flex flex-col">
               <div ref={historyRef} className="flex-grow overflow-y-auto font-mono text-sm text-secondary-themeable space-y-1 mb-4 scrollbar-hide">
                 {history.map((line, i) => (
-                  <div key={i} className={line.startsWith('>') ? 'text-primary-themeable' : ''}>
+                   <div key={i} className={line?.startsWith('>') ? 'text-primary-themeable' : ''}>
                     {line}
                   </div>
                 ))}

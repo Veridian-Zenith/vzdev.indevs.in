@@ -18,6 +18,15 @@
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#FFB347" />
+  <link rel="manifest" href="/manifest.json" />
+  <script>
+    (function(l) {
+      if (l.search.startsWith('?p=')) {
+        var path = l.search.slice(3);
+        window.history.replaceState({}, document.title, decodeURIComponent(path));
+      }
+    })(window.location);
+  </script>
 </head>
 
 <body>

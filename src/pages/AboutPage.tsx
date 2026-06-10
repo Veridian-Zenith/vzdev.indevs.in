@@ -28,12 +28,12 @@ export const AboutPage = () => {
               <Hammer size={40} />
             </div>
             <div className="prose prose-invert lg:prose-xl max-w-none">
-              <h2 className="text-3xl font-bold text-primary-themeable mb-4">Our Digital Forge</h2>
-              <p className="text-secondary-themeable leading-relaxed text-lg">
-                Veridian Zenith is more than a collective—it is a digital forge. We operate in the intersection
-                of ancient aesthetics and cutting-edge performance. Our focus lies in building systems that
-                are as resilient as they are beautiful.
-              </p>
+               <h2 className="text-3xl font-bold text-primary-themeable mb-4">Our Digital Forge</h2>
+               <p className="text-secondary-themeable leading-relaxed text-lg">
+                 Veridian Zenith is more than a collective—it is a digital forge. We operate in the spectral intersection
+                 of ancient Nordic aesthetics and cutting-edge performance. Our focus lies in forging systems that
+                 are as resilient as runestones and as fluid as the æther.
+               </p>
             </div>
           </div>
         </AnimatedCard>

@@ -2,14 +2,16 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronRight, Languages } from 'lucide-react';
+import { Menu, X, ChevronRight, Languages, EyeOff } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AtmosphereSelector } from './AtmosphereSelector';
+import { useApp } from '../context/AppContext';
 
 export const Navbar = () => {
   const { t, i18n } = useTranslation();
+  const { reducedMotion, setReducedMotion } = useApp();
   const [isOpen, setIsOpen] = useState(false);
   const [logoHoverTime, setLogoHoverTime] = useState(0);
   const [isLogoPulsing, setIsLogoPulsing] = useState(false);
@@ -96,20 +98,27 @@ export const Navbar = () => {
             </Link>
           ))}
           <AtmosphereSelector />
-          <div className="relative group/lang">
-            <button className="p-2 rounded-full hover:bg-primary-themeable/10 transition-colors">
-              <Languages size={20} className="text-secondary-themeable group-hover/lang:text-primary-themeable" />
-            </button>
-            <div className="absolute top-full right-0 pt-3 -mt-1 opacity-0 group-hover/lang:opacity-100 transition-opacity pointer-events-none group-hover/lang:pointer-events-auto">
-              <div className="bg-secondary-themeable backdrop-blur-2xl border border-muted-themeable rounded-xl p-2 w-32 shadow-2xl">
-                <button onClick={() => changeLanguage('en')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">English</button>
-                <button onClick={() => changeLanguage('de')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">German</button>
-                <button onClick={() => changeLanguage('ko')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">Korean</button>
-                <button onClick={() => changeLanguage('ru')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">Russian</button>
-              </div>
-            </div>
-          </div>
-          <motion.button
+           <div className="relative group/lang">
+             <button className="p-2 rounded-full hover:bg-primary-themeable/10 transition-colors">
+               <Languages size={20} className="text-secondary-themeable group-hover/lang:text-primary-themeable" />
+             </button>
+             <div className="absolute top-full right-0 pt-3 -mt-1 opacity-0 group-hover/lang:opacity-100 transition-opacity pointer-events-none group-hover/lang:pointer-events-auto">
+               <div className="bg-secondary-themeable backdrop-blur-2xl border border-muted-themeable rounded-xl p-2 w-32 shadow-2xl">
+                 <button onClick={() => changeLanguage('en')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">English</button>
+                 <button onClick={() => changeLanguage('de')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">German</button>
+                 <button onClick={() => changeLanguage('ko')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">Korean</button>
+                 <button onClick={() => changeLanguage('ru')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">Russian</button>
+               </div>
+             </div>
+           </div>
+           <button 
+             onClick={() => setReducedMotion(!reducedMotion)}
+             className={`p-2 rounded-full transition-all ${reducedMotion ? 'bg-primary-themeable text-black' : 'hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable'}`}
+             title={reducedMotion ? "Enable Animations" : "Reduce Motion"}
+           >
+             <EyeOff size={20} />
+           </button>
+           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => { navigate('/contact'); setIsOpen(false); }}

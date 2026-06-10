@@ -13,19 +13,23 @@ import { AurPage } from './pages/AurPage';
 import { BrandDisplayPage } from './pages/BrandDisplayPage';
 
 import { LoadingScreen } from './components/LoadingScreen';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from './utils/cn';
 
 import { BackgroundEffect } from './components/BackgroundEffect';
 import { TerminalEmulator } from './components/TerminalEmulator';
 import { useEffect } from 'react';
+import { AppProvider, useApp } from './context/AppContext';
+import { MotionConfig } from 'framer-motion';
+import { useIsMobile } from './hooks/useIsMobile';
 import { useAtmosphere } from './hooks/useAtmosphere';
 
 function AppContent() {
+  const { reducedMotion, triggerGlitch, isGlitching } = useApp();
   const [isLoading, setIsLoading] = useState(true);
-  const [glitch, setGlitch] = useState(false);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
-  const isMobile = window.innerWidth < 768;
+  const isMobile = useIsMobile();
   const navigate = useNavigate();
 
   // Initialize atmosphere on app load
@@ -42,26 +46,22 @@ function AppContent() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isMobile]);
 
-  const triggerGlitch = () => {
-    setGlitch(true);
-    setTimeout(() => setGlitch(false), 500);
-  };
-
-  return (
-    <div className={cn(
-      "min-h-screen bg-[var(--vz-bg-primary)] text-secondary-themeable selection:bg-[var(--vz-accent-vibrant)]/30 font-rosemary transition-all duration-75 relative overflow-x-hidden",
-      glitch && "will-change-transform animate-glitch-intense"
-    )}>
-      <AnimatePresence mode="wait">
+return (
+    <MotionConfig reducedMotion={reducedMotion ? 'always' : 'never'}>
+      <div className={cn(
+        "min-h-screen bg-[var(--vz-bg-primary)] text-secondary-themeable selection:bg-[var(--vz-accent-vibrant)]/30 font-rosemary transition-all duration-75 relative overflow-x-hidden",
+        isGlitching && "will-change-transform animate-glitch-intense"
+      )}>
         {isLoading && (
-          <LoadingScreen key="loader" onLoadingComplete={() => setIsLoading(false)} />
+          <ErrorBoundary>
+            <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
+          </ErrorBoundary>
         )}
-      </AnimatePresence>
 
-      {/* BackgroundEffect is placed here, z-index will be managed inside it */}
-      <BackgroundEffect />
+        {/* BackgroundEffect is placed here, z-index will be managed inside it */}
+        <BackgroundEffect />
 
-      {!isLoading && (
+        {!isLoading && (
         <div className="relative z-10">
           <Navbar />
           <Routes>
@@ -84,7 +84,7 @@ function AppContent() {
             >
               <span className="relative z-10">© {new Date().getFullYear()} Veridian Zenith</span>
               <AnimatePresence>
-                {glitch && (
+                {isGlitching && (
                   <motion.div
                     key="glitch-overlay"
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -120,14 +120,17 @@ function AppContent() {
           </footer>
         </div>
       )}
-    </div>
+      </div>
+    </MotionConfig>
   );
 }
 
 function App() {
   return (
     <Router>
-      <AppContent />
+      <AppProvider>
+        <AppContent />
+      </AppProvider>
     </Router>
   );
 }

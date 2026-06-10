@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Terminal as TerminalIcon, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
 
 interface TerminalEmulatorProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface TerminalEmulatorProps {
 }
 
 export const TerminalEmulator: React.FC<TerminalEmulatorProps> = ({ isOpen, onClose }) => {
+  const { triggerGlitch, setReducedMotion } = useApp();
   const [input, setInput] = useState('');
   const [history, setHistory] = useState<string[]>(['Veridian Zenith OS v0.4.2-alpha', 'NOTE: This terminal is a work in progress.', 'Type "help" for a list of commands.']);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -27,13 +29,13 @@ export const TerminalEmulator: React.FC<TerminalEmulatorProps> = ({ isOpen, onCl
     }
   }, [history]);
 
-  const handleCommand = (cmd: string) => {
+  const handleCommand = async (cmd: string) => {
     const trimmedCmd = cmd.trim().toLowerCase();
     setHistory(prev => [...prev, `> ${cmd}`]);
 
     switch (trimmedCmd) {
       case 'help':
-        setHistory(prev => [...prev, 'Available commands:', '  help     - Show this help message', '  ls       - List artifacts', '  about    - About the collective', '  clear    - Clear terminal', '  exit     - Close terminal', '  goto <id> - Navigate to artifact page', '  fortune  - Get some runic wisdom', '  whoami   - Display current user identity', '  date     - Show the current temporal coordinates', '  neofetch - System information summary', '  ascii    - Display ASCII art', '  matrix   - Witness the void', '  joke     - A laugh from the abyss']);
+        setHistory(prev => [...prev, 'Available commands:', '  help     - Show this help message', '  ls       - List artifacts', '  about    - About the collective', '  clear    - Clear terminal', '  exit     - Close terminal', '  goto <id> - Navigate to artifact page', '  fortune  - Get some runic wisdom', '  whoami   - Display current user identity', '  date     - Show the current temporal coordinates', '  neofetch - System information summary', '  ascii    - Display ASCII art', '  matrix   - Witness the void', '  joke     - A laugh from the abyss', '  glitch   - Trigger a system glitch', '  motion <on|off> - Toggle reduced motion', '  cat <file> - Read a void log']);
         break;
       case 'ascii':
         setHistory(prev => [...prev,
@@ -103,6 +105,10 @@ export const TerminalEmulator: React.FC<TerminalEmulatorProps> = ({ isOpen, onCl
       case 'about':
         setHistory(prev => [...prev, 'Veridian Zenith: A digital forge where ancient Nordic aesthetics meet cutting-edge performance.']);
         break;
+      case 'glitch':
+        triggerGlitch();
+        setHistory(prev => [...prev, 'System instability triggered.']);
+        break;
       case 'clear':
         setHistory([]);
         break;
@@ -110,7 +116,31 @@ export const TerminalEmulator: React.FC<TerminalEmulatorProps> = ({ isOpen, onCl
         onClose();
         break;
       default:
-        if (trimmedCmd.startsWith('goto ')) {
+        if (trimmedCmd.startsWith('cat ')) {
+          const file = trimmedCmd.split(' ')[1];
+          try {
+            const response = await fetch(`/logs/${file}`);
+            if (response.ok) {
+              const text = await response.text();
+              setHistory(prev => [...prev, ...text.split('\\n')]);
+            } else {
+              setHistory(prev => [...prev, `File not found: ${file}`]);
+            }
+          } catch (e) {
+            setHistory(prev => [...prev, `Error accessing void log: ${e}`]);
+          }
+        } else if (trimmedCmd.startsWith('motion ')) {
+          const action = trimmedCmd.split(' ')[1];
+          if (action === 'on') {
+            setReducedMotion(false);
+            setHistory(prev => [...prev, 'Animations enabled.']);
+          } else if (action === 'off') {
+            setReducedMotion(true);
+            setHistory(prev => [...prev, 'Reduced motion enabled.']);
+          } else {
+            setHistory(prev => [...prev, 'Usage: motion <on|off>']);
+          }
+        } else if (trimmedCmd.startsWith('goto ')) {
           const target = trimmedCmd.split(' ')[1];
           if (['axiomos', 'voix', 'meshiji', 'peguni', 'misc'].includes(target)) {
             setHistory(prev => [...prev, `Navigating to ${target}...`]);

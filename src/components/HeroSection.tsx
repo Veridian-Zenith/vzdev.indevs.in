@@ -32,7 +32,7 @@ export const HeroSection = () => {
           {particles.map((p) => (
             <motion.div
               key={p.id}
-              className="absolute w-2 h-2 bg-amber-500 rounded-full"
+              className="absolute w-2 h-2 bg-primary-themeable rounded-full"
               initial={{
                 x: p.x,
                 y: p.y,

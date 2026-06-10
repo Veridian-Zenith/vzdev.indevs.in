@@ -42,7 +42,8 @@ export const AurPage = () => {
       icon: <Package className="text-amber-500" size={32} />,
       title: 'meshiji',
       description: t('projects.meshiji.description'),
-      url: 'https://aur.archlinux.org/packages/meshiji'
+      url: 'https://aur.archlinux.org/packages/meshiji',
+      deprecated: true
     },
     {
       id: 'voix',
@@ -84,9 +85,14 @@ export const AurPage = () => {
                   {pkg.icon}
                 </div>
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-primary-themeable group-hover:brightness-125 transition-all">
-                {pkg.title}
-              </h3>
+               <h3 className="text-2xl font-bold mb-4 text-primary-themeable group-hover:brightness-125 transition-all flex items-center gap-2">
+                 {pkg.title}
+                 {pkg.deprecated && (
+                   <span className="text-[10px] uppercase tracking-widest text-amber-500 font-black opacity-80">
+                     {t('projects.deprecated')}
+                   </span>
+                 )}
+               </h3>
               <p className="text-secondary-themeable mb-6 leading-relaxed text-sm flex-grow">
                 {pkg.description}
               </p>

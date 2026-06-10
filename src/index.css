@@ -128,33 +128,33 @@ body {
 /* Midnight Void Atmosphere (Purple/Indigo) */
 html.atmosphere-midnight-void {
   --vz-bg-primary: #020008;
-  --vz-bg-secondary: #08061a;
+  --vz-bg-secondary: #0c0a1f;
   --vz-accent-vibrant: #818cf8;
   --vz-accent-muted: rgba(129, 140, 248, 0.4);
   --vz-glow-color: rgba(139, 92, 246, 0.6);
-  --vz-gradient-1: #6366f1;
-  --vz-gradient-2: #8b5cf6;
-  --vz-gradient-3: #6366f1;
+  --vz-gradient-1: #818cf8;
+  --vz-gradient-2: #c084fc;
+  --vz-gradient-3: #818cf8;
 
   --vz-background-color: var(--vz-bg-primary);
   --vz-background-color-transparent: rgba(2, 0, 8, 0.85);
   --vz-border-color: rgba(139, 92, 246, 0.2);
   --vz-text-color-secondary: #a78bfa;
   --vz-shadow-color: var(--vz-glow-color);
-  --vz-gradient-via-color: #8b5cf6;
+  --vz-gradient-via-color: #c084fc;
   --vz-card-bg: var(--vz-bg-secondary);
-  --vz-card-border: rgba(99, 102, 241, 0.4);
+  --vz-card-border: rgba(129, 140, 248, 0.4);
 }
 
 /* Blood Moon Atmosphere (Deep Red) */
 html.atmosphere-blood-moon {
   --vz-bg-primary: #080000;
-  --vz-bg-secondary: #1a0505;
+  --vz-bg-secondary: #1a0808;
   --vz-accent-vibrant: #ef4444;
   --vz-accent-muted: rgba(239, 68, 68, 0.4);
   --vz-glow-color: rgba(220, 38, 38, 0.6);
   --vz-gradient-1: #ef4444;
-  --vz-gradient-2: #dc2626;
+  --vz-gradient-2: #7f1d1d;
   --vz-gradient-3: #ef4444;
 
   --vz-background-color: var(--vz-bg-primary);
@@ -162,7 +162,7 @@ html.atmosphere-blood-moon {
   --vz-border-color: rgba(220, 38, 38, 0.2);
   --vz-text-color-secondary: #f87171;
   --vz-shadow-color: var(--vz-glow-color);
-  --vz-gradient-via-color: #dc2626;
+  --vz-gradient-via-color: #7f1d1d;
   --vz-card-bg: var(--vz-bg-secondary);
   --vz-card-border: rgba(239, 68, 68, 0.4);
 }
@@ -170,12 +170,12 @@ html.atmosphere-blood-moon {
 /* Golden Zenith Atmosphere (Gold/Brown) */
 html.atmosphere-golden-zenith {
   --vz-bg-primary: #0a0800;
-  --vz-bg-secondary: #1a1505;
+  --vz-bg-secondary: #1a1205;
   --vz-accent-vibrant: #FFD700;
   --vz-accent-muted: rgba(255, 215, 0, 0.4);
   --vz-glow-color: rgba(255, 215, 0, 0.6);
   --vz-gradient-1: #FFD700;
-  --vz-gradient-2: #e6c895;
+  --vz-gradient-2: #b45309;
   --vz-gradient-3: #FFD700;
 
   --vz-background-color: var(--vz-bg-primary);
@@ -183,7 +183,7 @@ html.atmosphere-golden-zenith {
   --vz-border-color: rgba(255, 215, 0, 0.3);
   --vz-text-color-secondary: #e6c895;
   --vz-shadow-color: var(--vz-glow-color);
-  --vz-gradient-via-color: #FFD700;
+  --vz-gradient-via-color: #b45309;
   --vz-card-bg: var(--vz-bg-secondary);
   --vz-card-border: rgba(255, 215, 0, 0.4);
 }

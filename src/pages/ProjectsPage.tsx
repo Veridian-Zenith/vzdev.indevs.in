@@ -4,22 +4,13 @@
 import { motion } from 'framer-motion';
 import { AnimatedCard } from '../components/Common';
 import { cn } from '../utils/cn';
-import { ExternalLink, Terminal, Shield, Cpu, PawPrint, Folder, Box } from 'lucide-react';
+import { ExternalLink, Terminal, Shield, PawPrint, Folder, Box } from 'lucide-react';
 
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useIsMobile } from '../hooks/useIsMobile';
 
 const STATIC_PROJECTS = [
-  {
-    id: 'axiomos',
-    name: "AxiomOS",
-    description: "projects.axiomos.description",
-    html_url: "https://github.com/Veridian-Zenith/AxiomOS",
-    topics: ["system", "C++", "osdev", "kernel"],
-    language: "C++",
-    icon: Cpu
-  },
   {
     id: 'voix',
     name: "Voix",
@@ -36,7 +27,8 @@ const STATIC_PROJECTS = [
     html_url: "https://github.com/Veridian-Zenith/meshiji",
     topics: ["app", "flutter", "dart", "ui", "linux"],
     language: "Dart",
-    icon: Folder
+    icon: Folder,
+    deprecated: true
   },
   {
     id: 'peguni',
@@ -46,6 +38,15 @@ const STATIC_PROJECTS = [
     topics: ["game", "lua", "conlang"],
     language: "Lua",
     icon: PawPrint
+  },
+  {
+    id: 'wuming',
+    name: "WuMing",
+    description: "projects.wuming.description",
+    html_url: "https://github.com/Veridian-Zenith/WuMing",
+    topics: ["app", "security", "c", "gtk4"],
+    language: "C",
+    icon: Shield
   },
   {
     id: 'misc',
@@ -107,15 +108,22 @@ export const ProjectsPage = () => {
                 )}
               >
                 <div className="flex justify-between items-start mb-4">
-                  <div className="flex items-center gap-3">
-                    <motion.div
-                      className="p-2 bg-secondary-themeable rounded-lg text-primary-themeable shadow-[inset_0_0_10px_var(--vz-glow-color)] border border-muted-themeable"
-                      whileHover={isMobile ? {} : { rotate: 360, scale: 1.1 }}
-                    >
-                      <repo.icon size={24} />
-                    </motion.div>
-                    <h3 className="text-xl font-bold text-primary-themeable tracking-tight">{repo.name}</h3>
-                  </div>
+                    <div className="flex items-center gap-3">
+                      <motion.div
+                        className="p-2 bg-secondary-themeable rounded-lg text-primary-themeable shadow-[inset_0_0_10px_var(--vz-glow-color)] border border-muted-themeable"
+                        whileHover={isMobile ? {} : { rotate: 360, scale: 1.1 }}
+                      >
+                        <repo.icon size={24} />
+                      </motion.div>
+                      <div className="flex flex-col">
+                        <h3 className="text-xl font-bold text-primary-themeable tracking-tight">{repo.name}</h3>
+                        {repo.deprecated && (
+                          <span className="text-[9px] uppercase tracking-widest text-amber-500 font-black opacity-80">
+                            {t('projects.deprecated')}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                 </div>
 
                 <p className="text-secondary-themeable mb-6 line-clamp-3 flex-grow text-sm leading-relaxed">

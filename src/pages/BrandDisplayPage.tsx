@@ -38,14 +38,31 @@ export const BrandDisplayPage = () => {
     mouseY.set(0);
   };
 
-  return (
-    <div
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="pt-32 pb-24 px-8 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] cursor-crosshair overflow-hidden"
-    >
-      <motion.div
+    return (
+      <div
+        ref={containerRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="pt-32 pb-24 px-8 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] cursor-crosshair overflow-hidden"
+      >
+        <div className="text-center mb-12">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-3xl sm:text-5xl font-bold text-primary-themeable mb-2 tracking-tight"
+          >
+            The Sigil
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="text-secondary-themeable italic opacity-60"
+          >
+            "The core resonance of the digital forge."
+          </motion.p>
+        </div>
+        <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}

@@ -3,7 +3,7 @@
 
 import { motion } from 'framer-motion';
 import { Mail, User, MessageSquare, ExternalLink, Send, Terminal } from 'lucide-react';
-import { AnimatedCard, InteractiveButton } from '../components/Common';
+import { AnimatedCard } from '../components/Common';
 
 export const ContactPage = () => {
   const contactInfo = [
@@ -27,6 +27,27 @@ export const ContactPage = () => {
       value: "Veridian-Zenith",
       href: "https://github.com/Veridian-Zenith",
       color: "gold"
+    },
+    {
+      icon: ExternalLink,
+      label: "Instagram",
+      value: "@daedaevibin",
+      href: "https://www.instagram.com/daedaevibin?igsh=aTg3cjFmbzdiY2s0",
+      color: "purple"
+    },
+    {
+      icon: MessageSquare,
+      label: "Matrix",
+      value: "@daedaevibin:matrix.org",
+      href: "https://matrix.to/@daedaevibin:matrix.org#/@daedaevibin:matrix.org",
+      color: "blue"
+    },
+    {
+      icon: Mail,
+      label: "WhatsApp",
+      value: "+1 (208) 464-4061",
+      href: "https://wa.me/12084644061",
+      color: "green"
     }
   ];
 
@@ -61,19 +82,21 @@ export const ContactPage = () => {
           <p className="text-secondary-themeable mb-10 max-w-md text-lg italic">
             Whether for collaboration, consultation, or to report a fracture in reality, the Architect awaits.
           </p>
-          <InteractiveButton
-            variant="red"
-            onClick={() => window.location.href = 'mailto:daedaevibin@ik.me'}
-            className="w-full sm:w-auto px-12 py-5 text-xl"
-          >
-            <span>Summon</span> <span className="text-primary-themeable font-black ml-1 group-hover:drop-shadow-[0_0_12px_var(--vz-glow-color)] transition-all">The Architect</span>
-          </InteractiveButton>
+           <a
+             href="mailto:daedaevibin@ik.me"
+             className="inline-block w-full sm:w-auto px-12 py-5 text-xl text-center bg-primary-themeable/80 hover:bg-primary-themeable shadow-primary-themeable relative overflow-hidden rounded-2xl font-bold text-white transition-all duration-300 cursor-pointer group border border-muted-themeable hover:border-primary-themeable"
+           >
+             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary-themeable/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
+             <span className="relative z-10">
+               <span>Summon</span> <span className="text-primary-themeable font-black ml-1 group-hover:drop-shadow-[0_0_12px_var(--vz-glow-color)] transition-all">The Architect</span>
+             </span>
+           </a>
         </div>
       </motion.div>
 
-      {/* Grid of Info */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-        {contactInfo.map((info, index) => (
+       {/* Grid of Info */}
+       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-16">
+         {contactInfo.map((info, index) => (
           <AnimatedCard
             key={index}
             delay={0.3 + index * 0.1}

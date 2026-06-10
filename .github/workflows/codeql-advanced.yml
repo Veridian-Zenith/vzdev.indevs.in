@@ -82,7 +82,7 @@ jobs:
     - name: Run build with Bun
       shell: bash
       run: |
-        bun install
+        bun i
         bun run build
 
     - name: Perform CodeQL Analysis

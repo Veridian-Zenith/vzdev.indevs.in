@@ -3,7 +3,7 @@
 
 import { motion } from 'framer-motion';
 import { Mail, User, MessageSquare, ExternalLink, Send, Terminal } from 'lucide-react';
-import { AnimatedCard } from '../components/Common';
+import { AnimatedCard } from '../components';
 
 import { useTranslation } from 'react-i18next';
 

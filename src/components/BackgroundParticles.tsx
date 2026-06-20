@@ -9,7 +9,7 @@ const RUNES = [
   "ᛈ","ᛇ","ᛉ","ᛊ","ᛏ","ᛒ","ᛖ","ᛗ","ᛚ","ᛝ","ᛟ","ᛞ"
 ];
 
-export const BackgroundEffect = () => {
+export const BackgroundParticles = () => {
   const { scrollYProgress } = useScroll();
   const yRange = useTransform(scrollYProgress, [0, 1], [0, -200]);
   const ySpring = useSpring(yRange, { stiffness: 50, damping: 20 });

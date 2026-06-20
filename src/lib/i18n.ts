@@ -1,4 +1,4 @@
-// veridianzenith.qzz.io/src/utils/i18n.ts
+// veridianzenith.qzz.io/src/lib/i18n.ts
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -29,7 +29,6 @@ const resources = {
       "stats.force_refresh": "Force Refresh",
       "repo.no_description": "No description provided.",
       "repo.lang": "Lang:",
-
       "about.title": "The Nordic Zenith",
       "about.subtitle": "\"Where ancient craftsmanship meets digital excellence.\"",
       "about.forge.title": "Our Digital Forge",
@@ -40,18 +39,16 @@ const resources = {
       "about.license.description": "We believe in the sanctity of open source. Veridian Zenith artifacts are released under the ",
       "about.license.link": "Open Software License 3.0",
       "about.license.description2": ", ensuring the code remains free and accessible to all who seek it.",
-
-       "projects.title": "Arcane Artifacts",
-       "projects.subtitle": "Explore the digital runes we've carved. Artifacts of systems, security, and digital experience.",
-       "projects.inspect": "Unseal Artifact",
-       "projects.future": "Future runes are being etched...",
-       "projects.deprecated": "Deprecated",
-       "projects.voix.description": "A secure privilege management tool (sudo/doas alternative) featuring PAM authentication and a focus on minimal attack surface.",
-       "projects.meshiji.description": "A modern, Linux-only file explorer built with Flutter. Provides a clean, intuitive interface for managing files.",
-       "projects.peguni.description": "A text-based virtual pet simulator featuring a unique constructed language (Vaesktöng). A companion in the terminal, built for the void.",
-       "projects.wuming.description": "A simple ClamAV GUI frontend written in C using GTK4/LibAdwaita, forged for seamless security auditing.",
-       "projects.misc.description": "A repository of experimental artifacts and system utilities, including ZigSysMon—a lightweight /proc monitor—alongside benchmarks and FFI experiments.",
-
+      "projects.title": "Arcane Artifacts",
+      "projects.subtitle": "Explore the digital runes we've carved. Artifacts of systems, security, and digital experience.",
+      "projects.inspect": "Unseal Artifact",
+      "projects.future": "Future runes are being etched...",
+      "projects.deprecated": "Deprecated",
+      "projects.voix.description": "A secure privilege management tool (sudo/doas alternative) featuring PAM authentication and a focus on minimal attack surface.",
+      "projects.meshiji.description": "A modern, Linux-only file explorer built with Flutter. Provides a clean, intuitive interface for managing files.",
+      "projects.peguni.description": "A text-based virtual pet simulator featuring a unique constructed language (Vaesktöng). A companion in the terminal, built for the void.",
+      "projects.wuming.description": "A simple ClamAV GUI frontend written in C using GTK4/LibAdwaita, forged for seamless security auditing.",
+      "projects.misc.description": "A repository of experimental artifacts and system utilities, including ZigSysMon—a lightweight /proc monitor—alongside benchmarks and FFI experiments.",
       "aur.title": "AUR Repositories",
       "aur.subtitle": "Pre-compiled artifacts for Arch Linux, ready for direct integration.",
       "aur.loading": "Fetching package data from the AUR...",
@@ -62,7 +59,6 @@ const resources = {
       "aur.packages.veridian-zenith-git.description": "The official Veridian Zenith theme package for Arch Linux systems.",
       "aur.packages.veridian-icons-git.description": "Icon pack complementing the Veridian Zenith aesthetic.",
       "aur.packages.veridian-cursors.description": "Cursor theme for the complete Nordic void experience.",
-
       "contact.title": "Summon The Architect",
       "contact.subtitle": "\"The runes are cast, the signals sent. Reach through the void and influence the digital forge.\"",
       "contact.invocation.title": "Direct Invocation",
@@ -125,7 +121,6 @@ const resources = {
       "stats.force_refresh": "Принудительное обновление",
       "repo.no_description": "Описание отсутствует.",
       "repo.lang": "Язык:",
-
       "about.title": "Нордический Зенит",
       "about.subtitle": "\"Где древнее мастерство встречается с цифровым совершенством.\"",
       "about.forge.title": "Наша цифровая кузница",
@@ -136,7 +131,6 @@ const resources = {
       "about.license.description": "Мы верим в святость открытого исходного кода. Артефакты Veridian Zenith выпускаются под ",
       "about.license.link": "Open Software License 3.0",
       "about.license.description2": ", гарантируя, что код остается бесплатным и доступным для всех, кто его ищет.",
-
       "projects.title": "Тайные артефакты",
       "projects.subtitle": "Исследуйте высеченные нами цифровые руны. Артефакты систем, безопасности и цифрового опыта.",
       "projects.inspect": "Осмотреть руну",
@@ -146,7 +140,6 @@ const resources = {
       "projects.meshiji.description": "Современный файловый менеджер только для Linux, созданный с помощью Flutter. Обеспечивает чистый, интуитивно понятный интерфейс для управления файлами.",
       "projects.peguni.description": "Текстовый симулятор виртуального питомца с уникальным искусственным языком (Vaesktöng). Компаньон в терминале, созданный для пустоты.",
       "projects.misc.description": "Репозиторий экспериментальных артефактов и системных утилит, включая ZigSysMon — легковесный монитор /proc — а также тесты производительности и эксперименты с FFI.",
-
       "aur.title": "Репозитории AUR",
       "aur.subtitle": "Предварительно скомпилированные артефакты для Arch Linux, готовые к прямой интеграции.",
       "aur.loading": "Получение данных пакетов из AUR...",
@@ -157,7 +150,6 @@ const resources = {
       "aur.packages.veridian-zenith-git.description": "Официальный пакет темы Veridian Zenith для систем Arch Linux.",
       "aur.packages.veridian-icons-git.description": "Пакет иконок, дополняющий эстетику Veridian Zenith.",
       "aur.packages.veridian-cursors.description": "Тема курсора для полного погружения в нордическую пустоту.",
-
       "contact.title": "Призвать Архитектора",
       "contact.subtitle": "\"Руны брошены, сигналы отправлены. Протяните руку через пустоту и повлияйте на цифровую кузницу.\"",
       "contact.invocation.title": "Прямой вызов",
@@ -209,7 +201,6 @@ const resources = {
       "stats.force_refresh": "Erzwinge Aktualisierung",
       "repo.no_description": "Keine Beschreibung verfügbar.",
       "repo.lang": "Sprache:",
-
       "about.title": "Der Nordische Zenit",
       "about.subtitle": "\"Wo alte Handwerkskunst auf digitale Exzellenz trifft.\"",
       "about.forge.title": "Unsere digitale Schmiede",
@@ -220,7 +211,6 @@ const resources = {
       "about.license.description": "Wir glauben an die Heiligkeit von Open Source. Die Artefakte von Veridian Zenith werden unter der ",
       "about.license.link": "Open Software License 3.0",
       "about.license.description2": " veröffentlicht, um sicherzustellen, dass der Code für alle, die ihn suchen, frei und zugänglich bleibt.",
-
       "projects.title": "Arkane Artefakte",
       "projects.subtitle": "Erkunden Sie die von uns geschaffenen digitalen Runen. Artefakte von Systemen, Sicherheit und digitaler Erfahrung.",
       "projects.inspect": "Rune inspizieren",
@@ -230,7 +220,6 @@ const resources = {
       "projects.meshiji.description": "Ein moderner, nur für Linux verfügbarer Dateiexplorer, der mit Flutter entwickelt wurde. Bietet eine saubere, intuitive Oberfläche zur Verwaltung von Dateien.",
       "projects.peguni.description": "Ein textbasierter virtueller Haustiersimulator mit einer einzigartigen konstruierten Sprache (Vaesktöng). Ein Begleiter im Terminal, geschaffen für die Leere.",
       "projects.misc.description": "Ein Repository mit experimentellen Artefakten und System-Utilities, einschließlich ZigSysMon – einem leichtgewichtigen /proc-Monitor – sowie Benchmarks und FFI-Experimenten.",
-
       "aur.title": "AUR-Repositorien",
       "aur.subtitle": "Vorkompilierte Artefakte für Arch Linux, bereit zur direkten Integration.",
       "aur.loading": "Paktdaten vom AUR werden abgerufen...",
@@ -241,7 +230,6 @@ const resources = {
       "aur.packages.veridian-zenith-git.description": "Das offizielle Veridian Zenith Theme-Paket für Arch Linux-Systeme.",
       "aur.packages.veridian-icons-git.description": "Icon-Paket, das die Ästhetik von Veridian Zenith ergänzt.",
       "aur.packages.veridian-cursors.description": "Cursor-Theme für das vollständige Erlebnis der nordischen Leere.",
-
       "contact.title": "Den Architekten beschwören",
       "contact.subtitle": "\"Die Runen sind geworfen, die Signale gesendet. Greifen Sie durch die Leere und beeinflussen Sie die digitale Schmiede.\"",
       "contact.invocation.title": "Direkte Anrufung",
@@ -293,7 +281,6 @@ const resources = {
       "stats.force_refresh": "강제 새로고침",
       "repo.no_description": "설명이 제공되지 않았습니다.",
       "repo.lang": "언어:",
-
       "about.title": "북유럽의 제니스",
       "about.subtitle": "\"고대 장인 정신이 디지털 우수성과 만나는 곳.\"",
       "about.forge.title": "우리의 디지털 대장간",
@@ -304,7 +291,6 @@ const resources = {
       "about.license.description": "우리는 오픈 소스의 신성함을 믿습니다. Veridian Zenith의 결과물은 ",
       "about.license.link": "Open Software License 3.0",
       "about.license.description2": "에 따라 배포되어 코드를 찾는 모든 사람이 자유롭게 접근하고 사용할 수 있도록 보장합니다.",
-
       "projects.title": "비전 유물",
       "projects.subtitle": "우리가 조각한 디지털 룬을 탐험하세요. 시스템, 보안 및 디지털 경험의 아티팩트입니다.",
       "projects.inspect": "룬 검사",
@@ -314,7 +300,6 @@ const resources = {
       "projects.meshiji.description": "Flutter로 제작된 현대적인 Linux 전용 파일 탐색기. 파일을 관리하기 위한 깨끗하고 직관적인 인터페이스를 제공합니다.",
       "projects.peguni.description": "독특한 인공 언어(Vaesktöng)를 특징으로 하는 텍스트 기반 가상 애완 동물 시뮬레이터. 공허를 위해 만들어진 터미널의 동반자입니다.",
       "projects.misc.description": "경량 /proc 모니터인 ZigSysMon을 포함한 실험적인 아티팩트 및 시스템 유틸리티 저장소이며, 벤치마크 및 FFI 실험도 포함합니다.",
-
       "aur.title": "AUR 저장소",
       "aur.subtitle": "Arch Linux용으로 사전 컴파일된 아티팩트로, 직접 통합할 준비가 되어 있습니다.",
       "aur.loading": "AUR에서 패키지 데이터를 가져오는 중입니다...",
@@ -325,7 +310,6 @@ const resources = {
       "aur.packages.veridian-zenith-git.description": "Arch Linux 시스템용 공식 Veridian Zenith 테마 패키지입니다.",
       "aur.packages.veridian-icons-git.description": "Veridian Zenith 미학을 보완하는 아이콘 팩입니다.",
       "aur.packages.veridian-cursors.description": "완벽한 북유럽 공허 경험을 위한 커서 테마입니다.",
-
       "contact.title": "건축가 소환",
       "contact.subtitle": "\"룬이 던져지고 신호가 보내졌습니다. 공허를 통해 손을 뻗어 디지털 대장간에 영향을 미치세요.\"",
       "contact.invocation.title": "직접 호출",
@@ -342,7 +326,7 @@ const resources = {
       "atmosphere.default.name": "Veridian Origin",
       "atmosphere.default.description": "제니스의 호박색 뿌리",
       "atmosphere.midnight-void.name": "Obsidian Void",
-      "atmosphere.midnight-void.description": "깊은 인디고와 스펙트럼 보라색",
+      "atmosphere.midnight-void.description": "깊은 인ди고와 스펙트럼 보라색",
       "atmosphere.blood-moon.name": "Crimson Eclipse",
       "atmosphere.blood-moon.description": "강렬한 빨간색과 달의 그림자",
       "atmosphere.golden-zenith.name": "Golden Zenith",

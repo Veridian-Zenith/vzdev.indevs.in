@@ -1,5 +1,5 @@
-import { useAtmosphere, atmospheres } from '../hooks/useAtmosphere';
-import { useIsMobile } from '../hooks/useIsMobile';
+import { useAtmosphere, atmospheres } from '../hooks';
+import { useIsMobile } from '../hooks';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cloud } from 'lucide-react';
 import { useState } from 'react';

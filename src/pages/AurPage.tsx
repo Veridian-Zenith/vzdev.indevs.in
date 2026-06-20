@@ -2,10 +2,10 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { motion } from 'framer-motion';
-import { AnimatedCard } from '../components/Common';
+import { AnimatedCard } from '../components';
 import { Package, Terminal, Shield, Download, ExternalLink, AlertTriangle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useIsMobile } from '../hooks/useIsMobile';
+import { useIsMobile } from '../hooks';
 import { Link } from 'react-router-dom';
 
 export const AurPage = () => {

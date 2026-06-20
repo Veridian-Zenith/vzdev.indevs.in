@@ -2,7 +2,7 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { motion } from 'framer-motion';
-import { AnimatedCard } from '../components/Common';
+import { AnimatedCard } from '../components';
 import { Shield, Hammer, BookOpen } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 

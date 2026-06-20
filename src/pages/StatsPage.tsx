@@ -4,9 +4,9 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect, useCallback } from 'react';
 import { Box, Star, GitFork, ExternalLink, RefreshCw, Code, Cpu, FileJson, Terminal, Layout, type LucideIcon } from 'lucide-react';
-import { AnimatedCard } from '../components/Common';
-import { cn } from '../utils/cn';
-import { useIsMobile } from '../hooks/useIsMobile';
+import { AnimatedCard } from '../components';
+import { cn } from '../utils';
+import { useIsMobile } from '../hooks';
 import { useTranslation } from 'react-i18next';
 
 interface Repo {

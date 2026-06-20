@@ -2,13 +2,13 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { motion } from 'framer-motion';
-import { AnimatedCard } from '../components/Common';
-import { cn } from '../utils/cn';
+import { AnimatedCard } from '../components';
+import { cn } from '../utils';
 import { ExternalLink, Terminal, Shield, PawPrint, Folder, Box } from 'lucide-react';
 
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useIsMobile } from '../hooks/useIsMobile';
+import { useIsMobile } from '../hooks';
 
 const STATIC_PROJECTS = [
   {

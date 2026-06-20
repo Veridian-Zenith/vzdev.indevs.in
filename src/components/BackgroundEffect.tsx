@@ -2,7 +2,7 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useIsMobile } from "../hooks/useIsMobile";
+import { useIsMobile } from "../hooks";
 import { useState } from "react";
 
 

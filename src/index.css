@@ -57,8 +57,8 @@
   --vz-bg-primary: #050200;
   --vz-bg-secondary: #0f0a05;
   --vz-accent-vibrant: #FFB347;
-  --vz-accent-muted: rgba(255, 179, 71, 0.4);
-  --vz-glow-color: rgba(255, 179, 71, 0.6);
+  --vz-accent-muted: rgba(255, 179, 71, 0.6);
+  --vz-glow-color: rgba(255, 179, 71, 0.8);
   --vz-gradient-1: #FFB347;
   --vz-gradient-2: #D72638;
   --vz-gradient-3: #FFB347;
@@ -130,8 +130,8 @@ html.atmosphere-midnight-void {
   --vz-bg-primary: #020008;
   --vz-bg-secondary: #0c0a1f;
   --vz-accent-vibrant: #818cf8;
-  --vz-accent-muted: rgba(129, 140, 248, 0.4);
-  --vz-glow-color: rgba(139, 92, 246, 0.6);
+  --vz-accent-muted: rgba(129, 140, 248, 0.6);
+  --vz-glow-color: rgba(139, 92, 246, 0.8);
   --vz-gradient-1: #818cf8;
   --vz-gradient-2: #c084fc;
   --vz-gradient-3: #818cf8;
@@ -151,8 +151,8 @@ html.atmosphere-blood-moon {
   --vz-bg-primary: #080000;
   --vz-bg-secondary: #1a0808;
   --vz-accent-vibrant: #ef4444;
-  --vz-accent-muted: rgba(239, 68, 68, 0.4);
-  --vz-glow-color: rgba(220, 38, 38, 0.6);
+  --vz-accent-muted: rgba(239, 68, 68, 0.6);
+  --vz-glow-color: rgba(220, 38, 38, 0.8);
   --vz-gradient-1: #ef4444;
   --vz-gradient-2: #7f1d1d;
   --vz-gradient-3: #ef4444;
@@ -172,8 +172,8 @@ html.atmosphere-golden-zenith {
   --vz-bg-primary: #0a0800;
   --vz-bg-secondary: #1a1205;
   --vz-accent-vibrant: #FFD700;
-  --vz-accent-muted: rgba(255, 215, 0, 0.4);
-  --vz-glow-color: rgba(255, 215, 0, 0.6);
+  --vz-accent-muted: rgba(255, 215, 0, 0.6);
+  --vz-glow-color: rgba(255, 215, 0, 0.8);
   --vz-gradient-1: #FFD700;
   --vz-gradient-2: #b45309;
   --vz-gradient-3: #FFD700;

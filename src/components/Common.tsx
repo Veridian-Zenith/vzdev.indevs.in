@@ -3,9 +3,9 @@
 
 import { motion, type HTMLMotionProps, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import { cn } from '../utils/cn';
-import { useIsMobile } from '../hooks/useIsMobile';
-import { VAESKTONG_MAP } from '../utils/vaesktong';
+import { cn } from '../utils';
+import { useIsMobile } from '../hooks';
+import { VAESKTONG_MAP } from '../utils';
 
 
 

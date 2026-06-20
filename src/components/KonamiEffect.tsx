@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useKonamiCode } from '../hooks/useKonamiCode';
+import { useKonamiCode } from '../hooks';
 
 interface Particle {
   x: number;

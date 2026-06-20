@@ -3,8 +3,8 @@
 
 import { motion } from 'framer-motion';
 import { AnimatedCard } from './Common';
-import { cn } from '../utils/cn';
-import { useIsMobile } from '../hooks/useIsMobile';
+import { cn } from '../utils';
+import { useIsMobile } from '../hooks';
 
 import { ExternalLink, Terminal, Shield, Cpu, PawPrint, Folder, Box } from 'lucide-react';
 

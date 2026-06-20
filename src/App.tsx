@@ -4,7 +4,7 @@
 import { useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
-import { Navbar } from './components/Navbar';
+import { Navbar } from './components';
 const HomePage = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })));
 const AboutPage = lazy(() => import('./pages/AboutPage').then(m => ({ default: m.AboutPage })));
 const ProjectsPage = lazy(() => import('./pages/ProjectsPage').then(m => ({ default: m.ProjectsPage })));
@@ -12,21 +12,22 @@ const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ defaul
 const AurPage = lazy(() => import('./pages/AurPage').then(m => ({ default: m.AurPage })));
 const BrandDisplayPage = lazy(() => import('./pages/BrandDisplayPage').then(m => ({ default: m.BrandDisplayPage })));
 const StatsPage = lazy(() => import('./pages/StatsPage').then(m => ({ default: m.StatsPage })));
+const TrackerPage = lazy(() => import('./pages/TrackerPage').then(m => ({ default: m.TrackerPage })));
 
-import { LoadingScreen } from './components/LoadingScreen';
-import { ErrorBoundary } from './components/ErrorBoundary';
+import { LoadingScreen } from './components';
+import { ErrorBoundary } from './components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from './utils/cn';
+import { cn } from './utils';
 
-import { BackgroundEffect } from './components/BackgroundEffect';
-import { TerminalEmulator } from './components/TerminalEmulator';
+import { BackgroundEffect } from './components';
+import { TerminalEmulator } from './components';
 import { useEffect } from 'react';
 import { AppProvider } from './context/AppProvider';
 import { useApp } from './context/AppContext';
 import { MotionConfig } from 'framer-motion';
-import { useIsMobile } from './hooks/useIsMobile';
-import { useAtmosphere } from './hooks/useAtmosphere';
-import { KonamiEffect } from './components/KonamiEffect';
+import { useIsMobile } from './hooks';
+import { useAtmosphere } from './hooks';
+import { KonamiEffect } from './components';
 
 function AppContent() {
   const { reducedMotion, triggerGlitch, isGlitching } = useApp();
@@ -98,6 +99,7 @@ return (
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/aur" element={<AurPage />} />
               <Route path="/stats" element={<StatsPage />} />
+              <Route path="/tracker" element={<TrackerPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/brand" element={<BrandDisplayPage />} />
             </Routes>

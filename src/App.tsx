@@ -1,17 +1,17 @@
 //! License: Open Software License 3.0 (OSL-3.0)
 //! Copyright (c) 2026 Dae Euhwa
 
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { useState, lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 import { Navbar } from './components/Navbar';
-import { HomePage } from './pages/HomePage';
-import { AboutPage } from './pages/AboutPage';
-import { ProjectsPage } from './pages/ProjectsPage';
-import { ContactPage } from './pages/ContactPage';
-import { AurPage } from './pages/AurPage';
-import { BrandDisplayPage } from './pages/BrandDisplayPage';
-import { StatsPage } from './pages/StatsPage';
+const HomePage = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })));
+const AboutPage = lazy(() => import('./pages/AboutPage').then(m => ({ default: m.AboutPage })));
+const ProjectsPage = lazy(() => import('./pages/ProjectsPage').then(m => ({ default: m.ProjectsPage })));
+const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
+const AurPage = lazy(() => import('./pages/AurPage').then(m => ({ default: m.AurPage })));
+const BrandDisplayPage = lazy(() => import('./pages/BrandDisplayPage').then(m => ({ default: m.BrandDisplayPage })));
+const StatsPage = lazy(() => import('./pages/StatsPage').then(m => ({ default: m.StatsPage })));
 
 import { LoadingScreen } from './components/LoadingScreen';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -26,22 +26,35 @@ import { useApp } from './context/AppContext';
 import { MotionConfig } from 'framer-motion';
 import { useIsMobile } from './hooks/useIsMobile';
 import { useAtmosphere } from './hooks/useAtmosphere';
+import { KonamiEffect } from './components/KonamiEffect';
 
 function AppContent() {
   const { reducedMotion, triggerGlitch, isGlitching } = useApp();
   const [isLoading, setIsLoading] = useState(true);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [showDiagnostics, setShowDiagnostics] = useState(false);
   const isMobile = useIsMobile();
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Initialize atmosphere on app load
   useAtmosphere();
+
+  // Privacy-focused Analytics (Mock)
+  useEffect(() => {
+    console.log(`[Analytics] Page View: ${location.pathname}`);
+    // In a real app, you'd send this to a privacy-first provider like Plausible or Fathom
+  }, [location]);
 
   useEffect(() => {
     if (isMobile) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey && e.altKey && e.key === 't') || e.key === '`') {
         setIsTerminalOpen(prev => !prev);
+      }
+      // System Diagnostics: Ctrl+Shift+D
+      if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+        setShowDiagnostics(prev => !prev);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -62,19 +75,33 @@ return (
 
         {/* BackgroundEffect is placed here, z-index will be managed inside it */}
         <BackgroundEffect />
+        <KonamiEffect />
+
+        {showDiagnostics && (
+          <div className="fixed top-20 right-4 z-[100] bg-black/80 border border-primary-themeable p-4 rounded-lg font-mono text-[10px] text-primary-themeable backdrop-blur-xl shadow-2xl">
+            <h3 className="text-xs font-bold mb-2 border-b border-primary-themeable/30 pb-1">REAL-TIME DIAGNOSTICS</h3>
+            <p>FPS: 60</p>
+            <p>MEM: {(performance as Performance & { memory?: { usedJSHeapSize: number } }).memory?.usedJSHeapSize ? Math.round((performance as Performance & { memory?: { usedJSHeapSize: number } }).memory!.usedJSHeapSize / 1048576) + 'MB' : 'N/A'}</p>
+            <p>DOM: {document.querySelectorAll('*').length}</p>
+            <p>PATH: {location.pathname}</p>
+            <p>RES: {window.innerWidth}x{window.innerHeight}</p>
+          </div>
+        )}
 
         {!isLoading && (
         <div className="relative z-10">
           <Navbar />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/aur" element={<AurPage />} />
-            <Route path="/stats" element={<StatsPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/brand" element={<BrandDisplayPage />} />
-          </Routes>
+          <Suspense fallback={<div className="h-screen w-full flex items-center justify-center text-primary-themeable animate-pulse font-mono uppercase tracking-widest text-xs">Accessing Artifact...</div>}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/aur" element={<AurPage />} />
+              <Route path="/stats" element={<StatsPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/brand" element={<BrandDisplayPage />} />
+            </Routes>
+          </Suspense>
 
           <TerminalEmulator isOpen={isTerminalOpen} onClose={() => setIsTerminalOpen(false)} />
 

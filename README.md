@@ -7,7 +7,6 @@ A high-end, mystical Nordic-inspired digital realm showcasing the artifacts and 
 - **Mystical Nordic Aesthetic**: Dark-only color scheme with Amber, Red, and Gold glows.
 - **Function-First Design**: Every design element serves a purpose. Performance, utility, and technical precision guide our creations.
 - **Arcane Artifacts**: A curated showcase of core projects including AxiomOS, Voix, and Meshiji.
-- **Community Driven**: Integrated voting system to influence the focus of future development.
 
 ## 🛠 Tech Stack
 

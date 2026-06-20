@@ -218,6 +218,14 @@ html.atmosphere-golden-zenith {
   box-shadow: 0 0 20px var(--vz-glow-color);
 }
 
+.shadow-glow-inset-themeable {
+  box-shadow: inset 0 0 10px var(--vz-glow-color);
+}
+
+.drop-shadow-glow-themeable {
+  filter: drop-shadow(0 0 15px var(--vz-glow-color));
+}
+
 .gradient-themeable {
   background: linear-gradient(135deg, var(--vz-gradient-1), var(--vz-gradient-2), var(--vz-gradient-3));
   -webkit-background-clip: text;

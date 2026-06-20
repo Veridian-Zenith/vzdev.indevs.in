@@ -19,6 +19,16 @@ const resources = {
       "hero.architect": "The Architect",
       "footer.sigil": "Sigil",
       "footer.copyright": "© {{year}} Veridian Zenith",
+      "sigil.subtitle": "\"The core resonance of the digital forge.\"",
+      "stats.title": "Artifact Stats",
+      "stats.index": "GitHub Forge Index",
+      "stats.updated": "Updated:",
+      "stats.org_artifacts": "Organization Artifacts",
+      "stats.personal_artifacts": "Personal Artifacts",
+      "stats.updating": "Updating...",
+      "stats.force_refresh": "Force Refresh",
+      "repo.no_description": "No description provided.",
+      "repo.lang": "Lang:",
 
       "about.title": "The Nordic Zenith",
       "about.subtitle": "\"Where ancient craftsmanship meets digital excellence.\"",
@@ -74,6 +84,20 @@ const resources = {
       "atmosphere.blood-moon.description": "Fierce reds and lunar shadows",
       "atmosphere.golden-zenith.name": "Golden Zenith",
       "atmosphere.golden-zenith.description": "Pure gold and celestial amber",
+      "error.title": "SYSTEM CRITICAL ERROR",
+      "error.message": "An unexpected error occurred in the digital realm.",
+      "error.button": "Reboot System",
+      "loading.latency": "Void Latency:",
+      "loading.flux": "Aether Flux:",
+      "loading.noise": "Signal Noise:",
+      "loading.calculating": "Calculating...",
+      "loading.engine": "Engine: React / Vite",
+      "loading.uptime": "Uptime:",
+      "loading.connection.stable": "Zenith Connection Stable",
+      "loading.connection.flux": "Flux Integrity Nominal",
+      "loading.connection.noise": "Void Interference Detected",
+      "loading.toggle": "Click to toggle diagnostics",
+      "loading.welcome": "Welcome to Veridian Zenith OS.",
     }
   },
   ru: {
@@ -91,6 +115,16 @@ const resources = {
       "hero.architect": "Архитектора",
       "footer.sigil": "Сигил",
       "footer.copyright": "© {{year}} Veridian Zenith",
+      "sigil.subtitle": "\"Основной резонанс цифровой кузницы.\"",
+      "stats.title": "Статистика артефактов",
+      "stats.index": "Индекс кузницы GitHub",
+      "stats.updated": "Обновлено:",
+      "stats.org_artifacts": "Артефакты организации",
+      "stats.personal_artifacts": "Личные артефакты",
+      "stats.updating": "Обновление...",
+      "stats.force_refresh": "Принудительное обновление",
+      "repo.no_description": "Описание отсутствует.",
+      "repo.lang": "Язык:",
 
       "about.title": "Нордический Зенит",
       "about.subtitle": "\"Где древнее мастерство встречается с цифровым совершенством.\"",
@@ -145,6 +179,9 @@ const resources = {
       "atmosphere.blood-moon.description": "Ярко-красный и лунные тени",
       "atmosphere.golden-zenith.name": "Golden Zenith",
       "atmosphere.golden-zenith.description": "Чистое золото и небесный янтарь",
+      "error.title": "КРИТИЧЕСКАЯ СИСТЕМНАЯ ОШИБКА",
+      "error.message": "В цифровом мире произошла непредвиденная ошибка.",
+      "error.button": "Перезагрузить систему",
     }
   },
   de: {
@@ -162,6 +199,16 @@ const resources = {
       "hero.architect": "den Architekten",
       "footer.sigil": "Siegel",
       "footer.copyright": "© {{year}} Veridian Zenith",
+      "sigil.subtitle": "\"Die Kernresonanz der digitalen Schmiede.\"",
+      "stats.title": "Artefakt-Statistiken",
+      "stats.index": "GitHub Forge Index",
+      "stats.updated": "Aktualisiert:",
+      "stats.org_artifacts": "Organisations-Artefakte",
+      "stats.personal_artifacts": "Persönliche Artefakte",
+      "stats.updating": "Aktualisiere...",
+      "stats.force_refresh": "Erzwinge Aktualisierung",
+      "repo.no_description": "Keine Beschreibung verfügbar.",
+      "repo.lang": "Sprache:",
 
       "about.title": "Der Nordische Zenit",
       "about.subtitle": "\"Wo alte Handwerkskunst auf digitale Exzellenz trifft.\"",
@@ -216,6 +263,9 @@ const resources = {
       "atmosphere.blood-moon.description": "Feuriges Rot und Mondschatten",
       "atmosphere.golden-zenith.name": "Golden Zenith",
       "atmosphere.golden-zenith.description": "Reines Gold und himmlischer Bernstein",
+      "error.title": "KRITISCHER SYSTEMFEHLER",
+      "error.message": "Im digitalen Bereich ist ein unerwarteter Fehler aufgetreten.",
+      "error.button": "System neu starten",
     }
   },
   ko: {
@@ -233,6 +283,16 @@ const resources = {
       "hero.architect": "건축가",
       "footer.sigil": "인장",
       "footer.copyright": "© {{year}} Veridian Zenith",
+      "sigil.subtitle": "\"디지털 대장간의 핵심 공명.\"",
+      "stats.title": "아티팩트 통계",
+      "stats.index": "GitHub 포지 인덱스",
+      "stats.updated": "업데이트됨:",
+      "stats.org_artifacts": "조직 아티팩트",
+      "stats.personal_artifacts": "개인 아티팩트",
+      "stats.updating": "업데이트 중...",
+      "stats.force_refresh": "강제 새로고침",
+      "repo.no_description": "설명이 제공되지 않았습니다.",
+      "repo.lang": "언어:",
 
       "about.title": "북유럽의 제니스",
       "about.subtitle": "\"고대 장인 정신이 디지털 우수성과 만나는 곳.\"",
@@ -287,6 +347,9 @@ const resources = {
       "atmosphere.blood-moon.description": "강렬한 빨간색과 달의 그림자",
       "atmosphere.golden-zenith.name": "Golden Zenith",
       "atmosphere.golden-zenith.description": "순금과 천상의 호박색",
+      "error.title": "시스템 치명적 오류",
+      "error.message": "디지털 영역에서 예기치 않은 오류가 발생했습니다.",
+      "error.button": "시스템 재부팅",
     }
   }
 };
@@ -299,9 +362,7 @@ i18n
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false
-    },
-    // Hide locize promotion in console
-    showSupportNotice: false
+    }
   });
 
 export default i18n;

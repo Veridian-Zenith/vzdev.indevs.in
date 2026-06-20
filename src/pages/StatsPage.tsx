@@ -7,6 +7,7 @@ import { Box, Star, GitFork, ExternalLink, RefreshCw } from 'lucide-react';
 import { AnimatedCard } from '../components/Common';
 import { cn } from '../utils/cn';
 import { useIsMobile } from '../hooks/useIsMobile';
+import { useTranslation } from 'react-i18next';
 
 interface Repo {
   name: string;
@@ -27,6 +28,7 @@ const CACHE_KEY = 'vz_github_stats_cache';
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 
 export const StatsPage = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const [orgRepos, setOrgRepos] = useState<Repo[]>([]);
   const [userRepos, setUserRepos] = useState<Repo[]>([]);
@@ -131,12 +133,12 @@ export const StatsPage = () => {
               </div>
 
               <p className="text-secondary-themeable text-sm mb-6 line-clamp-2 flex-grow">
-                {repo.description || 'No description provided.'}
+                {repo.description || t('repo.no_description')}
               </p>
 
               <div className="flex flex-wrap items-center justify-between gap-4 mt-auto pt-4 border-t border-muted-themeable">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] uppercase tracking-widest text-secondary-themeable/50 font-bold">Lang:</span>
+                  <span className="text-[10px] uppercase tracking-widest text-secondary-themeable/50 font-bold">{t('repo.lang')}:</span>
                   <span className="text-[10px] uppercase tracking-widest text-primary-themeable font-bold">
                     {repo.language || 'Unknown'}
                   </span>
@@ -182,12 +184,12 @@ export const StatsPage = () => {
         className="text-center mb-16"
       >
         <h1 className="text-5xl sm:text-7xl font-bold text-primary-themeable mb-6 drop-shadow-[0_0_15px_var(--vz-glow-color)]">
-          Artifact Stats
+          {t('stats.title')}
         </h1>
         <div className="flex items-center justify-center gap-4 text-secondary-themeable/60 text-sm font-medium uppercase tracking-widest">
-          <span>GitHub Forge Index</span>
+          <span>{t('stats.index')}</span>
           <span className="w-1 h-1 bg-muted-themeable rounded-full" />
-          <span>Updated: {lastUpdated}</span>
+          <span>{t('stats.updated')} {lastUpdated}</span>
         </div>
       </motion.div>
 
@@ -197,8 +199,8 @@ export const StatsPage = () => {
         </div>
       )}
 
-      {renderRepoList('Organization Artifacts', orgRepos, 0)}
-      {renderRepoList('Personal Artifacts', userRepos, orgRepos.length)}
+      {renderRepoList(t('stats.org_artifacts'), orgRepos, 0)}
+      {renderRepoList(t('stats.personal_artifacts'), userRepos, orgRepos.length)}
 
       <div className="flex justify-center mt-12">
         <button
@@ -207,7 +209,7 @@ export const StatsPage = () => {
           className="flex items-center gap-2 px-6 py-2 rounded-full border border-muted-themeable text-secondary-themeable hover:text-primary-themeable hover:border-primary-themeable transition-all text-xs font-bold uppercase tracking-widest group"
         >
           <RefreshCw size={14} className={cn("group-hover:rotate-180 transition-transform duration-500", loading && "animate-spin")} />
-          {loading ? 'Updating...' : 'Force Refresh'}
+          {loading ? t('stats.updating') : t('stats.force_refresh')}
         </button>
       </div>
     </div>

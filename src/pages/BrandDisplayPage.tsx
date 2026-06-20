@@ -9,7 +9,10 @@ import {
   useTransform,
 } from "framer-motion";
 
+import { useTranslation } from 'react-i18next';
+
 export const BrandDisplayPage = () => {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const mouseX = useMotionValue(0);
@@ -46,20 +49,20 @@ export const BrandDisplayPage = () => {
         className="pt-32 pb-24 px-8 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] cursor-crosshair overflow-hidden"
       >
         <div className="text-center mb-12">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-3xl sm:text-5xl font-bold text-primary-themeable mb-2 tracking-tight"
           >
-            The Sigil
+            {t('footer.sigil')}
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
             className="text-secondary-themeable italic opacity-60"
           >
-            "The core resonance of the digital forge."
+            {t('sigil.subtitle')}
           </motion.p>
         </div>
         <motion.div

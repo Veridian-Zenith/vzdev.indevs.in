@@ -5,25 +5,28 @@ import { motion } from 'framer-motion';
 import { Mail, User, MessageSquare, ExternalLink, Send, Terminal } from 'lucide-react';
 import { AnimatedCard } from '../components/Common';
 
+import { useTranslation } from 'react-i18next';
+
 export const ContactPage = () => {
+  const { t } = useTranslation();
   const contactInfo = [
     {
       icon: User,
-      label: "Architect",
+      label: t('contact.architect.label'),
       value: "Dae Euhwa",
-      sub: "Lead Developer",
+      sub: t('contact.architect.sub'),
       color: "amber"
     },
     {
       icon: Mail,
-      label: "Email",
+      label: t('contact.email.label'),
       value: "daedaevibin@ik.me",
       href: "mailto:daedaevibin@ik.me",
       color: "red"
     },
     {
       icon: Terminal,
-      label: "The Forge",
+      label: t('contact.forge.label'),
       value: "Veridian-Zenith",
       href: "https://github.com/Veridian-Zenith",
       color: "gold"
@@ -59,10 +62,10 @@ export const ContactPage = () => {
         className="text-center mb-16"
       >
         <h1 className="text-5xl sm:text-7xl font-bold text-primary-themeable mb-6 drop-shadow-[0_0_20px_var(--vz-glow-color)]">
-          Summon The Architect
+          {t('contact.title')}
         </h1>
         <p className="text-secondary-themeable max-w-xl mx-auto text-lg italic leading-relaxed">
-          "The runes are cast, the signals sent. Reach through the void and influence the digital forge."
+          {t('contact.subtitle')}
         </p>
       </motion.div>
 
@@ -78,9 +81,9 @@ export const ContactPage = () => {
           <div className="p-6 bg-primary-themeable/10 rounded-full mb-8 text-primary-themeable border border-primary-themeable/30 shadow-[0_0_40px_var(--vz-glow-color)]">
             <Send size={56} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 tracking-tight text-primary-themeable">Direct Invocation</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 tracking-tight text-primary-themeable">{t('contact.invocation.title')}</h2>
           <p className="text-secondary-themeable mb-10 max-w-md text-lg italic">
-            Whether for collaboration, consultation, or to report a fracture in reality, the Architect awaits.
+            {t('contact.invocation.description')}
           </p>
            <a
              href="mailto:daedaevibin@ik.me"
@@ -88,7 +91,7 @@ export const ContactPage = () => {
            >
              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary-themeable/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
              <span className="relative z-10">
-               <span>Summon</span> <span className="text-primary-themeable font-black ml-1 group-hover:drop-shadow-[0_0_12px_var(--vz-glow-color)] transition-all">The Architect</span>
+               <span>{t('hero.summon')}</span> <span className="text-primary-themeable font-black ml-1 group-hover:drop-shadow-[0_0_12px_var(--vz-glow-color)] transition-all">{t('contact.architect.label')}</span>
              </span>
            </a>
         </div>
@@ -116,7 +119,7 @@ export const ContactPage = () => {
                 rel="noopener noreferrer"
                 className="mt-6 text-xs font-bold text-primary-themeable/70 hover:text-primary-themeable transition-all uppercase tracking-widest flex items-center gap-2 group/link"
               >
-                Connect <ExternalLink size={12} className="group-hover/link:translate-x-1 transition-transform" />
+                {t('contact.connect')} <ExternalLink size={12} className="group-hover/link:translate-x-1 transition-transform" />
               </a>
             )}
           </AnimatedCard>
@@ -135,10 +138,10 @@ export const ContactPage = () => {
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <div className="flex items-center gap-4 mb-4">
               <MessageSquare size={40} className="text-[#5865F2] group-hover:scale-110 transition-transform" />
-              <h2 className="text-3xl font-bold text-primary-themeable">Veridian Zenith</h2>
+              <h2 className="text-3xl font-bold text-primary-themeable">{t('contact.community.title')}</h2>
             </div>
             <p className="text-secondary-themeable max-w-md text-lg">
-              Step into the collective void. Join our community for real-time discourse and project updates.
+              {t('contact.community.description')}
             </p>
           </div>
           <a
@@ -147,7 +150,7 @@ export const ContactPage = () => {
             rel="noopener noreferrer"
             className="group/discord w-full md:w-auto px-10 py-5 bg-[#5865F2] hover:bg-[#4752C4] text-white font-black rounded-2xl transition-all flex items-center justify-center gap-4 shadow-[0_0_30px_rgba(88,101,242,0.3)] hover:shadow-[0_0_50px_rgba(88,101,242,0.6)] hover:scale-105 active:scale-95"
           >
-            ENTER THE DISCORD
+            {t('contact.community.join')}
             <ExternalLink size={20} className="group-hover/discord:translate-x-1 group-hover/discord:-translate-y-1 transition-transform" />
           </a>
         </div>

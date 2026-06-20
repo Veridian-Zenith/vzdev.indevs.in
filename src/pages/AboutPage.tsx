@@ -4,8 +4,10 @@
 import { motion } from 'framer-motion';
 import { AnimatedCard } from '../components/Common';
 import { Shield, Hammer, BookOpen } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const AboutPage = () => {
+  const { t } = useTranslation();
   return (
     <div className="pt-32 pb-24 px-8 max-w-5xl mx-auto min-h-screen relative z-10">
       <motion.div
@@ -14,10 +16,10 @@ export const AboutPage = () => {
         className="text-center mb-16"
       >
         <h1 className="text-5xl sm:text-7xl font-bold text-primary-themeable mb-6 drop-shadow-[0_0_20px_var(--vz-glow-color)]">
-          The Nordic Zenith
+          {t('about.title')}
         </h1>
         <p className="text-secondary-themeable max-w-2xl mx-auto text-xl italic leading-relaxed">
-          "Where ancient craftsmanship meets digital excellence."
+          {t('about.subtitle')}
         </p>
       </motion.div>
 
@@ -28,11 +30,9 @@ export const AboutPage = () => {
               <Hammer size={40} />
             </div>
             <div className="prose prose-invert lg:prose-xl max-w-none">
-               <h2 className="text-3xl font-bold text-primary-themeable mb-4">Our Digital Forge</h2>
+               <h2 className="text-3xl font-bold text-primary-themeable mb-4">{t('about.forge.title')}</h2>
                <p className="text-secondary-themeable leading-relaxed text-lg">
-                 Veridian Zenith is more than a collective—it is a digital forge. We operate in the spectral intersection
-                 of ancient Nordic aesthetics and cutting-edge performance. Our focus lies in forging systems that
-                 are as resilient as runestones and as fluid as the æther.
+                 {t('about.forge.description')}
                </p>
             </div>
           </div>
@@ -43,12 +43,10 @@ export const AboutPage = () => {
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-4 text-primary-themeable">
                 <Shield size={28} />
-                <h3 className="text-2xl font-bold text-primary-themeable">The Philosophy</h3>
+                <h3 className="text-2xl font-bold text-primary-themeable">{t('about.philosophy.title')}</h3>
               </div>
               <p className="text-secondary-themeable leading-relaxed">
-                Every line of code is intentional. Like runes carved into stone, our software is built for
-                permanence, clarity, and uncompromising speed. We believe in the "Nordic Way"—minimalist,
-                effective, and powerful.
+                {t('about.philosophy.description')}
               </p>
             </div>
           </AnimatedCard>
@@ -57,12 +55,14 @@ export const AboutPage = () => {
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-4 text-primary-themeable">
                 <BookOpen size={28} />
-                <h3 className="text-2xl font-bold text-primary-themeable">The License</h3>
+                <h3 className="text-2xl font-bold text-primary-themeable">{t('about.license.title')}</h3>
               </div>
               <p className="text-secondary-themeable leading-relaxed">
-                We believe in the sanctity of open source. Veridian Zenith artifacts are released under
-                the <a href="https://opensource.org/licenses/OSL-3.0" target="_blank" rel="noopener noreferrer" className="text-primary-themeable hover:underline font-bold">Open Software License 3.0</a>,
-                ensuring the code remains free and accessible to all who seek it.
+                {t('about.license.description')}
+                <a href="https://opensource.org/licenses/OSL-3.0" target="_blank" rel="noopener noreferrer" className="text-primary-themeable hover:underline font-bold">
+                  {t('about.license.link')}
+                </a>
+                {t('about.license.description2')}
               </p>
             </div>
           </AnimatedCard>

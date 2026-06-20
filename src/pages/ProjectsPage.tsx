@@ -98,7 +98,7 @@ export const ProjectsPage = () => {
         className="text-center mb-16 relative"
       >
         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary-themeable/10 blur-[100px] pointer-events-none" />
-        <h1 className="text-5xl sm:text-7xl font-bold text-primary-themeable mb-6 drop-shadow-[0_0_15px_var(--vz-glow-color)]">
+        <h1 className="text-5xl sm:text-7xl font-bold text-primary-themeable mb-6 drop-shadow-glow-themeable">
           {t('projects.title')}
         </h1>
         <p className="text-secondary-themeable max-w-2xl mx-auto text-lg leading-relaxed">
@@ -128,7 +128,7 @@ export const ProjectsPage = () => {
                 <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center gap-3">
                       <motion.div
-                        className="p-2 bg-secondary-themeable rounded-lg text-primary-themeable shadow-[inset_0_0_10px_var(--vz-glow-color)] border border-muted-themeable"
+                        className="p-2 bg-secondary-themeable rounded-lg text-primary-themeable shadow-glow-inset-themeable border border-muted-themeable"
                         whileHover={isMobile ? {} : { rotate: 360, scale: 1.1 }}
                       >
                         <repo.icon size={24} />

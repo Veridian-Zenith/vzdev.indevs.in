@@ -11,6 +11,7 @@ import { ProjectsPage } from './pages/ProjectsPage';
 import { ContactPage } from './pages/ContactPage';
 import { AurPage } from './pages/AurPage';
 import { BrandDisplayPage } from './pages/BrandDisplayPage';
+import { StatsPage } from './pages/StatsPage';
 
 import { LoadingScreen } from './components/LoadingScreen';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -69,6 +70,7 @@ return (
             <Route path="/about" element={<AboutPage />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/aur" element={<AurPage />} />
+            <Route path="/stats" element={<StatsPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/brand" element={<BrandDisplayPage />} />
           </Routes>

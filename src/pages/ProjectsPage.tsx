@@ -56,6 +56,24 @@ const STATIC_PROJECTS = [
     topics: ["collection", "zigsysmon", "benchmarks", "tools"],
     language: "Zig/Multi",
     icon: Box
+  },
+  {
+    id: 'nxo',
+    name: "Nxo",
+    description: "projects.nxo.description",
+    html_url: "https://github.com/Veridian-Zenith/Nxo",
+    topics: ["app", "kotlin", "android"],
+    language: "Kotlin",
+    icon: Box
+  },
+  {
+    id: 'aether',
+    name: "Aether",
+    description: "projects.aether.description",
+    html_url: "https://github.com/Veridian-Zenith/Aether",
+    topics: ["system", "c++", "linux"],
+    language: "C++",
+    icon: Shield
   }
 ];
 

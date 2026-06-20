@@ -3,7 +3,7 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect, useCallback } from 'react';
-import { Box, Star, GitFork, ExternalLink, RefreshCw } from 'lucide-react';
+import { Box, Star, GitFork, ExternalLink, RefreshCw, Code, Cpu, FileJson, Terminal, Layout, type LucideIcon } from 'lucide-react';
 import { AnimatedCard } from '../components/Common';
 import { cn } from '../utils/cn';
 import { useIsMobile } from '../hooks/useIsMobile';
@@ -26,6 +26,22 @@ interface CacheData {
 
 const CACHE_KEY = 'vz_github_stats_cache';
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+
+const LANGUAGE_ICONS: Record<string, LucideIcon> = {
+  'C++': Cpu,
+  'Rust': Cpu,
+  'Zig': Cpu,
+  'TypeScript': FileJson,
+  'JavaScript': FileJson,
+  'Python': Terminal,
+  'Lua': Terminal,
+  'HTML': Layout,
+  'CSS': Layout,
+};
+
+const getLanguageIcon = (lang: string) => {
+  return LANGUAGE_ICONS[lang] || Code;
+};
 
 export const StatsPage = () => {
   const { t } = useTranslation();
@@ -138,10 +154,17 @@ export const StatsPage = () => {
 
               <div className="flex flex-wrap items-center justify-between gap-4 mt-auto pt-4 border-t border-muted-themeable">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] uppercase tracking-widest text-secondary-themeable/50 font-bold">{t('repo.lang')}:</span>
-                  <span className="text-[10px] uppercase tracking-widest text-primary-themeable font-bold">
-                    {repo.language || 'Unknown'}
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <div className="p-1 bg-secondary-themeable rounded-md border border-muted-themeable text-primary-themeable">
+                      {(() => {
+                        const Icon = getLanguageIcon(repo.language || '');
+                        return <Icon size={10} />;
+                      })()}
+                    </div>
+                    <span className="text-[10px] uppercase tracking-widest text-primary-themeable font-bold">
+                      {repo.language || 'Unknown'}
+                    </span>
+                  </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-1 text-secondary-themeable">

@@ -2,7 +2,7 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Box, Star, GitFork, ExternalLink, RefreshCw } from 'lucide-react';
 import { AnimatedCard } from '../components/Common';
 import { cn } from '../utils/cn';
@@ -34,7 +34,7 @@ export const StatsPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<string>('');
 
-  const fetchData = async (force = false) => {
+  const fetchData = useCallback(async (force = false) => {
     setLoading(true);
     setError(null);
     try {
@@ -42,10 +42,12 @@ export const StatsPage = () => {
       if (!force && cached) {
         const { timestamp, orgRepos, userRepos } = JSON.parse(cached) as CacheData;
         if (Date.now() - timestamp < CACHE_DURATION) {
-          setOrgRepos(orgRepos);
-          setUserRepos(userRepos);
-          setLastUpdated(new Date(timestamp).toLocaleString());
-          setLoading(false);
+          setTimeout(() => {
+            setOrgRepos(orgRepos);
+            setUserRepos(userRepos);
+            setLastUpdated(new Date(timestamp).toLocaleString());
+            setLoading(false);
+          }, 0);
           return;
         }
       }
@@ -77,15 +79,18 @@ export const StatsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    const timer = setTimeout(() => {
+      fetchData();
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [fetchData]);
 
   const renderRepoList = (title: string, repos: Repo[], indexOffset: number) => (
     <div className="mb-16">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
@@ -94,17 +99,17 @@ export const StatsPage = () => {
         <div className="h-8 w-1 bg-primary-themeable shadow-[0_0_10px_var(--vz-glow-color)]" />
         <h2 className="text-2xl font-bold text-primary-themeable uppercase tracking-widest">{title}</h2>
       </motion.div>
-      
+
       <div className={cn(
         "grid gap-6",
         isMobile ? "flex overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide -mx-8 px-8" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
       )}>
         {repos.map((repo, i) => (
-          <div 
-            key={repo.name} 
+          <div
+            key={repo.name}
             className={cn(isMobile && "min-w-[85vw] snap-center")}
           >
-            <AnimatedCard 
+            <AnimatedCard
               delay={(indexOffset + i) * 0.05}
               className="flex flex-col h-full group border-muted-themeable hover:border-primary-themeable/50 transition-all duration-500"
             >
@@ -115,20 +120,20 @@ export const StatsPage = () => {
                   </div>
                   <h3 className="text-lg font-bold text-primary-themeable tracking-tight truncate max-w-[200px]">{repo.name}</h3>
                 </div>
-                <a 
-                  href={repo.html_url} 
-                  target="_blank" 
+                <a
+                  href={repo.html_url}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="text-secondary-themeable hover:text-primary-themeable transition-colors"
                 >
                   <ExternalLink size={16} />
                 </a>
               </div>
-              
+
               <p className="text-secondary-themeable text-sm mb-6 line-clamp-2 flex-grow">
                 {repo.description || 'No description provided.'}
               </p>
-              
+
               <div className="flex flex-wrap items-center justify-between gap-4 mt-auto pt-4 border-t border-muted-themeable">
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] uppercase tracking-widest text-secondary-themeable/50 font-bold">Lang:</span>
@@ -157,8 +162,8 @@ export const StatsPage = () => {
   if (loading && !lastUpdated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-primary-themeable">
-        <motion.div 
-          animate={{ rotate: 360 }} 
+        <motion.div
+          animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
         >
           <RefreshCw size={48} className="text-primary-themeable" />
@@ -170,8 +175,8 @@ export const StatsPage = () => {
   return (
     <div className="pt-32 pb-24 px-8 max-w-7xl mx-auto relative">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary-themeable/10 blur-[120px] pointer-events-none" />
-      
-      <motion.div 
+
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-16"
@@ -196,7 +201,7 @@ export const StatsPage = () => {
       {renderRepoList('Personal Artifacts', userRepos, orgRepos.length)}
 
       <div className="flex justify-center mt-12">
-        <button 
+        <button
           onClick={() => fetchData(true)}
           disabled={loading}
           className="flex items-center gap-2 px-6 py-2 rounded-full border border-muted-themeable text-secondary-themeable hover:text-primary-themeable hover:border-primary-themeable transition-all text-xs font-bold uppercase tracking-widest group"
@@ -208,3 +213,4 @@ export const StatsPage = () => {
     </div>
   );
 };
+

@@ -5,6 +5,23 @@ import { useState, useEffect } from "react";
 
 import { motion } from "framer-motion";
 
+const ALL_BOOT_LOGS = [
+  "[  0.000000] Initializing Zenith Microkernel v0.4.2-alpha...",
+  "[  0.000412] Loading runic memory mapping...",
+  "[  0.012834] Mounting /dev/void on root filesystem...",
+  "[  0.045102] Establishing connection to Veridian Forge...",
+  "[  0.102931] Verifying digital sigils... [OK]",
+  "[  0.215842] Synchronizing aether flux coordinates...",
+  "[  0.356129] Loading Nordic aesthetics module...",
+  "[  0.512843] Initializing spell-check for arcane scripts...",
+  "[  0.782103] Calibrating spectral output...",
+  "[  1.120492] Stabilizing void aperture... [OK]",
+  "[  1.450128] Loading user identity: The Seeker...",
+  "[  1.820431] Initializing UI layout components...",
+  "[  2.105842] Ready to materialize digital realm.",
+  "Welcome to Veridian Zenith OS."
+];
+
 type Props = {
   onLoadingComplete: () => void;
 };
@@ -15,23 +32,6 @@ export const LoadingScreen = ({ onLoadingComplete }: Props) => {
   const [bootLogs, setBootLogs] = useState<string[]>([]);
   const [isBooting, setIsBooting] = useState(true);
   const [diagMode, setDiagMode] = useState(0);
-
-  const ALL_BOOT_LOGS = [
-    "[  0.000000] Initializing Zenith Microkernel v0.4.2-alpha...",
-    "[  0.000412] Loading runic memory mapping...",
-    "[  0.012834] Mounting /dev/void on root filesystem...",
-    "[  0.045102] Establishing connection to Veridian Forge...",
-    "[  0.102931] Verifying digital sigils... [OK]",
-    "[  0.215842] Synchronizing aether flux coordinates...",
-    "[  0.356129] Loading Nordic aesthetics module...",
-    "[  0.512843] Initializing spell-check for arcane scripts...",
-    "[  0.782103] Calibrating spectral output...",
-    "[  1.120492] Stabilizing void aperture... [OK]",
-    "[  1.450128] Loading user identity: The Seeker...",
-    "[  1.820431] Initializing UI layout components...",
-    "[  2.105842] Ready to materialize digital realm.",
-    "Welcome to Veridian Zenith OS."
-  ];
 
   /* ---------------------------------- */
   /* Latency Measurement                */
@@ -107,7 +107,7 @@ export const LoadingScreen = ({ onLoadingComplete }: Props) => {
   /* Stable Decorative Data             */
   /* ---------------------------------- */
   // Diagnostic hex removed for clean boot look
-  
+
   const cycleDiagMode = () => {
     setDiagMode((prev) => (prev + 1) % 3);
   };
@@ -138,10 +138,10 @@ export const LoadingScreen = ({ onLoadingComplete }: Props) => {
       <div className="w-full max-w-lg h-48 overflow-hidden relative px-4">
         <div className="flex flex-col gap-1 text-xs sm:text-sm text-secondary-themeable/80">
           {bootLogs.map((log, i) => (
-            <motion.div 
-              key={i} 
-              initial={{ opacity: 0, x: -10 }} 
-              animate={{ opacity: 1, x: 0 }} 
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.2 }}
                className={log?.startsWith('Welcome') ? 'text-primary-themeable font-bold mt-2' : ''}
             >

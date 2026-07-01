@@ -2,7 +2,7 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { motion } from 'framer-motion';
-import { Mail, User, MessageSquare, ExternalLink, Send, Terminal } from 'lucide-react';
+import { Mail, User, MessageSquare, ExternalLink, Send, Terminal, AtSign } from 'lucide-react';
 import { AnimatedCard } from '../components';
 
 import { useTranslation } from 'react-i18next';
@@ -44,6 +44,13 @@ export const ContactPage = () => {
       value: "@daedaevibin:matrix.org",
       href: "https://matrix.to/@daedaevibin:matrix.org#/@daedaevibin:matrix.org",
       color: "blue"
+    },
+    {
+      icon: AtSign,
+      label: "Mastodon",
+      value: "@daedaevibin@defcon.social",
+      href: "https://defcon.social/@daedaevibin",
+      color: "orange"
     },
     {
       icon: Mail,

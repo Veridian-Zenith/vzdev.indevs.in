@@ -1,1 +1,0 @@
-import{c as e}from"./framer-motion-cw-LZpj_.js";import{t}from"./index-C21Nc6gs.js";var n=e(),r=()=>(0,n.jsx)(`main`,{className:`h-screen overflow-hidden bg-transparent`,children:(0,n.jsx)(t,{})});export{r as HomePage};

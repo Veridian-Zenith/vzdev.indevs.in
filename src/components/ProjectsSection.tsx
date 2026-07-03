@@ -6,18 +6,9 @@ import { AnimatedCard } from './Common';
 import { cn } from '../utils';
 import { useIsMobile } from '../hooks';
 
-import { ExternalLink, Terminal, Shield, Cpu, PawPrint, Folder, Box } from 'lucide-react';
+import { ExternalLink, Terminal, Shield, PawPrint, Folder, Box } from 'lucide-react';
 
 const STATIC_PROJECTS = [
-  {
-    id: 'axiomos',
-    name: "AxiomOS",
-    description: "A custom 64-bit operating system built from scratch using Zig. Targets UEFI/Secure Boot with a focus on modern Intel hardware and high-performance kernel architecture.",
-    html_url: "https://github.com/Veridian-Zenith/AxiomOS",
-    topics: ["system", "zig", "osdev", "kernel"],
-    language: "Zig",
-    icon: Cpu
-  },
   {
     id: 'voix',
     name: "Voix",

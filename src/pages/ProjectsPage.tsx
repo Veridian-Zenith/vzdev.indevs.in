@@ -64,7 +64,8 @@ const STATIC_PROJECTS = [
     html_url: "https://github.com/Veridian-Zenith/Nxo",
     topics: ["app", "kotlin", "android"],
     language: "Kotlin",
-    icon: Box
+    icon: Box,
+    onHold: true
   },
   {
     id: 'aether',
@@ -136,8 +137,13 @@ export const ProjectsPage = () => {
                       <div className="flex flex-col">
                         <h3 className="text-xl font-bold text-primary-themeable tracking-tight">{repo.name}</h3>
                         {repo.deprecated && (
-                          <span className="text-[9px] uppercase tracking-widest text-amber-500 font-black opacity-80">
+                          <span className="text-[9px] uppercase tracking-widest text-red-500 font-black opacity-80">
                             {t('projects.deprecated')}
+                          </span>
+                        )}
+                        {repo.onHold && (
+                          <span className="text-[9px] uppercase tracking-widest text-amber-500 font-black opacity-80">
+                            ON HOLD
                           </span>
                         )}
                       </div>

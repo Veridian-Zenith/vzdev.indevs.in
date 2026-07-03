@@ -70,7 +70,7 @@ export const TerminalEmulator: React.FC<TerminalEmulatorProps> = ({ isOpen, onCl
           "The runes favor the bold.",
           "Digital artifacts are but echoes of the void.",
           "In Zig we trust, in C we must.",
-          "AxiomOS: Stability is an illusion, but we build it anyway.",
+          "Stability is an illusion, but we build it anyway.",
           "The Architect is watching.",
           "Nordic winds bring swift performance.",
           "All designs serve a purpose. Minimalism is merely one form.",
@@ -100,7 +100,7 @@ export const TerminalEmulator: React.FC<TerminalEmulatorProps> = ({ isOpen, onCl
         setHistory(prev => [...prev, 'Permission denied. You are not the Architect.']);
         break;
       case 'ls':
-        setHistory(prev => [...prev, 'Artifacts:', '  axiomos', '  voix', '  meshiji', '  peguni', '  misc']);
+        setHistory(prev => [...prev, 'Artifacts:', '  voix', '  meshiji', '  peguni', '  misc']);
         break;
       case 'about':
         setHistory(prev => [...prev, 'Veridian Zenith: A digital forge where ancient Nordic aesthetics meet cutting-edge performance.']);
@@ -142,7 +142,7 @@ export const TerminalEmulator: React.FC<TerminalEmulatorProps> = ({ isOpen, onCl
           }
         } else if (trimmedCmd.startsWith('goto ')) {
           const target = trimmedCmd.split(' ')[1];
-          if (['axiomos', 'voix', 'meshiji', 'peguni', 'misc'].includes(target)) {
+          if (['voix', 'meshiji', 'peguni', 'misc'].includes(target)) {
             setHistory(prev => [...prev, `Navigating to ${target}...`]);
             setTimeout(() => {
               navigate('/projects');

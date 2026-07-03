@@ -78,7 +78,7 @@ export const ContactPage = () => {
       formPayload.append('subject', formData.subject);
       formPayload.append('message', formData.message);
 
-      await fetch('/', {
+      await fetch(window.location.pathname, {
         method: 'POST',
         body: formPayload,
       });

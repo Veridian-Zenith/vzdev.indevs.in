@@ -1,5 +1,5 @@
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-sVRTzX1T6wLON3q/kk7QBl2FdlvHH/ObSYYHbasaAJU=' 'sha256-JxPXh1yG2J2fWBsLQQUH+5OrB3Je7i2pxAEQ+KnFoz8='; style-src 'self' 'unsafe-inline'; img-src 'self' https://stuff.mit.edu; connect-src 'self' https://api.github.com; font-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-M1rNx2IqCTKund2MWwYEaNO/s1sZx/a5Xs0vsjfPwQE=' 'sha256-JxPXh1yG2J2fWBsLQQUH+5OrB3Je7i2pxAEQ+KnFoz8='; style-src 'self' 'unsafe-inline'; img-src 'self' https://stuff.mit.edu; connect-src 'self' https://api.github.com; font-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload

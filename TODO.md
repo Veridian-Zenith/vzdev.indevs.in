@@ -45,6 +45,7 @@
 - [x] React 19 Purity & Effect Stability (Lint Resolved)
 - [x] AUR Repository Showcase (Simplified to static display)
 - [x] Rosemary Font Integration (Full font-face support)
+- [x] Iosevka Font Integration (Google Fonts)
 - [x] SEO & Structured Data (Meta tags & OpenGraph)
 - [x] Horizontal Swipe for project cards on mobile
 - [x] Implement Horizontal scroll indicators for mobile cards

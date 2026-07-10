@@ -1,19 +1,9 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Rosemary';
-  src: url('/fonts/Rosemary.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
   --color-amber: #FFB347;
   --color-red: #D72638;
   --color-gold: #FFD700;
-
-  --font-rosemary: Rosemary, system-ui, sans-serif;
 
   --animate-float-slow: float-slow 6s ease-in-out infinite;
   --animate-shimmer: shimmer 2s linear infinite;
@@ -40,7 +30,7 @@
 }
 
 :root {
-  font-family: var(--font-rosemary);
+  font-family: "Iosevka Charon", system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -86,11 +76,15 @@ body {
   background-color: var(--vz-bg-primary) !important;
   min-height: 100vh;
 }
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
+/* Iosevka Charon Font Classes */
+.iosevka-charon-light { font-family: "Iosevka Charon", monospace; font-weight: 300; font-style: normal; }
+.iosevka-charon-regular { font-family: "Iosevka Charon", monospace; font-weight: 400; font-style: normal; }
+.iosevka-charon-medium { font-family: "Iosevka Charon", monospace; font-weight: 500; font-style: normal; }
+.iosevka-charon-bold { font-family: "Iosevka Charon", monospace; font-weight: 700; font-style: normal; }
+.iosevka-charon-light-italic { font-family: "Iosevka Charon", monospace; font-weight: 300; font-style: italic; }
+.iosevka-charon-regular-italic { font-family: "Iosevka Charon", monospace; font-weight: 400; font-style: italic; }
+.iosevka-charon-medium-italic { font-family: "Iosevka Charon", monospace; font-weight: 500; font-style: italic; }
+.iosevka-charon-bold-italic { font-family: "Iosevka Charon", monospace; font-weight: 700; font-style: italic; }
 
 ::-webkit-scrollbar-track {
   background: var(--vz-bg-primary);

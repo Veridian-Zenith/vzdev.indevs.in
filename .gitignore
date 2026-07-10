@@ -31,4 +31,5 @@ Thumbs.db
 # Misc
 *.tsbuildinfo
 *.local
+.firebase/
 

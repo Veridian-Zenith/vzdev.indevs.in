@@ -113,7 +113,7 @@ export const Navbar = () => {
                </div>
              </div>
            </div>
-           <button 
+           <button
              onClick={() => setReducedMotion(!reducedMotion)}
              className={`p-2 rounded-full transition-all ${reducedMotion ? 'bg-primary-themeable text-black' : 'hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable'}`}
              title={reducedMotion ? "Enable Animations" : "Reduce Motion"}
@@ -179,15 +179,13 @@ export const Navbar = () => {
             >
               {t('nav.contact')}
             </button>
-            <div className="flex gap-4 mt-2">
-              <button onClick={() => changeLanguage('en')} className="px-2 py-1 text-xs rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable font-bold">EN</button>
-              <button onClick={() => changeLanguage('de')} className="px-2 py-1 text-xs rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable font-bold">DE</button>
-              <button onClick={() => changeLanguage('ko')} className="px-2 py-1 text-xs rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable font-bold">KO</button>
-              <button onClick={() => changeLanguage('ru')} className="px-2 py-1 text-xs rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable font-bold">RU</button>
+            <div className="flex flex-wrap justify-center gap-2 mt-2">
+              <button onClick={() => changeLanguage('en')} className="px-3 py-1.5 text-xs rounded-md bg-secondary-themeable/50 hover:bg-primary-themeable/20 text-secondary-themeable hover:text-primary-themeable font-bold transition-colors">EN</button>
+              <button onClick={() => changeLanguage('de')} className="px-3 py-1.5 text-xs rounded-md bg-secondary-themeable/50 hover:bg-primary-themeable/20 text-secondary-themeable hover:text-primary-themeable font-bold transition-colors">DE</button>
+              <button onClick={() => changeLanguage('ko')} className="px-3 py-1.5 text-xs rounded-md bg-secondary-themeable/50 hover:bg-primary-themeable/20 text-secondary-themeable hover:text-primary-themeable font-bold transition-colors">KO</button>
+              <button onClick={() => changeLanguage('ru')} className="px-3 py-1.5 text-xs rounded-md bg-secondary-themeable/50 hover:bg-primary-themeable/20 text-secondary-themeable hover:text-primary-themeable font-bold transition-colors">RU</button>
             </div>
-            <div className="mt-4 text-[10px] font-medium text-secondary-themeable/40 uppercase tracking-[0.2em]">
-              Best viewed on desktop
-            </div>
+            <p className="text-[10px] text-center text-secondary-themeable/40 mt-2">Best viewed on desktop.</p>
           </motion.div>
         )}
       </AnimatePresence>

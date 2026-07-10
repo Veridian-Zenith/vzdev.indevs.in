@@ -1,4 +1,4 @@
-# Veridian Zenith — Implementation Progress
+un# Veridian Zenith — Implementation Progress
 
 ## ✅ Foundation
 
@@ -54,4 +54,4 @@
 - [x] Add "Atmosphere" selector (Midnight Void, Blood Moon, Golden Zenith)
 - [ ] Implement PWA support for offline access and installation
 - [ ] Add privacy-focused, lightweight analytics (super transparent, no tracking that is not directly useful to development)
-- [ ] Implement lazy loading for off-screen project cards and components
+- [x] Implement lazy loading for off-screen project cards and components

@@ -46,7 +46,7 @@
           },
           {
             "key": "Access-Control-Allow-Origin",
-            "value": "*"
+            "value": "https://vzdev.indevs.in"
           }
         ]
       }

@@ -14,10 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1
+      - run: bun install
+      - run: bun run build
+      - run: touch package-lock.json
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MAIN_WEBSITE_BA2DA }}
           projectId: main-website-ba2da
-          installCommand: 'bun install'
-          buildCommand: 'bun run build'
+          installCommand: 'echo "Skipping npm install"'
+          buildCommand: 'true'

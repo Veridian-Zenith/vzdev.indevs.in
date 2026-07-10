@@ -18,7 +18,7 @@
         "headers": [
           {
             "key": "Content-Security-Policy",
-            "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://stuff.mit.edu; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.github.com https://*.firebaseio.com https://*.googleapis.com https://*.firebaseapp.com https://www.google-analytics.com; frame-ancestors 'none'; form-action 'self'; base-uri 'none';"
+            "value": "default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://stuff.mit.edu; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.github.com https://*.firebaseio.com https://*.googleapis.com https://*.firebaseapp.com https://www.google-analytics.com; frame-ancestors 'none'; form-action 'self'; base-uri 'none';"
           },
           {
             "key": "Strict-Transport-Security",

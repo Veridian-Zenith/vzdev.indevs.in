@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import type { ElementType } from 'react';
 import { AnimatedCard } from './Common';
 import { cn } from '../utils';
 import { ExternalLink } from 'lucide-react';
@@ -11,7 +11,7 @@ interface ProjectCardProps {
     html_url: string;
     topics: string[];
     language: string;
-    icon: any;
+    icon: ElementType;
   };
   index: number;
   topicColors: Record<string, string>;

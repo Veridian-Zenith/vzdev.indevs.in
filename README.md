@@ -13,12 +13,14 @@ A high-end, mystical Nordic-inspired digital realm showcasing the artifacts and 
 
 ## 🛠 Tech Stack
 
+- **Runtime/Package Manager**: Bun
 - **Framework**: React 19 + Vite 7
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
 - **Animation**: Framer Motion
 - **Icons**: Lucide React
 - **Routing**: React Router v7
+- **Typography**: Iosevka Charon (via Google Fonts)
 
 ## 🚀 Getting Started
 

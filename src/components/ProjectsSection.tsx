@@ -58,7 +58,7 @@ const topicColors: Record<string, string> = {
 export const ProjectsSection = () => {
   const isMobile = useIsMobile();
   return (
-    <section id="projects" className="py-24 px-8 max-w-7xl mx-auto">
+    <section id="projects" className="py-12 px-8 max-w-7xl mx-auto">
       <motion.h2
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -71,7 +71,7 @@ export const ProjectsSection = () => {
         isMobile ? "flex overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide -mx-8 px-8" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
       )}>
         {STATIC_PROJECTS.map((repo, index) => (
-          <div key={repo.id} className={cn(isMobile && "min-w-[85vw] snap-center")}>
+          <div key={repo.id} className={cn(isMobile && "min-w-[75vw] snap-center")}>
             <AnimatedCard
               delay={index * 0.1}
             >
@@ -120,7 +120,7 @@ export const ProjectsSection = () => {
         {/* Placeholder for future growth */}
         <div className={cn(
           "border border-dashed border-muted-themeable rounded-2xl flex flex-col items-center justify-center p-8 text-center bg-secondary-themeable opacity-50",
-          isMobile && "min-w-[85vw] snap-center"
+          isMobile && "min-w-[75vw] snap-center"
         )}>
           <Terminal size={32} className="text-secondary-themeable/40 mb-4" />
           <p className="text-secondary-themeable/60 italic">More artifacts currently being forged in the void...</p>

@@ -1,4 +1,7 @@
+
 # Veridian Zenith — Official Portal
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/056389b8-ab09-4e6e-b952-f1d00283abd4/deploy-status?branch=main)](https://app.netlify.com/projects/vzdev/deploys)
 
 A high-end, mystical Nordic-inspired digital realm showcasing the artifacts and technologies forged by Veridian Zenith. Built with React 19, TypeScript, Tailwind CSS v4, and Framer Motion.
 

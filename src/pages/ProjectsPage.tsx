@@ -37,7 +37,8 @@ const STATIC_PROJECTS = [
     html_url: "https://github.com/Veridian-Zenith/peguni_draem-la",
     topics: ["game", "lua", "conlang"],
     language: "Lua",
-    icon: PawPrint
+    icon: PawPrint,
+    deprecated: true
   },
   {
     id: 'wuming',

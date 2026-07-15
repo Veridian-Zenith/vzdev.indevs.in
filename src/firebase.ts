@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -13,6 +14,9 @@ const firebaseConfig = {
 
 // Initialize Firebase Core
 export const app = initializeApp(firebaseConfig);
+
+// Initialize Firestore
+export const db = getFirestore(app);
 
 // Initialize Google Analytics
 export const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;

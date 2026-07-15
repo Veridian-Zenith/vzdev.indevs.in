@@ -3,6 +3,8 @@ import { useState, type FormEvent } from 'react';
 import { Mail, User, MessageSquare, ExternalLink, Send, Terminal, AtSign, CheckCircle, AlertCircle } from 'lucide-react';
 import { AnimatedCard } from '../components';
 import { useTranslation } from 'react-i18next';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export const ContactPage = () => {
   const { t } = useTranslation();
@@ -71,16 +73,12 @@ export const ContactPage = () => {
     setFormState('sending');
 
     try {
-      const formPayload = new FormData();
-      formPayload.append('form-name', 'contact');
-      formPayload.append('name', formData.name);
-      formPayload.append('email', formData.email);
-      formPayload.append('subject', formData.subject);
-      formPayload.append('message', formData.message);
-
-      await fetch(window.location.pathname, {
-        method: 'POST',
-        body: formPayload,
+      await addDoc(collection(db, 'contactMessages'), {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        createdAt: serverTimestamp(),
       });
 
       setFormState('sent');
@@ -127,16 +125,9 @@ export const ContactPage = () => {
             </div>
 
             <form
-              data-netlify="true"
-              name="contact"
               onSubmit={handleSubmit}
               className="space-y-5"
             >
-              <input type="hidden" name="form-name" value="contact" />
-              <div hidden aria-hidden="true">
-                <input name="bot-field" tabIndex={-1} autoComplete="off" />
-              </div>
-
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs uppercase tracking-[0.2em] text-primary-themeable/70 font-bold mb-2">Your Sigil</label>

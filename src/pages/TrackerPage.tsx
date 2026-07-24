@@ -193,13 +193,13 @@ export const TrackerPage = () => {
   };
 
   return (
-    <div className="pt-32 pb-24 px-5 sm:px-8 max-w-4xl mx-auto">
+    <div className="pt-32 pb-24 px-8 max-w-4xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-12"
       >
-        <h1 className="text-3xl sm:text-5xl font-bold text-primary-themeable mb-4 drop-shadow-[0_0_15px_var(--vz-glow-color)]">
+        <h1 className="text-4xl sm:text-5xl font-bold text-primary-themeable mb-4 drop-shadow-[0_0_15px_var(--vz-glow-color)]">
           Digital Forge Activity
         </h1>
         <p className="text-secondary-themeable/60 text-sm italic">

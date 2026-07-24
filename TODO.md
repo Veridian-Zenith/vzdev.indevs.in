@@ -1,4 +1,4 @@
-# Veridian Zenith — Implementation Progress
+un# Veridian Zenith — Implementation Progress
 
 ## ✅ Foundation
 
@@ -52,6 +52,6 @@
 - [x] Perform a full Accessibility (A11y) audit and implement ARIA landmarks
 - [x] Create dedicated technical sub-pages for major artifacts (AxiomOS, Voix) (postponed until further notice)
 - [x] Add "Atmosphere" selector (Midnight Void, Blood Moon, Golden Zenith)
-- [x] Implement PWA support for offline access and installation
-- [x] Add privacy-focused, lightweight analytics (super transparent, no tracking that is not directly useful to development)
+- [ ] Implement PWA support for offline access and installation
+- [ ] Add privacy-focused, lightweight analytics (super transparent, no tracking that is not directly useful to development)
 - [x] Implement lazy loading for off-screen project cards and components

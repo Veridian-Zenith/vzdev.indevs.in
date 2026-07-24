@@ -91,13 +91,13 @@ export const ContactPage = () => {
   };
 
   return (
-    <div className="pt-32 pb-24 px-5 sm:px-8 max-w-5xl mx-auto min-h-screen relative z-10">
+    <div className="pt-32 pb-24 px-8 max-w-5xl mx-auto min-h-screen relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-16"
       >
-        <h1 className="text-3xl sm:text-5xl font-bold text-primary-themeable mb-6 drop-shadow-[0_0_20px_var(--vz-glow-color)]">
+        <h1 className="text-5xl sm:text-7xl font-bold text-primary-themeable mb-6 drop-shadow-[0_0_20px_var(--vz-glow-color)]">
           {t('contact.title')}
         </h1>
         <p className="text-secondary-themeable max-w-xl mx-auto text-lg italic leading-relaxed">
@@ -223,7 +223,7 @@ export const ContactPage = () => {
                 <info.icon size={20} />
               </div>
               <div className="min-w-0 flex-1">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-primary-themeable/50 font-bold block">{info.label}</span>
+                <span className="text-[9px] uppercase tracking-[0.3em] text-primary-themeable/50 font-bold block">{info.label}</span>
                 <span className="text-sm font-bold text-primary-themeable truncate block">{info.value}</span>
                 {info.sub && <span className="text-[10px] text-secondary-themeable">{info.sub}</span>}
               </div>

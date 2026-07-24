@@ -105,7 +105,7 @@ export const KonamiEffect = () => {
             <motion.h2
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="text-3xl sm:text-6xl font-bold text-primary-themeable italic tracking-tighter drop-shadow-[0_0_30px_var(--vz-glow-color)]"
+              className="text-6xl font-bold text-primary-themeable italic tracking-tighter drop-shadow-[0_0_30px_var(--vz-glow-color)]"
             >
               ZENITH OVERDRIVE
             </motion.h2>

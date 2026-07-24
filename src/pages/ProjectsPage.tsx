@@ -4,7 +4,7 @@
 import { motion } from 'framer-motion';
 import { AnimatedCard } from '../components';
 import { cn } from '../utils';
-import { ExternalLink, Terminal, Shield, PawPrint, Folder, Box, MonitorDot } from 'lucide-react';
+import { ExternalLink, Terminal, Shield, PawPrint, Folder, Box } from 'lucide-react';
 
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -76,15 +76,6 @@ const STATIC_PROJECTS = [
     topics: ["system", "c++", "linux"],
     language: "C++",
     icon: Shield
-  },
-  {
-    id: 'dds',
-    name: "DDS",
-    description: "projects.dds.description",
-    html_url: "https://github.com/Veridian-Zenith/DDS",
-    topics: ["app", "rust", "discord", "linux"],
-    language: "Rust",
-    icon: MonitorDot
   }
 ];
 
@@ -102,14 +93,14 @@ export const ProjectsPage = () => {
   const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
 
   return (
-    <div className="pt-32 pb-24 px-5 sm:px-8 max-w-7xl mx-auto">
+    <div className="pt-32 pb-24 px-8 max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-16 relative"
       >
         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary-themeable/10 blur-[100px] pointer-events-none" />
-        <h1 className="text-3xl sm:text-5xl font-bold text-primary-themeable mb-6 drop-shadow-glow-themeable">
+        <h1 className="text-5xl sm:text-7xl font-bold text-primary-themeable mb-6 drop-shadow-glow-themeable">
           {t('projects.title')}
         </h1>
         <p className="text-secondary-themeable max-w-2xl mx-auto text-lg leading-relaxed">
@@ -147,12 +138,12 @@ export const ProjectsPage = () => {
                       <div className="flex flex-col">
                         <h3 className="text-xl font-bold text-primary-themeable tracking-tight">{repo.name}</h3>
                         {repo.deprecated && (
-                          <span className="text-[10px] uppercase tracking-widest text-red-500 font-black opacity-80">
+                          <span className="text-[9px] uppercase tracking-widest text-red-500 font-black opacity-80">
                             {t('projects.deprecated')}
                           </span>
                         )}
                         {repo.onHold && (
-                          <span className="text-[10px] uppercase tracking-widest text-amber-500 font-black opacity-80">
+                          <span className="text-[9px] uppercase tracking-widest text-amber-500 font-black opacity-80">
                             ON HOLD
                           </span>
                         )}

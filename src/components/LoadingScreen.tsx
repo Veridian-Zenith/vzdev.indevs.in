@@ -215,7 +215,7 @@ export const LoadingScreen = ({ onLoadingComplete }: Props) => {
                 {roundedProgress}%
               </motion.span>
             </div>
-            <div className="w-48 sm:w-64 h-1 bg-secondary-themeable rounded-full overflow-hidden border border-primary-themeable/20">
+            <div className="w-64 h-1 bg-secondary-themeable rounded-full overflow-hidden border border-primary-themeable/20">
               <motion.div
                 className="h-full bg-gradient-to-r from-primary-themeable via-themeable to-primary-themeable shadow-primary-themeable"
                 initial={{ width: 0 }}
@@ -229,7 +229,7 @@ export const LoadingScreen = ({ onLoadingComplete }: Props) => {
       {/* Diagnostics Panel */}
       <div
         onClick={cycleDiagMode}
-        className="absolute bottom-10 right-10 text-right font-mono text-[10px] text-secondary-themeable/40 uppercase tracking-widest leading-relaxed cursor-pointer hover:text-primary-themeable/50 transition-colors select-none group z-10"
+        className="absolute bottom-10 right-10 text-right font-mono text-[9px] text-secondary-themeable/40 uppercase tracking-widest leading-relaxed cursor-pointer hover:text-primary-themeable/50 transition-colors select-none group z-10"
       >
         <div className="flex items-center justify-end gap-2">
           <span>

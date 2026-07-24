@@ -46,7 +46,7 @@ export const BrandDisplayPage = () => {
         ref={containerRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="pt-32 pb-24 px-5 sm:px-8 flex flex-col items-center justify-center min-h-[calc(100dvh-80px)] cursor-crosshair overflow-hidden"
+        className="pt-32 pb-24 px-8 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] cursor-crosshair overflow-hidden"
       >
         <div className="text-center mb-12">
           <motion.h2

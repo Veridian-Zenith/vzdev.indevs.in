@@ -37,7 +37,7 @@ export function AtmosphereSelector() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: isMobile ? 10 : -10 }}
               transition={{ duration: 0.15 }}
-              className={`absolute right-1/2 translate-x-1/2 sm:translate-x-0 sm:right-0 ${isMobile ? 'bottom-full mb-2' : 'mt-2'} w-64 sm:w-64 bg-secondary-themeable border border-muted-themeable rounded-2xl sm:rounded shadow-2xl z-50 pointer-events-auto backdrop-blur-xl overflow-hidden`}
+              className={`absolute right-1/2 translate-x-1/2 sm:translate-x-0 sm:right-0 ${isMobile ? 'bottom-full mb-2' : 'mt-2'} w-72 sm:w-64 bg-secondary-themeable border border-muted-themeable rounded-2xl sm:rounded shadow-2xl z-50 pointer-events-auto backdrop-blur-xl overflow-hidden`}
               onClick={(e) => e.stopPropagation()}
             >
               <div className="p-2 space-y-1">

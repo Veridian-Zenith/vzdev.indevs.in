@@ -92,7 +92,7 @@ return (
         {!isLoading && (
         <div className="relative z-10">
           <Navbar />
-          <Suspense fallback={<div className="h-dvh w-full flex items-center justify-center text-primary-themeable animate-pulse font-mono uppercase tracking-widest text-xs">Accessing Artifact...</div>}>
+          <Suspense fallback={<div className="h-screen w-full flex items-center justify-center text-primary-themeable animate-pulse font-mono uppercase tracking-widest text-xs">Accessing Artifact...</div>}>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
@@ -108,11 +108,11 @@ return (
           <TerminalEmulator isOpen={isTerminalOpen} onClose={() => setIsTerminalOpen(false)} />
 
 
-          <footer className="fixed bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 w-[92vw] sm:w-auto max-w-3xl px-4 sm:px-6 py-2 sm:py-2 bg-[var(--vz-bg-secondary)]/80 sm:bg-[var(--vz-bg-secondary)]/60 backdrop-blur-md border border-muted-themeable rounded-xl sm:rounded-full text-[10px] sm:text-[10px] uppercase tracking-[0.12em] sm:tracking-[0.2em] text-secondary-themeable/50 shadow-xl flex flex-wrap sm:flex-nowrap items-center justify-center gap-x-3 gap-y-2">
+          <footer className="fixed bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 w-[92vw] sm:w-auto max-w-3xl px-4 sm:px-6 py-2 sm:py-2 bg-[var(--vz-bg-secondary)]/80 sm:bg-[var(--vz-bg-secondary)]/60 backdrop-blur-md border border-muted-themeable rounded-xl sm:rounded-full text-[9px] sm:text-[10px] uppercase tracking-[0.12em] sm:tracking-[0.2em] text-secondary-themeable/50 shadow-xl flex flex-wrap sm:flex-nowrap items-center justify-center gap-x-3 gap-y-2">
 
             <button
               onClick={triggerGlitch}
-              className="text-[var(--vz-accent-vibrant)] font-bold hover:scale-110 transition-transform cursor-pointer relative overflow-hidden px-1 py-1 group whitespace-nowrap min-h-[44px] flex items-center"
+              className="text-[var(--vz-accent-vibrant)] font-bold hover:scale-110 transition-transform cursor-pointer relative overflow-hidden px-1 group whitespace-nowrap"
             >
               <span className="relative z-10">© {new Date().getFullYear()} Veridian Zenith</span>
               <AnimatePresence>
@@ -131,7 +131,7 @@ return (
               />
             </button>
             <span className="w-[1px] h-3 bg-muted-themeable hidden sm:block"></span>
-            <a href="https://opensource.org/licenses/OSL-3.0" target="_blank" rel="noopener noreferrer" className="text-[var(--vz-accent-vibrant)]/80 hover:text-[var(--vz-accent-vibrant)] transition-colors font-bold whitespace-nowrap px-1 py-1 min-h-[44px] flex items-center">
+            <a href="https://opensource.org/licenses/OSL-3.0" target="_blank" rel="noopener noreferrer" className="text-[var(--vz-accent-vibrant)]/80 hover:text-[var(--vz-accent-vibrant)] transition-colors font-bold whitespace-nowrap px-1">
               OSL-3.0
             </a>
             <span className="w-[1px] h-3 bg-muted-themeable hidden sm:block shrink-0"></span>
@@ -143,7 +143,7 @@ return (
             <span className="w-[1px] h-3 bg-muted-themeable hidden sm:block shrink-0"></span>
             <button
               onClick={() => navigate('/brand')}
-              className="flex items-center gap-1.5 px-3 py-2 sm:px-3 sm:py-1 bg-[var(--vz-accent-vibrant)]/10 hover:bg-[var(--vz-accent-vibrant)]/20 border border-[var(--vz-accent-vibrant)]/20 rounded-lg transition-all group/sigil cursor-pointer min-h-[44px]"
+              className="flex items-center gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1 bg-[var(--vz-accent-vibrant)]/10 hover:bg-[var(--vz-accent-vibrant)]/20 border border-[var(--vz-accent-vibrant)]/20 rounded-lg transition-all group/sigil cursor-pointer"
               title="View Brand Assets"
             >
               <img src="/assets/brand-image.png" alt="Sigil" className="w-3 h-3 sm:w-4 sm:h-4 object-contain filter drop-shadow-[0_0_5px_var(--vz-glow-color)] group-hover/sigil:scale-110 transition-transform" />

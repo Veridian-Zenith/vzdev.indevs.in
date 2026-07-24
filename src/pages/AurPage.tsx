@@ -58,34 +58,6 @@ export const AurPage = () => {
       title: 'peguni_draem-la',
       description: t('projects.peguni.description'),
       url: 'https://aur.archlinux.org/packages/peguni_draem-la'
-    },
-    {
-      id: 'ddsh-bin',
-      icon: <Package className="text-purple-500" size={32} />,
-      title: 'ddsh-bin',
-      description: t('aur.packages.ddsh-bin.description'),
-      url: 'https://aur.archlinux.org/packages/ddsh-bin'
-    },
-    {
-      id: 'ddsh-git',
-      icon: <Package className="text-purple-500" size={32} />,
-      title: 'ddsh-git',
-      description: t('aur.packages.ddsh-git.description'),
-      url: 'https://aur.archlinux.org/packages/ddsh-git'
-    },
-    {
-      id: 'ddsc-bin',
-      icon: <Package className="text-blue-500" size={32} />,
-      title: 'ddsc-bin',
-      description: t('aur.packages.ddsc-bin.description'),
-      url: 'https://aur.archlinux.org/packages/ddsc-bin'
-    },
-    {
-      id: 'ddsc-git',
-      icon: <Package className="text-blue-500" size={32} />,
-      title: 'ddsc-git',
-      description: t('aur.packages.ddsc-git.description'),
-      url: 'https://aur.archlinux.org/packages/ddsc-git'
     }
   ];
 

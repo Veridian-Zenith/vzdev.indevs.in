@@ -9,16 +9,16 @@ import { useTranslation } from 'react-i18next';
 export const AboutPage = () => {
   const { t } = useTranslation();
   return (
-    <div className="pt-32 pb-24 px-8 max-w-5xl mx-auto min-h-screen relative z-10">
+    <div className="pt-32 pb-24 px-5 sm:px-8 max-w-5xl mx-auto min-h-screen relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-16"
       >
-        <h1 className="text-5xl sm:text-7xl font-bold text-primary-themeable mb-6 drop-shadow-[0_0_20px_var(--vz-glow-color)]">
+        <h1 className="text-3xl sm:text-5xl font-bold text-primary-themeable mb-6 drop-shadow-[0_0_20px_var(--vz-glow-color)]">
           {t('about.title')}
         </h1>
-        <p className="text-secondary-themeable max-w-2xl mx-auto text-xl italic leading-relaxed">
+        <p className="text-secondary-themeable max-w-2xl mx-auto text-base sm:text-xl italic leading-relaxed">
           {t('about.subtitle')}
         </p>
       </motion.div>

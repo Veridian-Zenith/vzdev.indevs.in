@@ -5,7 +5,7 @@ import { HeroSection } from '../components';
 
 export const HomePage = () => {
   return (
-    <main className="h-screen overflow-hidden bg-transparent">
+    <main className="h-dvh overflow-hidden bg-transparent">
       <HeroSection />
     </main>
   );

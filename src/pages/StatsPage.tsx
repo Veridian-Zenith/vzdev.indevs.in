@@ -198,7 +198,7 @@ export const StatsPage = () => {
   }
 
   return (
-    <div className="pt-32 pb-24 px-8 max-w-7xl mx-auto relative">
+    <div className="pt-32 pb-24 px-5 sm:px-8 max-w-7xl mx-auto relative">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary-themeable/10 blur-[120px] pointer-events-none" />
 
       <motion.div
@@ -206,7 +206,7 @@ export const StatsPage = () => {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-16"
       >
-        <h1 className="text-5xl sm:text-7xl font-bold text-primary-themeable mb-6 drop-shadow-[0_0_15px_var(--vz-glow-color)]">
+        <h1 className="text-3xl sm:text-5xl font-bold text-primary-themeable mb-6 drop-shadow-[0_0_15px_var(--vz-glow-color)]">
           {t('stats.title')}
         </h1>
         <div className="flex items-center justify-center gap-4 text-secondary-themeable/60 text-sm font-medium uppercase tracking-widest">

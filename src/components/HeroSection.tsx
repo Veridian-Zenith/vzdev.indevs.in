@@ -25,7 +25,7 @@ export const HeroSection = () => {
 
 
   return (
-    <section className="relative h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+    <section className="relative h-dvh flex flex-col items-center justify-center text-center px-4 overflow-hidden">
       {/* Background Particles */}
       {!isMobile && (
         <div className="absolute inset-0 z-0 pointer-events-none">
@@ -103,7 +103,7 @@ export const HeroSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5 }}
-            className="text-secondary-themeable/40 text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.3em] mt-10 sm:mt-12 font-bold hover:text-primary-themeable/60 transition-colors cursor-help px-4"
+            className="text-secondary-themeable/40 text-[10px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.3em] mt-10 sm:mt-12 font-bold hover:text-primary-themeable/60 transition-colors cursor-help px-4"
             title="Unlock the Zenith Terminal to explore commands and easter eggs"
           >
             💻 Press ` or Ctrl+Alt+T to invoke the terminal

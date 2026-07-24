@@ -3,6 +3,7 @@
 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useState } from "react";
+import { useIsMobile } from "../hooks";
 
 const RUNES = [
   "ᚦ","ᚧ","ᚨ","ᚱ","ᚷ","ᚹ","ᚺ","ᚾ","ᛁ","ᛃ",
@@ -10,12 +11,13 @@ const RUNES = [
 ];
 
 export const BackgroundParticles = () => {
+  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll();
   const yRange = useTransform(scrollYProgress, [0, 1], [0, -200]);
   const ySpring = useSpring(yRange, { stiffness: 50, damping: 20 });
 
   // Pre-generate positions and speeds for runes to avoid jitter
-  const [massiveRunes] = useState(() => [...Array(18)].map((_, i) => ({
+  const [massiveRunes] = useState(() => [...Array(isMobile ? 3 : 18)].map((_, i) => ({
     left: `${Math.random() * 100}%`,
     top: `${Math.random() * 100}%`,
     size: `${10 + Math.random() * 15}rem`,
@@ -24,7 +26,7 @@ export const BackgroundParticles = () => {
     rune: RUNES[i % RUNES.length],
   })));
 
-  const [tinyRunes] = useState(() => [...Array(50)].map((_, i) => ({
+  const [tinyRunes] = useState(() => [...Array(isMobile ? 0 : 50)].map((_, i) => ({
     left: `${Math.random() * 100}%`,
     top: `${Math.random() * 100}%`,
     size: `${Math.random() * 0.8 + 0.5}rem`,

@@ -178,13 +178,13 @@ export const TerminalEmulator: React.FC<TerminalEmulatorProps> = ({ isOpen, onCl
                 <TerminalIcon size={14} className="text-primary-themeable" />
                 <span className="text-[10px] uppercase tracking-widest text-primary-themeable/70 font-bold">Zenith Terminal</span>
               </div>
-              <button onClick={onClose} className="text-secondary-themeable hover:text-primary-themeable transition-colors">
+              <button onClick={onClose} className="text-secondary-themeable hover:text-primary-themeable transition-colors p-2 -mr-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
                 <X size={16} />
               </button>
             </div>
 
             {/* Terminal Body */}
-            <div className="p-4 h-80 flex flex-col">
+            <div className="p-4 h-64 sm:h-80 flex flex-col">
               <div ref={historyRef} className="flex-grow overflow-y-auto font-mono text-sm text-secondary-themeable space-y-1 mb-4 scrollbar-hide">
                 {history.map((line, i) => (
                    <div key={i} className={line?.startsWith('>') ? 'text-primary-themeable' : ''}>

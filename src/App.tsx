@@ -105,10 +105,10 @@ return (
             </Routes>
           </Suspense>
 
-          <TerminalEmulator isOpen={isTerminalOpen} onClose={() => setIsTerminalOpen(false)} />
+          {!isMobile && <TerminalEmulator isOpen={isTerminalOpen} onClose={() => setIsTerminalOpen(false)} />}
 
 
-          <footer className="fixed bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 w-[92vw] sm:w-auto max-w-3xl px-4 sm:px-6 py-2 sm:py-2 bg-[var(--vz-bg-secondary)]/80 sm:bg-[var(--vz-bg-secondary)]/60 backdrop-blur-md border border-muted-themeable rounded-xl sm:rounded-full text-[9px] sm:text-[10px] uppercase tracking-[0.12em] sm:tracking-[0.2em] text-secondary-themeable/50 shadow-xl flex flex-wrap sm:flex-nowrap items-center justify-center gap-x-3 gap-y-2">
+          <footer className="fixed bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 w-[92vw] sm:w-auto max-w-3xl px-4 sm:px-6 py-2 sm:py-2 bg-[var(--vz-bg-secondary)]/80 sm:bg-[var(--vz-bg-secondary)]/60 backdrop-blur-md border border-muted-themeable rounded-xl sm:rounded-full text-[9px] sm:text-[10px] uppercase tracking-[0.12em] sm:tracking-[0.2em] text-secondary-themeable/50 shadow-xl flex flex-nowrap sm:flex-nowrap items-center justify-center gap-x-2 sm:gap-x-3 overflow-x-auto">
 
             <button
               onClick={triggerGlitch}

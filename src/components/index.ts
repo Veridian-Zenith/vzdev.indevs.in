@@ -1,6 +1,5 @@
 export * from './AtmosphereSelector';
 export * from './BackgroundEffect';
-export * from './BackgroundParticles';
 export * from './Common';
 export * from './ErrorBoundary';
 export * from './HeroSection';

@@ -70,7 +70,7 @@ export const BackgroundEffect = () => {
       />
 
       {/* 2. Middle Layer: Massive Runes (parallax drift) */}
-      <motion.div style={{ y: ySpring }} className="absolute inset-0">
+      <motion.div style={isMobile ? {} : { y: ySpring }} className="absolute inset-0">
         {activeMassiveRunes.map((r: Rune, i: number) => (
           <motion.div
             key={`massive-${i}`}

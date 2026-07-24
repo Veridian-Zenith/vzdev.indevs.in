@@ -4,7 +4,7 @@
 import { motion } from 'framer-motion';
 import { AnimatedCard } from '../components';
 import { cn } from '../utils';
-import { ExternalLink, Terminal, Shield, PawPrint, Folder, Box } from 'lucide-react';
+import { ExternalLink, Terminal, Shield, PawPrint, Folder, Box, MonitorDot } from 'lucide-react';
 
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -76,6 +76,15 @@ const STATIC_PROJECTS = [
     topics: ["system", "c++", "linux"],
     language: "C++",
     icon: Shield
+  },
+  {
+    id: 'dds',
+    name: "DDS",
+    description: "projects.dds.description",
+    html_url: "https://github.com/Veridian-Zenith/DDS",
+    topics: ["app", "rust", "discord", "linux"],
+    language: "Rust",
+    icon: MonitorDot
   }
 ];
 

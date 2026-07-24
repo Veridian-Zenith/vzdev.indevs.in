@@ -143,7 +143,7 @@ export const Navbar = () => {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="absolute top-20 left-0 right-0 bg-[var(--vz-bg-secondary)]/95 backdrop-blur-2xl border border-[var(--vz-accent-vibrant)]/20 rounded-2xl p-4 flex flex-col gap-5 items-center md:hidden shadow-2xl mx-2 overflow-hidden"
+            className="absolute top-20 left-0 right-0 bg-[var(--vz-bg-secondary)]/95 backdrop-blur-2xl border border-[var(--vz-accent-vibrant)]/20 rounded-2xl p-4 flex flex-col gap-3 items-center md:hidden shadow-2xl mx-2 overflow-y-auto max-h-[70vh]"
           >
             <div className="absolute inset-0 bg-gradient-to-b from-[var(--vz-accent-vibrant)]/10 to-transparent pointer-events-none" />
 

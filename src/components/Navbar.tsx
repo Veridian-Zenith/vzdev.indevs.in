@@ -184,6 +184,7 @@ export const Navbar = () => {
               <button onClick={() => changeLanguage('de')} className="px-3 py-1.5 text-xs rounded-md bg-secondary-themeable/50 hover:bg-primary-themeable/20 text-secondary-themeable hover:text-primary-themeable font-bold transition-colors">DE</button>
               <button onClick={() => changeLanguage('ko')} className="px-3 py-1.5 text-xs rounded-md bg-secondary-themeable/50 hover:bg-primary-themeable/20 text-secondary-themeable hover:text-primary-themeable font-bold transition-colors">KO</button>
               <button onClick={() => changeLanguage('ru')} className="px-3 py-1.5 text-xs rounded-md bg-secondary-themeable/50 hover:bg-primary-themeable/20 text-secondary-themeable hover:text-primary-themeable font-bold transition-colors">RU</button>
+              <button onClick={() => changeLanguage('nb')} className="px-3 py-1.5 text-xs rounded-md bg-secondary-themeable/50 hover:bg-primary-themeable/20 text-secondary-themeable hover:text-primary-themeable font-bold transition-colors">NO</button>
             </div>
             <p className="text-[10px] text-center text-secondary-themeable/40 mt-2">Best viewed on desktop.</p>
           </motion.div>

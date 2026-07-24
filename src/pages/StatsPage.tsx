@@ -6,7 +6,6 @@ import { useState, useEffect, useCallback } from 'react';
 import { Box, Star, GitFork, ExternalLink, RefreshCw, Code, Cpu, FileJson, Terminal, Layout, type LucideIcon } from 'lucide-react';
 import { AnimatedCard } from '../components';
 import { cn } from '../utils';
-import { useIsMobile } from '../hooks';
 import { useTranslation } from 'react-i18next';
 
 interface Repo {
@@ -45,7 +44,6 @@ const getLanguageIcon = (lang: string) => {
 
 export const StatsPage = () => {
   const { t } = useTranslation();
-  const isMobile = useIsMobile();
   const [orgRepos, setOrgRepos] = useState<Repo[]>([]);
   const [userRepos, setUserRepos] = useState<Repo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -118,14 +116,10 @@ export const StatsPage = () => {
         <h2 className="text-2xl font-bold text-primary-themeable uppercase tracking-widest">{title}</h2>
       </motion.div>
 
-      <div className={cn(
-        "grid gap-6",
-        isMobile ? "flex overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide -mx-8 px-8" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-      )}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {repos.map((repo, i) => (
           <div
             key={repo.name}
-            className={cn(isMobile && "min-w-[85vw] snap-center")}
           >
             <AnimatedCard
               delay={(indexOffset + i) * 0.05}

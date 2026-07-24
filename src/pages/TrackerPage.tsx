@@ -207,7 +207,7 @@ export const TrackerPage = () => {
         </p>
       </motion.div>
 
-      <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
+      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-6 sm:mb-10">
         <button
           onClick={handleManualRefresh}
           disabled={loading || cooldown > 0}
@@ -263,18 +263,18 @@ export const TrackerPage = () => {
               {error} — showing cached data
             </div>
           )}
-          <div className="grid gap-4">
+          <div className="grid gap-3">
             {activities.map((activity, i) => (
               <AnimatedCard key={activity.id} delay={i * 0.03}>
-                <a href={activity.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
-                  <div className="p-2 bg-primary-themeable/5 border border-muted-themeable rounded-xl group-hover:border-primary-themeable/30 transition-all">
+                <a href={activity.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 sm:gap-4 group">
+                  <div className="p-1.5 sm:p-2 bg-primary-themeable/5 border border-muted-themeable rounded-xl group-hover:border-primary-themeable/30 transition-all shrink-0">
                     {getIcon(activity.type)}
                   </div>
                   <div className="flex-grow min-w-0">
-                    <h3 className="font-bold text-secondary-themeable group-hover:text-primary-themeable transition-colors text-sm truncate">{activity.message}</h3>
-                    <p className="text-[10px] text-primary-themeable/50 uppercase tracking-wider mt-0.5">{activity.repo} &bull; {activity.date}</p>
+                    <h3 className="font-bold text-secondary-themeable group-hover:text-primary-themeable transition-colors text-xs sm:text-sm truncate">{activity.message}</h3>
+                    <p className="text-[9px] sm:text-[10px] text-primary-themeable/50 uppercase tracking-wider mt-0.5 truncate">{activity.repo} &bull; {activity.date}</p>
                   </div>
-                  <ExternalLink size={14} className="text-primary-themeable/20 group-hover:text-primary-themeable shrink-0 transition-colors" />
+                  <ExternalLink size={12} className="text-primary-themeable/20 group-hover:text-primary-themeable shrink-0 transition-colors" />
                 </a>
               </AnimatedCard>
             ))}

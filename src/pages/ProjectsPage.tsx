@@ -117,15 +117,11 @@ export const ProjectsPage = () => {
         </p>
       </motion.div>
 
-      <div className={cn(
-        "grid gap-8",
-        isMobile ? "flex overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide -mx-8 px-8" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-      )}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {STATIC_PROJECTS.map((repo, index) => {
           return (
             <div
               key={repo.id}
-              className={cn(isMobile && "min-w-[85vw] snap-center")}
               onMouseEnter={() => setHoveredProjectId(repo.id)}
               onMouseLeave={() => setHoveredProjectId(null)}
             >
@@ -196,23 +192,11 @@ export const ProjectsPage = () => {
           );
         })}
 
-        <div className={cn(
-          "border border-dashed border-muted-themeable rounded-2xl flex flex-col items-center justify-center p-8 text-center bg-secondary-themeable opacity-40 min-h-[250px]",
-          isMobile && "min-w-[85vw] snap-center"
-        )}>
+        <div className="border border-dashed border-muted-themeable rounded-2xl flex flex-col items-center justify-center p-8 text-center bg-secondary-themeable opacity-40 min-h-[250px]">
           <Terminal size={32} className="text-secondary-themeable/40 mb-4" />
           <p className="text-secondary-themeable italic">{t('projects.future')}</p>
         </div>
       </div>
-
-      {isMobile && (
-        <div className="flex justify-center gap-2 mt-4">
-          {STATIC_PROJECTS.map((_, i) => (
-            <div key={i} className="w-1.5 h-1.5 rounded-full bg-muted-themeable" />
-          ))}
-          <div className="w-1.5 h-1.5 rounded-full bg-muted-themeable" />
-        </div>
-      )}
     </div>
   );
 };

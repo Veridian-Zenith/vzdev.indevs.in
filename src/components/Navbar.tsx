@@ -106,10 +106,11 @@ export const Navbar = () => {
              </button>
              <div className="absolute top-full right-0 pt-3 -mt-1 opacity-0 group-hover/lang:opacity-100 transition-opacity pointer-events-none group-hover/lang:pointer-events-auto">
                <div className="bg-secondary-themeable backdrop-blur-2xl border border-muted-themeable rounded-xl p-2 w-32 shadow-2xl">
-                 <button onClick={() => changeLanguage('en')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">English</button>
-                 <button onClick={() => changeLanguage('de')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">German</button>
-                 <button onClick={() => changeLanguage('ko')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">Korean</button>
-                 <button onClick={() => changeLanguage('ru')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">Russian</button>
+                  <button onClick={() => changeLanguage('en')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">English</button>
+                  <button onClick={() => changeLanguage('de')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">German</button>
+                  <button onClick={() => changeLanguage('ko')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">Korean</button>
+                  <button onClick={() => changeLanguage('ru')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">Russian</button>
+                  <button onClick={() => changeLanguage('nb')} className="w-full text-left px-3 py-1.5 text-sm rounded-md hover:bg-primary-themeable/10 text-secondary-themeable hover:text-primary-themeable transition-colors">Norwegian</button>
                </div>
              </div>
            </div>

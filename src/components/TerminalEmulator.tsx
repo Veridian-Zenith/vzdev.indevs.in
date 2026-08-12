@@ -100,7 +100,7 @@ export const TerminalEmulator: React.FC<TerminalEmulatorProps> = ({ isOpen, onCl
         setHistory(prev => [...prev, 'Permission denied. You are not the Architect.']);
         break;
       case 'ls':
-        setHistory(prev => [...prev, 'Artifacts:', '  voix', '  meshiji', '  peguni', '  misc']);
+        setHistory(prev => [...prev, 'Artifacts:', '  voix', '  galdr', '  ljod', '  llamacpp-ui', '  dds']);
         break;
       case 'about':
         setHistory(prev => [...prev, 'Veridian Zenith: A digital forge where ancient Nordic aesthetics meet cutting-edge performance.']);
@@ -142,7 +142,7 @@ export const TerminalEmulator: React.FC<TerminalEmulatorProps> = ({ isOpen, onCl
           }
         } else if (trimmedCmd.startsWith('goto ')) {
           const target = trimmedCmd.split(' ')[1];
-          if (['voix', 'meshiji', 'peguni', 'misc'].includes(target)) {
+          if (['voix', 'galdr', 'ljod', 'llamacpp-ui', 'dds'].includes(target)) {
             setHistory(prev => [...prev, `Navigating to ${target}...`]);
             setTimeout(() => {
               navigate('/projects');

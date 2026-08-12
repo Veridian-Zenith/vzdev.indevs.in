@@ -4,7 +4,7 @@
 import { motion } from 'framer-motion';
 import { AnimatedCard } from '../components';
 import { cn } from '../utils';
-import { ExternalLink, Terminal, Shield, PawPrint, Folder, Box, MonitorDot } from 'lucide-react';
+import { ExternalLink, Terminal, Shield, PawPrint, Folder, MonitorDot, Cog, Music, Brain } from 'lucide-react';
 
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +19,33 @@ const STATIC_PROJECTS = [
     topics: ["system", "security", "c++", "linux"],
     language: "C++",
     icon: Shield
+  },
+  {
+    id: 'galdr',
+    name: "Galdr",
+    description: "projects.galdr.description",
+    html_url: "https://github.com/Veridian-Zenith/Galdr",
+    topics: ["system", "rust", "linux", "initramfs"],
+    language: "Rust",
+    icon: Cog
+  },
+  {
+    id: 'ljod',
+    name: "Ljod",
+    description: "projects.ljod.description",
+    html_url: "https://github.com/Veridian-Zenith/ljod",
+    topics: ["app", "kotlin", "android", "audio"],
+    language: "Kotlin",
+    icon: Music
+  },
+  {
+    id: 'llamacpp-ui',
+    name: "llama.cpp UI",
+    description: "projects.llamacpp_ui.description",
+    html_url: "https://github.com/Veridian-Zenith/llama.cpp-ui",
+    topics: ["app", "web", "ai", "typescript"],
+    language: "TypeScript",
+    icon: Brain
   },
   {
     id: 'meshiji',
@@ -39,43 +66,6 @@ const STATIC_PROJECTS = [
     language: "Lua",
     icon: PawPrint,
     deprecated: true
-  },
-  {
-    id: 'wuming',
-    name: "WuMing",
-    description: "projects.wuming.description",
-    html_url: "https://github.com/Veridian-Zenith/WuMing",
-    topics: ["app", "security", "c", "gtk4"],
-    language: "C",
-    icon: Shield
-  },
-  {
-    id: 'misc',
-    name: "Misc",
-    description: "projects.misc.description",
-    html_url: "https://github.com/Veridian-Zenith/Misc",
-    topics: ["collection", "zigsysmon", "benchmarks", "tools"],
-    language: "Zig/Multi",
-    icon: Box
-  },
-  {
-    id: 'nxo',
-    name: "Nxo",
-    description: "projects.nxo.description",
-    html_url: "https://github.com/Veridian-Zenith/Nxo",
-    topics: ["app", "kotlin", "android"],
-    language: "Kotlin",
-    icon: Box,
-    onHold: true
-  },
-  {
-    id: 'aether',
-    name: "Aether",
-    description: "projects.aether.description",
-    html_url: "https://github.com/Veridian-Zenith/Aether",
-    topics: ["system", "c++", "linux"],
-    language: "C++",
-    icon: Shield
   },
   {
     id: 'dds',
@@ -145,11 +135,6 @@ export const ProjectsPage = () => {
                         {repo.deprecated && (
                           <span className="text-[9px] uppercase tracking-widest text-red-500 font-black opacity-80">
                             {t('projects.deprecated')}
-                          </span>
-                        )}
-                        {repo.onHold && (
-                          <span className="text-[9px] uppercase tracking-widest text-amber-500 font-black opacity-80">
-                            ON HOLD
                           </span>
                         )}
                       </div>

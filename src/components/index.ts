@@ -6,5 +6,4 @@ export * from './HeroSection';
 export * from './KonamiEffect';
 export * from './LoadingScreen';
 export * from './Navbar';
-export * from './ProjectsSection';
 export * from './TerminalEmulator';

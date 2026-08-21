@@ -6,8 +6,8 @@ A high-end, mystical Nordic-inspired digital realm showcasing the artifacts and 
 
 ```bash
 # Clone the repository
-git clone https://github.com/Veridian-Zenith/veridianzenith.qzz.io.git
-cd veridianzenith.qzz.io
+git clone https://github.com/Veridian-Zenith/vzdev.indevs.in.git
+cd vzdev.indevs.in
 
 # Install dependencies
 bun i
@@ -22,6 +22,9 @@ bun run dev
 
 # Etch the final runes (production build)
 bun run build
+
+# Deploy to Firebase
+bun run deploy
 ```
 
 ## 📄 Pages

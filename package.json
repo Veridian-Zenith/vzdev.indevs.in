@@ -1,5 +1,5 @@
 {
-  "name": "veridianzenith.qzz.io",
+  "name": "vzdev.indevs.in",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "vite build && firebase deploy --only hosting"
   },
   "dependencies": {
     "clsx": "^2.1.1",

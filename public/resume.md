@@ -45,7 +45,6 @@ I have previously attended in E.A.S.T. (2022-2023), which required my physical p
 
 - **Voix** - Privilege Policy Enforcement Runtime for Linux (C++26, Clang) - User-space execution broker with policy evaluation, PAM integration, capability reduction, and seccomp syscall filtering.
 - **Galdr** - Minimal initramfs generator for Linux (Rust, no_std) - Replaces mkinitcpio with hardware autodetect, LUKS support, and ~300 line init binary.
-- **DnsServer** - Fork of Technitium DNS Server - Running production DNS server with custom configuration.
 - **DDS** - Dynamic Discord Rich Presence based on active windows (C++).
 - **WuMing** - ClamAV GUI frontend (C, GTK4/LibAdwaita).
 

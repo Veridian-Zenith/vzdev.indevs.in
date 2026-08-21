@@ -75,6 +75,15 @@ const STATIC_PROJECTS = [
     topics: ["app", "rust", "discord", "linux"],
     language: "Rust",
     icon: MonitorDot
+  },
+  {
+    id: 'wuming',
+    name: "WuMing",
+    description: "projects.wuming.description",
+    html_url: "https://github.com/Veridian-Zenith/WuMing",
+    topics: ["app", "security", "antivirus", "gtk", "linux"],
+    language: "C",
+    icon: Terminal
   }
 ];
 

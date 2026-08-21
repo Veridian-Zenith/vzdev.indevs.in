@@ -87,6 +87,7 @@ export const Navbar = () => {
             { name: t('nav.aur'), path: '/aur' },
             { name: t('nav.stats'), path: '/stats' },
             { name: t('nav.tracker'), path: '/tracker' },
+            { name: t('nav.skills'), path: '/skills' },
           ].map((item) => (
 
 
@@ -154,6 +155,7 @@ export const Navbar = () => {
               { name: t('nav.projects'), path: '/projects' },
               { name: t('nav.stats'), path: '/stats' },
               { name: t('nav.tracker'), path: '/tracker' },
+              { name: t('nav.skills'), path: '/skills' },
             ].map((item) => (
               <Link
                 key={item.path}

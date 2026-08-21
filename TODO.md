@@ -21,6 +21,7 @@ un# Veridian Zenith — Implementation Progress
 - [x] Navigation: Floating glassmorphism Navbar with mobile rune menu
 - [x] Projects Section: Dedicated page with project-specific iconography
 - [x] Contact Section: Professional profile with Discord community integration
+- [x] Skills Section: Technical capabilities, work experience, education, and resume download
 - [x] Footer: Persistent floating branding pill
 - [x] Loading Screen: Real-time latency diagnostics & mystical progression
 - [x] Terminal Emulator: Enhanced with expanded command set and easter eggs

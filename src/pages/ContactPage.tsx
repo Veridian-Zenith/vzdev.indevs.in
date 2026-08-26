@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useState, type FormEvent } from 'react';
+import { useState, useRef, useEffect, type FormEvent } from 'react';
 import { Mail, User, MessageSquare, ExternalLink, Send, Terminal, AtSign, CheckCircle, AlertCircle } from 'lucide-react';
 import { AnimatedCard } from '../components';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,12 @@ export const ContactPage = () => {
   const { t } = useTranslation();
   const [formState, setFormState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [honeypot, setHoneypot] = useState('');
+  const mountedAt = useRef(0);
+
+  useEffect(() => {
+    mountedAt.current = Date.now();
+  }, []);
 
   const contactInfo = [
     {
@@ -70,6 +76,16 @@ export const ContactPage = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (formState === 'sending') return;
+
+    const elapsed = Date.now() - mountedAt.current;
+    mountedAt.current = Date.now();
+
+    if (honeypot !== '' || elapsed < 3000) {
+      setFormState('sent');
+      setTimeout(() => setFormState('idle'), 5000);
+      return;
+    }
+
     setFormState('sending');
 
     try {
@@ -128,6 +144,19 @@ export const ContactPage = () => {
               onSubmit={handleSubmit}
               className="space-y-5"
             >
+              <div className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input
+                  id="website"
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={honeypot}
+                  onChange={e => setHoneypot(e.target.value)}
+                />
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs uppercase tracking-[0.2em] text-primary-themeable/70 font-bold mb-2">Your Sigil</label>

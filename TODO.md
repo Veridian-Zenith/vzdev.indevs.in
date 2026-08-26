@@ -59,4 +59,5 @@
 - [x] Remove non-functional Google Analytics snippet (consent was hard-denied, no consent UI)
 - [x] Add robots.txt, sitemap.xml, canonical URL & absolute OpenGraph image
 - [x] Split i18n resources into per-language bundles, lazy-loaded on demand
+- [x] Harden contact form against spam (server-side schema validation + honeypot/timing check)
 - [ ] Choose a privacy-focused analytics provider (Plausible / Fathom / GoatCounter / Umami)

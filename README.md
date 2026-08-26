@@ -12,10 +12,9 @@ cd vzdev.indevs.in
 # Install dependencies
 bun i
 
-# Set up Firebase secret (required for deployment)
-# 1. Go to GitHub Repository Settings > Secrets and Variables
-# 2. Add a new secret named `FIREBASE_TOKEN` with your Firebase service account token
-# 3. Commit and push changes
+# Configure Firebase (local development)
+cp .env.example .env
+# Fill in the VITE_FIREBASE_* values from your Firebase project settings
 
 # Start the forge (development server)
 bun run dev
@@ -23,9 +22,29 @@ bun run dev
 # Etch the final runes (production build)
 bun run build
 
-# Deploy to Firebase
+# Deploy to Firebase (hosting + Firestore rules)
 bun run deploy
 ```
+
+## ⚡ Deployment (CI)
+
+Pushes to `main` trigger the **Firebase Deploy** workflow (`.github/workflows/firebase-deploy.yml`), which builds the site and deploys hosting + Firestore rules via `firebase-tools`.
+
+Required GitHub Actions secrets:
+
+| Secret | Purpose |
+| --- | --- |
+| `VITE_FIREBASE_API_KEY` | Firebase web config (build-time env) |
+| `VITE_FIREBASE_AUTH_DOMAIN` | Firebase web config |
+| `VITE_FIREBASE_PROJECT_ID` | Firebase web config |
+| `VITE_FIREBASE_STORAGE_BUCKET` | Firebase web config |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | Firebase web config |
+| `VITE_FIREBASE_APP_ID` | Firebase web config |
+| `FIREBASE_SERVICE_ACCOUNT_MAIN_WEBSITE_BA2DA` | Service account JSON key used to deploy |
+
+The service account needs at least these IAM roles: **Firebase Hosting Admin** (`roles/firebasehosting.admin`) and **Firebase Rules Admin** (`roles/firebaserules.admin`). Note that CI tokens (`firebase login:ci`) were removed in firebase-tools v15 and are no longer supported.
+
+The contact form writes to the `contactMessages` Firestore collection; its security rules (`firestore.rules`) allow anyone to create well-formed messages while keeping them unreadable to clients. Spam is mitigated server-side by schema/length validation and client-side by a honeypot field.
 
 ## 📄 Pages
 
@@ -36,7 +55,7 @@ bun run deploy
 - **Stats**: GitHub forge index and organization stats
 - **Tracker**: Application tracking (placeholder)
 - **Skills**: Technical expertise, work experience, education, and resume download
-- **Contact**: Professional profile with Discord community integration
+- **Contact**: Professional profile, functional contact form, Discord community integration
 
 ## ⚙️ License
 This project is licensed under the OSL-3.0 (Open Software License 3.0). See the [LICENSE](LICENSE) file for details.

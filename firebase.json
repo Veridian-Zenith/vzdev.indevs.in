@@ -21,7 +21,7 @@
         "headers": [
           {
             "key": "Content-Security-Policy",
-            "value": "default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://stuff.mit.edu; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.github.com https://*.firebaseio.com https://firestore.googleapis.com https://*.googleapis.com https://*.firebaseapp.com https://www.google-analytics.com; frame-ancestors 'none'; form-action 'self'; base-uri 'none';"
+            "value": "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; img-src 'self' data: https://stuff.mit.edu https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; connect-src 'self' https://api.github.com https://*.firebaseio.com https://firestore.googleapis.com https://*.googleapis.com https://*.firebaseapp.com https://cdn.jsdelivr.net; frame-ancestors 'none'; form-action 'self'; base-uri 'none'; worker-src 'self' https://cdn.jsdelivr.net;"
           },
           {
             "key": "Strict-Transport-Security",

@@ -6,6 +6,7 @@ import { Menu, X, ChevronRight, Languages, EyeOff } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { loadTranslations } from '../lib/i18n';
 import { AtmosphereSelector } from './AtmosphereSelector';
 import { useApp } from '../context/AppContext';
 
@@ -18,7 +19,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
+    void loadTranslations(lng).then(() => i18n.changeLanguage(lng));
   };
 
   useEffect(() => {

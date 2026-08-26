@@ -18,7 +18,7 @@ const SkillsPage = lazy(() => import('./pages/SkillsPage').then(m => ({ default:
 import { LoadingScreen } from './components';
 import { ErrorBoundary } from './components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from './utils';
+import { cn, readLocalStorage, writeLocalStorage } from './utils';
 
 import { BackgroundEffect } from './components';
 import { TerminalEmulator } from './components';
@@ -32,7 +32,7 @@ import { KonamiEffect } from './components';
 
 function AppContent() {
   const { reducedMotion, triggerGlitch, isGlitching } = useApp();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => readLocalStorage('vz:visited') === null);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [showDiagnostics, setShowDiagnostics] = useState(false);
   const isMobile = useIsMobile();
@@ -71,7 +71,10 @@ return (
       )}>
         {isLoading && (
           <ErrorBoundary>
-            <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
+            <LoadingScreen onLoadingComplete={() => {
+              writeLocalStorage('vz:visited', '1');
+              setIsLoading(false);
+            }} />
           </ErrorBoundary>
         )}
 

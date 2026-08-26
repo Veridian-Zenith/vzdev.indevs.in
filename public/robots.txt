@@ -1,0 +1,4 @@
+User-agent: *
+Allow:
+
+Sitemap: https://vzdev.indevs.in/sitemap.xml

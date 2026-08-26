@@ -10,11 +10,15 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      manifest: {
-        name: 'Veridian Zenith',
-        short_name: 'VZ',
-        theme_color: '#FFB347',
-        icons: [
+        manifest: {
+          name: 'Veridian Zenith',
+          short_name: 'VZ',
+          description: 'A high-end, mystical Nordic-inspired digital realm showcasing the artifacts and technologies forged by Veridian Zenith.',
+          start_url: '/',
+          display: 'standalone',
+          background_color: '#050200',
+          theme_color: '#FFB347',
+          icons: [
           {
             src: '/assets/android-chrome-192x192.png',
             sizes: '192x192',

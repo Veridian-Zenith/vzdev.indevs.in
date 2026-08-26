@@ -1,4 +1,4 @@
-un# Veridian Zenith — Implementation Progress
+# Veridian Zenith — Implementation Progress
 
 ## ✅ Foundation
 
@@ -23,8 +23,8 @@ un# Veridian Zenith — Implementation Progress
 - [x] Contact Section: Professional profile with Discord community integration
 - [x] Skills Section: Technical capabilities, work experience, education, and resume download
 - [x] Footer: Persistent floating branding pill
-- [x] Loading Screen: Real-time latency diagnostics & mystical progression
-- [x] Terminal Emulator: Enhanced with expanded command set and easter eggs
+- [x] Loading Screen: Real-time latency diagnostics & mystical progression (first visit only)
+- [x] Terminal Emulator: Enhanced with expanded command set and easter eggs (desktop-only by design)
 
 ## 🏺 Arcane Artifacts (Implemented)
 
@@ -53,6 +53,10 @@ un# Veridian Zenith — Implementation Progress
 - [x] Perform a full Accessibility (A11y) audit and implement ARIA landmarks
 - [x] Create dedicated technical sub-pages for major artifacts (AxiomOS, Voix) (postponed until further notice)
 - [x] Add "Atmosphere" selector (Midnight Void, Blood Moon, Golden Zenith)
-- [ ] Implement PWA support for offline access and installation
-- [ ] Add privacy-focused, lightweight analytics (super transparent, no tracking that is not directly useful to development)
+- [x] Implement PWA support for offline access and installation (single source of truth via vite-plugin-pwa manifest)
 - [x] Implement lazy loading for off-screen project cards and components
+- [x] Fix Content-Security-Policy blocking third-party embeds (jsdelivr allowlisted)
+- [x] Remove non-functional Google Analytics snippet (consent was hard-denied, no consent UI)
+- [x] Add robots.txt, sitemap.xml, canonical URL & absolute OpenGraph image
+- [x] Split i18n resources into per-language bundles, lazy-loaded on demand
+- [ ] Choose a privacy-focused analytics provider (Plausible / Fathom / GoatCounter / Umami)

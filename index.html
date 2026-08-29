@@ -29,6 +29,11 @@
   <script>document.addEventListener('DOMContentLoaded', function() {
   var script = document.createElement('script');
   script.src = 'https://cdn.jsdelivr.net/gh/IdreesInc/Pocket-Bird@main/dist/web/birb.embed.js';
+  script.onload = function() {
+    if (document.body) {
+      document.body.appendChild(script);
+    }
+  };
   document.head.appendChild(script);
 });</script>
 </head>

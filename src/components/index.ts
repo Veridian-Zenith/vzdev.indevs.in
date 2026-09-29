@@ -1,5 +1,5 @@
 export * from './BackgroundEffect';
-export * from './Common';
+export * from './Forge';
 export * from './ErrorBoundary';
 export * from './HeroSection';
 export * from './KonamiEffect';

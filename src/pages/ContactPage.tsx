@@ -1,10 +1,14 @@
-import { motion } from 'framer-motion';
+//! License: Open Software License 3.0 (OSL-3.0)
+//! Copyright (c) 2026 Dae Euhwa
+
 import { useState, useRef, useEffect, type FormEvent } from 'react';
-import { Mail, User, MessageSquare, ExternalLink, Send, Terminal, AtSign, CheckCircle, AlertCircle } from 'lucide-react';
-import { AnimatedCard } from '../components';
 import { useTranslation } from 'react-i18next';
+import { Mail, User, MessageSquare, ExternalLink, Send, Terminal, AtSign, CheckCircle, AlertCircle } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
+import {
+  PageHeader, Section, SectionHead, Brackets, BlueprintGrid, fieldClass, labelClass,
+} from '../components/Forge';
 
 export const ContactPage = () => {
   const { t } = useTranslation();
@@ -18,55 +22,13 @@ export const ContactPage = () => {
   }, []);
 
   const contactInfo = [
-    {
-      icon: User,
-      label: t('contact.architect.label'),
-      value: "Dae Euhwa",
-      sub: t('contact.architect.sub'),
-      color: "amber"
-    },
-    {
-      icon: Mail,
-      label: t('contact.email.label'),
-      value: "daedaevibin@ik.me",
-      href: "mailto:daedaevibin@ik.me",
-      color: "red"
-    },
-    {
-      icon: Terminal,
-      label: t('contact.forge.label'),
-      value: "Veridian-Zenith",
-      href: "https://github.com/Veridian-Zenith",
-      color: "gold"
-    },
-    {
-      icon: ExternalLink,
-      label: "Instagram",
-      value: "@daedaevibin",
-      href: "https://www.instagram.com/daedaevibin?igsh=aTg3cjFmbzdiY2s0",
-      color: "purple"
-    },
-    {
-      icon: MessageSquare,
-      label: "Matrix",
-      value: "@daedaevibin:matrix.org",
-      href: "https://matrix.to/@daedaevibin:matrix.org#/@daedaevibin:matrix.org",
-      color: "blue"
-    },
-    {
-      icon: AtSign,
-      label: "Mastodon",
-      value: "@daedaevibin@defcon.social",
-      href: "https://defcon.social/@daedaevibin",
-      color: "orange"
-    },
-    {
-      icon: Mail,
-      label: "WhatsApp",
-      value: "+1 (208) 464-4061",
-      href: "https://wa.me/12084644061",
-      color: "green"
-    }
+    { icon: User, label: t('contact.architect.label'), value: 'Dae Euhwa', sub: t('contact.architect.sub') },
+    { icon: Mail, label: t('contact.email.label'), value: 'daedaevibin@ik.me', href: 'mailto:daedaevibin@ik.me' },
+    { icon: Terminal, label: t('contact.forge.label'), value: 'Veridian-Zenith', href: 'https://github.com/Veridian-Zenith' },
+    { icon: ExternalLink, label: 'Instagram', value: '@daedaevibin', href: 'https://www.instagram.com/daedaevibin?igsh=aTg3cjFmbzdiY2s0' },
+    { icon: MessageSquare, label: 'Matrix', value: '@daedaevibin:matrix.org', href: 'https://matrix.to/@daedaevibin:matrix.org#/@daedaevibin:matrix.org' },
+    { icon: AtSign, label: 'Mastodon', value: '@daedaevibin@defcon.social', href: 'https://defcon.social/@daedaevibin' },
+    { icon: Mail, label: 'WhatsApp', value: '+1 (208) 464-4061', href: 'https://wa.me/12084644061' },
   ];
 
   const handleChange = (field: string, value: string) => {
@@ -107,198 +69,192 @@ export const ContactPage = () => {
   };
 
   return (
-    <div className="pt-32 pb-24 px-8 max-w-5xl mx-auto min-h-screen relative z-10">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-16"
-      >
-        <h1 className="text-5xl sm:text-7xl font-bold text-primary-themeable mb-6 drop-shadow-[0_0_20px_var(--vz-glow-color)]">
-          {t('contact.title')}
-        </h1>
-        <p className="text-secondary-themeable max-w-xl mx-auto text-lg italic leading-relaxed">
-          {t('contact.subtitle')}
-        </p>
-      </motion.div>
+    <div className="min-h-screen">
+      <PageHeader
+        fig="fig. 05 · contact"
+        title={t('contact.title')}
+        lede={t('contact.subtitle')}
+      />
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-16">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2 }}
-          className="lg:col-span-3 relative group"
-        >
-          <div className="absolute -inset-1 bg-gradient-to-r from-primary-themeable via-themeable to-primary-themeable rounded-3xl blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
-          <div className="relative bg-secondary-themeable border border-muted-themeable p-8 sm:p-10 rounded-3xl shadow-2xl backdrop-blur-xl">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="p-3 bg-primary-themeable/10 rounded-xl text-primary-themeable border border-primary-themeable/30">
-                <Send size={24} />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-primary-themeable">{t('contact.invocation.title')}</h2>
-                <p className="text-sm text-secondary-themeable italic">{t('contact.invocation.description')}</p>
-              </div>
-            </div>
+      <Section>
+        <SectionHead index="fig. 05a" title={t('contact.invocation.title')} />
 
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-5"
-            >
-              <div className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
-                <label htmlFor="website">Website</label>
-                <input
-                  id="website"
-                  type="text"
-                  name="website"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  value={honeypot}
-                  onChange={e => setHoneypot(e.target.value)}
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-xs uppercase tracking-[0.2em] text-primary-themeable/70 font-bold mb-2">Your Sigil</label>
-                  <input
-                    type="text"
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={e => handleChange('name', e.target.value)}
-                    placeholder="Name / alias"
-                    className="w-full px-4 py-3 bg-[var(--vz-bg-primary)] border border-muted-themeable rounded-xl text-primary-themeable placeholder-secondary-themeable/40 focus:outline-none focus:border-primary-themeable focus:shadow-[0_0_15px_var(--vz-shadow-color)] transition-all font-medium"
-                  />
+        <div className="grid lg:grid-cols-5 gap-6">
+          {/* Schematic form */}
+          <div className="lg:col-span-3 relative bg-black border border-amber-400/20 rounded-2xl overflow-hidden">
+            <Brackets />
+            <BlueprintGrid />
+            <div className="relative p-6 sm:p-8">
+              <div className="flex items-center gap-3.5">
+                <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center shrink-0">
+                  <Send size={18} className="text-amber-300" />
                 </div>
                 <div>
-                  <label className="block text-xs uppercase tracking-[0.2em] text-primary-themeable/70 font-bold mb-2">Void Address</label>
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={e => handleChange('email', e.target.value)}
-                    placeholder="you@domain.com"
-                    className="w-full px-4 py-3 bg-[var(--vz-bg-primary)] border border-muted-themeable rounded-xl text-primary-themeable placeholder-secondary-themeable/40 focus:outline-none focus:border-primary-themeable focus:shadow-[0_0_15px_var(--vz-shadow-color)] transition-all font-medium"
-                  />
+                  <h3 className="text-base font-black text-amber-200 tracking-tight">
+                    {t('contact.invocation.title')}
+                  </h3>
+                  <p className="text-xs text-amber-100/40 mt-0.5">{t('contact.invocation.description')}</p>
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs uppercase tracking-[0.2em] text-primary-themeable/70 font-bold mb-2">Transmission Subject</label>
-                <input
-                  type="text"
-                  name="subject"
-                  required
-                  value={formData.subject}
-                  onChange={e => handleChange('subject', e.target.value)}
-                  placeholder="What is this regarding?"
-                  className="w-full px-4 py-3 bg-[var(--vz-bg-primary)] border border-muted-themeable rounded-xl text-primary-themeable placeholder-secondary-themeable/40 focus:outline-none focus:border-primary-themeable focus:shadow-[0_0_15px_var(--vz-shadow-color)] transition-all font-medium"
-                />
-              </div>
+              <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+                {/* Honeypot */}
+                <div className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+                  <label htmlFor="website">Website</label>
+                  <input
+                    id="website" type="text" name="website" tabIndex={-1} autoComplete="off"
+                    value={honeypot} onChange={e => setHoneypot(e.target.value)}
+                  />
+                </div>
 
-              <div>
-                <label className="block text-xs uppercase tracking-[0.2em] text-primary-themeable/70 font-bold mb-2">Message</label>
-                <textarea
-                  name="message"
-                  required
-                  rows={5}
-                  value={formData.message}
-                  onChange={e => handleChange('message', e.target.value)}
-                  placeholder="Your message to the void..."
-                  className="w-full px-4 py-3 bg-[var(--vz-bg-primary)] border border-muted-themeable rounded-xl text-primary-themeable placeholder-secondary-themeable/40 focus:outline-none focus:border-primary-themeable focus:shadow-[0_0_15px_var(--vz-shadow-color)] transition-all font-medium resize-none"
-                />
-              </div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="name" className={labelClass}>your sigil</label>
+                    <input
+                      id="name" type="text" name="name" required
+                      value={formData.name}
+                      onChange={e => handleChange('name', e.target.value)}
+                      placeholder="name / alias"
+                      className={fieldClass}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className={labelClass}>void address</label>
+                    <input
+                      id="email" type="email" name="email" required
+                      value={formData.email}
+                      onChange={e => handleChange('email', e.target.value)}
+                      placeholder="you@domain.com"
+                      className={fieldClass}
+                    />
+                  </div>
+                </div>
 
-              <button
-                type="submit"
-                disabled={formState === 'sending' || formState === 'sent'}
-                className="w-full relative overflow-hidden rounded-2xl px-8 py-4 text-lg font-bold text-white bg-primary-themeable/80 hover:bg-primary-themeable border border-muted-themeable hover:border-primary-themeable transition-all duration-300 cursor-pointer group disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary-themeable/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
-                <span className="relative z-10 flex items-center justify-center gap-3">
-                  {formState === 'sending' ? (
-                    <>Transmitting<span className="animate-pulse">...</span></>
-                  ) : formState === 'sent' ? (
-                    <><CheckCircle size={20} /> Message Sent Through The Void</>
-                  ) : (
-                    <><Send size={20} /> Send Transmission</>
-                  )}
-                </span>
-              </button>
+                <div>
+                  <label htmlFor="subject" className={labelClass}>subject</label>
+                  <input
+                    id="subject" type="text" name="subject" required
+                    value={formData.subject}
+                    onChange={e => handleChange('subject', e.target.value)}
+                    placeholder="what is this regarding?"
+                    className={fieldClass}
+                  />
+                </div>
 
-              {formState === 'error' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-2 text-red-500 bg-red-500/10 border border-red-500/30 rounded-xl px-4 py-3 text-sm font-medium"
+                <div>
+                  <label htmlFor="message" className={labelClass}>message</label>
+                  <textarea
+                    id="message" name="message" required rows={5}
+                    value={formData.message}
+                    onChange={e => handleChange('message', e.target.value)}
+                    placeholder="your message to the void..."
+                    className={`${fieldClass} resize-none`}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={formState === 'sending' || formState === 'sent'}
+                  className="w-full relative overflow-hidden rounded-full px-8 py-3.5 text-sm font-bold text-amber-300 bg-amber-500/10 hover:bg-amber-500 hover:text-black border border-amber-400/40 hover:shadow-[0_0_24px_rgba(255,179,71,0.22)] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <AlertCircle size={16} />
-                  Failed to send. The void is turbulent — try again or email directly.
-                </motion.div>
-              )}
-            </form>
-          </div>
-        </motion.div>
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    {formState === 'sending' ? (
+                      <>transmitting<span className="animate-pulse">...</span></>
+                    ) : formState === 'sent' ? (
+                      <><CheckCircle size={15} /> message sent through the void</>
+                    ) : (
+                      <><Send size={15} /> send transmission</>
+                    )}
+                  </span>
+                </button>
 
-        <div className="lg:col-span-2 flex flex-col gap-4">
-          {contactInfo.map((info, index) => (
-            <AnimatedCard
-              key={index}
-              delay={0.3 + index * 0.05}
-              className="flex items-center gap-4 p-5 group"
-            >
-              <div className="p-2.5 bg-primary-themeable/10 border border-muted-themeable rounded-xl text-primary-themeable group-hover:scale-110 transition-all duration-300 shrink-0">
-                <info.icon size={20} />
-              </div>
-              <div className="min-w-0 flex-1">
-                <span className="text-[9px] uppercase tracking-[0.3em] text-primary-themeable/50 font-bold block">{info.label}</span>
-                <span className="text-sm font-bold text-primary-themeable truncate block">{info.value}</span>
-                {info.sub && <span className="text-[10px] text-secondary-themeable">{info.sub}</span>}
-              </div>
-              {info.href && (
+                {formState === 'error' && (
+                  <div className="flex items-center gap-2 text-red-400/90 bg-red-500/[0.06] border border-red-500/25 rounded-xl px-4 py-3 text-xs">
+                    <AlertCircle size={14} className="shrink-0" />
+                    Failed to send. The void is turbulent — try again or email directly.
+                  </div>
+                )}
+              </form>
+            </div>
+          </div>
+
+          {/* Channels + telemetry */}
+          <div className="lg:col-span-2 space-y-3">
+            {contactInfo.map((info) => {
+              const body = (
+                <>
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-400/25 flex items-center justify-center shrink-0">
+                    <info.icon size={17} className="text-amber-300" />
+                  </div>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[9px] font-mono uppercase tracking-[0.25em] text-amber-400/40">{info.label}</span>
+                    <span className="block text-sm font-mono font-bold text-amber-200 mt-1 truncate">{info.value}</span>
+                    {info.sub && <span className="block text-[10px] text-amber-100/30 mt-0.5">{info.sub}</span>}
+                  </span>
+                </>
+              );
+
+              return info.href ? (
                 <a
+                  key={info.label}
                   href={info.href}
-                  target="_blank"
+                  target={info.href.startsWith('mailto:') ? undefined : '_blank'}
                   rel="noopener noreferrer"
-                  className="text-primary-themeable/40 hover:text-primary-themeable transition-colors shrink-0"
+                  className="group flex items-center gap-4 bg-black border border-amber-400/20 rounded-2xl p-4 hover:border-amber-400/45 transition-colors"
                 >
-                  <ExternalLink size={14} />
+                  {body}
+                  <ExternalLink size={13} className="text-amber-400/0 group-hover:text-amber-300 shrink-0 transition-colors" />
                 </a>
-              )}
-            </AnimatedCard>
-          ))}
-        </div>
-      </div>
+              ) : (
+                <div key={info.label} className="flex items-center gap-4 bg-black border border-amber-400/20 rounded-2xl p-4">
+                  {body}
+                </div>
+              );
+            })}
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="relative group overflow-hidden rounded-3xl"
-      >
-        <div className="absolute inset-0 bg-primary-themeable/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        <div className="relative bg-secondary-themeable backdrop-blur-md border border-muted-themeable p-12 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <div className="flex items-center gap-4 mb-4">
-              <MessageSquare size={40} className="text-[#5865F2] group-hover:scale-110 transition-transform" />
-              <h2 className="text-3xl font-bold text-primary-themeable">{t('contact.community.title')}</h2>
+            <div className="relative bg-black border border-amber-400/20 rounded-2xl p-5 overflow-hidden">
+              <span className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent" />
+              <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-amber-400/40">telemetry</span>
+              <dl className="mt-4 space-y-2.5">
+                {[
+                  ['channels', `${contactInfo.length} active`],
+                  ['transport', 'firestore'],
+                  ['spam filter', 'engaged'],
+                ].map(([k, v]) => (
+                  <div key={k} className="flex items-baseline justify-between gap-3">
+                    <dt className="text-[11px] text-amber-100/35">{k}</dt>
+                    <dd className="text-[11px] font-mono text-amber-200/80">{v}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
-            <p className="text-secondary-themeable max-w-md text-lg">
-              {t('contact.community.description')}
-            </p>
           </div>
-          <a
-            href="https://discord.gg/Vprc6XRkRg"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/discord w-full md:w-auto px-10 py-5 bg-[#5865F2] hover:bg-[#4752C4] text-white font-black rounded-2xl transition-all flex items-center justify-center gap-4 shadow-[0_0_30px_rgba(88,101,242,0.3)] hover:shadow-[0_0_50px_rgba(88,101,242,0.6)] hover:scale-105 active:scale-95"
-          >
-            {t('contact.community.join')}
-            <ExternalLink size={20} className="group-hover/discord:translate-x-1 group-hover/discord:-translate-y-1 transition-transform" />
-          </a>
         </div>
-      </motion.div>
+      </Section>
+
+      <Section className="!pt-0">
+        <div className="relative overflow-hidden rounded-2xl border border-amber-400/20 bg-black/40">
+          <BlueprintGrid />
+          <div className="relative p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4 min-w-0">
+              <MessageSquare size={26} className="text-[#5865F2] shrink-0" />
+              <div className="min-w-0">
+                <h2 className="text-xl font-black text-amber-200 tracking-tight">{t('contact.community.title')}</h2>
+                <p className="text-sm text-amber-100/40 mt-1">{t('contact.community.description')}</p>
+              </div>
+            </div>
+            <a
+              href="https://discord.gg/Vprc6XRkRg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 px-7 py-3.5 bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold text-sm rounded-full transition-all flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(88,101,242,0.25)]"
+            >
+              {t('contact.community.join')}
+              <ExternalLink size={14} />
+            </a>
+          </div>
+        </div>
+      </Section>
     </div>
   );
 };

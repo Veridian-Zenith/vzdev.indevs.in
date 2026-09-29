@@ -32,12 +32,12 @@ class ErrorBoundaryComponent extends Component<Props, State> {
     const { t } = this.props;
     if (this.state.hasError) {
       return this.props.fallback || (
-        <div className="fixed inset-0 z-[300] bg-primary-themeable flex flex-col items-center justify-center font-mono text-secondary-themeable p-4 text-center">
-          <h1 className="text-2xl font-bold mb-4 text-primary-themeable">{t('error.title')}</h1>
-          <p className="mb-6 opacity-70">{t('error.message')}</p>
+        <div className="fixed inset-0 z-[300] bg-black flex flex-col items-center justify-center font-mono text-amber-100/50 p-4 text-center">
+          <h1 className="text-xl sm:text-2xl font-black mb-4 text-amber-300 tracking-tight">{t('error.title')}</h1>
+          <p className="mb-6 text-sm opacity-60">{t('error.message')}</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-6 py-2 border border-primary-themeable text-primary-themeable hover:bg-primary-themeable hover:text-primary-themeable transition-colors font-bold uppercase tracking-widest"
+            className="px-6 py-2.5 rounded-full border border-amber-400/40 text-amber-300 hover:bg-amber-500 hover:text-black transition-colors font-bold uppercase tracking-widest text-xs"
           >
             {t('error.button')}
           </button>

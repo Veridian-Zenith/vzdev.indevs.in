@@ -1,216 +1,163 @@
 //! License: Open Software License 3.0 (OSL-3.0)
 //! Copyright (c) 2026 Dae Euhwa
 
-import { motion } from 'framer-motion';
-import { AnimatedCard } from '../components';
-import { cn } from '../utils';
-import { ExternalLink, Terminal, Shield, PawPrint, Folder, MonitorDot, Cog, Music, Brain, Server, Cpu } from 'lucide-react';
-
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useIsMobile } from '../hooks';
+import {
+  PageHeader, Section, SectionHead, Brackets, BlueprintGrid, SpecList, SignalFeed,
+} from '../components/Forge';
+import { ARTIFACTS, type Status } from '../data/artifacts';
+import { useOrgRepos, type Repo } from '../hooks/useOrgRepos';
+import { useForgeActivity } from '../hooks/useForgeActivity';
+import { relativeTime } from '../utils/relativeTime';
 
-const STATIC_PROJECTS = [
-  {
-    id: 'voix',
-    name: "Voix",
-    description: "projects.voix.description",
-    html_url: "https://github.com/Veridian-Zenith/Voix",
-    topics: ["system", "security", "c++", "linux"],
-    language: "C++",
-    icon: Shield
-  },
-  {
-    id: 'galdr',
-    name: "Galdr",
-    description: "projects.galdr.description",
-    html_url: "https://github.com/Veridian-Zenith/Galdr",
-    topics: ["system", "rust", "linux", "initramfs"],
-    language: "Rust",
-    icon: Cog
-  },
-  {
-    id: 'ljod',
-    name: "Ljod",
-    description: "projects.ljod.description",
-    html_url: "https://github.com/Veridian-Zenith/ljod",
-    topics: ["app", "kotlin", "android", "audio"],
-    language: "Kotlin",
-    icon: Music
-  },
-  {
-    id: 'llamacpp-ui',
-    name: "llama.cpp UI",
-    description: "projects.llamacpp_ui.description",
-    html_url: "https://github.com/Veridian-Zenith/llama.cpp-ui",
-    topics: ["app", "web", "ai", "typescript"],
-    language: "TypeScript",
-    icon: Brain
-  },
-  {
-    id: 'meshiji',
-    name: "Meshiji",
-    description: "projects.meshiji.description",
-    html_url: "https://github.com/Veridian-Zenith/meshiji",
-    topics: ["app", "flutter", "dart", "ui", "linux"],
-    language: "Dart",
-    icon: Folder,
-    deprecated: true
-  },
-  {
-    id: 'peguni',
-    name: "Peguni Draem'la",
-    description: "projects.peguni.description",
-    html_url: "https://github.com/Veridian-Zenith/peguni_draem-la",
-    topics: ["game", "lua", "conlang"],
-    language: "Lua",
-    icon: PawPrint,
-    deprecated: true
-  },
-  {
-    id: 'dds',
-    name: "DDS",
-    description: "projects.dds.description",
-    html_url: "https://github.com/Veridian-Zenith/DDS",
-    topics: ["app", "rust", "discord", "linux"],
-    language: "Rust",
-    icon: MonitorDot
-  },
-  {
-    id: 'wuming',
-    name: "WuMing",
-    description: "projects.wuming.description",
-    html_url: "https://github.com/Veridian-Zenith/WuMing",
-    topics: ["app", "security", "antivirus", "gtk", "linux"],
-    language: "C",
-    icon: Terminal
-  },
-  {
-    id: 'heimdallr',
-    name: "Heimdallr",
-    description: "projects.heimdallr.description",
-    html_url: "https://github.com/Veridian-Zenith/Heimdallr",
-    topics: ["system", "security", "dns", "rust", "linux"],
-    language: "Rust",
-    icon: Server
-  },
-  {
-    id: 'verdandi',
-    name: "Verdandi",
-    description: "projects.verdandi.description",
-    html_url: "https://github.com/Veridian-Zenith/Verdandi",
-    topics: ["system", "os", "security", "rust", "linux"],
-    language: "Rust",
-    icon: Cpu
-  }
-];
+/** The API's `archived` flag wins over our editorial status. */
+const liveStatus = (fallback: Status, repo?: Repo): Status => (repo?.archived ? 'archived' : fallback);
 
-const topicColors: Record<string, string> = {
-  web: 'border-amber-500/50 text-amber-500 shadow-[0_0_10px_rgba(255,179,71,0.2)]',
-  app: 'border-red-500/50 text-red-500 shadow-[0_0_10px_rgba(215,38,56,0.2)]',
-  game: 'border-gold-500/50 text-gold-500 shadow-[0_0_10px_rgba(255,215,0,0.2)]',
-  system: 'border-purple-500/50 text-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.2)]',
-  collection: 'border-blue-500/50 text-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.2)]',
-  dns: 'border-cyan-500/50 text-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.2)]',
-  os: 'border-orange-500/50 text-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.2)]',
+const statusTone: Record<Status, string> = {
+  stable: 'text-amber-400/50',
+  early: 'text-amber-300/70',
+  archived: 'text-red-400/70',
 };
+
+const shortName = (full: string) => (full.includes('/') ? full.split('/').pop()! : full);
 
 export const ProjectsPage = () => {
   const { t } = useTranslation();
-  const isMobile = useIsMobile();
-  const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
+  const { repos, loading } = useOrgRepos();
+  const { activities } = useForgeActivity();
+  const [active, setActive] = useState(ARTIFACTS[0]);
+  const ActiveIcon = active.Icon;
+
+  // Live metadata for the selected artifact, when the API knows about it.
+  const liveFor = (a: { name: string }) => repos.find((r) => r.name.toLowerCase() === a.name.toLowerCase());
+  const live = liveFor(active);
+  const liveSignal = activities
+    .filter((a) => shortName(a.repo).toLowerCase() === active.name.toLowerCase())
+    .map((a) => ({ t: a.date, e: a.type.toLowerCase(), m: a.message, r: a.repo }));
 
   return (
-    <div className="pt-32 pb-24 px-8 max-w-7xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-16 relative"
-      >
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary-themeable/10 blur-[100px] pointer-events-none" />
-        <h1 className="text-5xl sm:text-7xl font-bold text-primary-themeable mb-6 drop-shadow-glow-themeable">
-          {t('projects.title')}
-        </h1>
-        <p className="text-secondary-themeable max-w-2xl mx-auto text-lg leading-relaxed">
-          {t('projects.subtitle')}
-        </p>
-      </motion.div>
+    <div className="min-h-screen">
+      <PageHeader
+        fig="fig. 02 · projects"
+        title={t('projects.title')}
+        lede={t('projects.subtitle')}
+      />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {STATIC_PROJECTS.map((repo, index) => {
-          return (
-            <div
-              key={repo.id}
-              onMouseEnter={() => setHoveredProjectId(repo.id)}
-              onMouseLeave={() => setHoveredProjectId(null)}
-            >
-              <AnimatedCard
-                delay={index * 0.05}
-                className={cn(
-                  "flex flex-col h-full transition-all duration-500",
-                  hoveredProjectId === repo.id && "border-primary-themeable/50 scale-[1.02] bg-secondary-themeable"
-                )}
-              >
-                <div className="flex justify-between items-start mb-4">
-                    <div className="flex items-center gap-3">
-                      <motion.div
-                        className="p-2 bg-secondary-themeable rounded-lg text-primary-themeable shadow-glow-inset-themeable border border-muted-themeable"
-                        whileHover={isMobile ? {} : { rotate: 360, scale: 1.1 }}
-                      >
-                        <repo.icon size={24} />
-                      </motion.div>
-                      <div className="flex flex-col">
-                        <h3 className="text-base sm:text-lg font-bold text-primary-themeable tracking-tight">{repo.name}</h3>
-                        {repo.deprecated && (
-                          <span className="text-[9px] uppercase tracking-widest text-red-500 font-black opacity-80">
-                            {t('projects.deprecated')}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                </div>
-
-                <p className="text-secondary-themeable mb-6 line-clamp-3 flex-grow text-sm leading-relaxed">
-                  {t(repo.description)}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {repo.topics.map(topic => (
-                    <motion.span
-                      key={topic}
-                      whileHover={isMobile ? {} : { scale: 1.1, y: -2 }}
-                      className={cn(
-                        "text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full border bg-secondary-themeable font-bold transition-all",
-                        topicColors[topic] || 'border-muted-themeable text-secondary-themeable'
-                      )}
-                    >
-                      {topic}
-                    </motion.span>
-                  ))}
-                </div>
-
-                <div className="flex items-center justify-between mt-auto pt-4 border-t border-muted-themeable">
-                  <div className="flex items-center gap-4">
-                    <a
-                      href={repo.html_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-2 text-primary-themeable hover:brightness-125 transition-all font-semibold text-sm"
-                    >
-                      {t('projects.inspect')} <ExternalLink size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </a>
-                  </div>
-                </div>
-              </AnimatedCard>
-            </div>
-          );
-        })}
-
-        <div className="border border-dashed border-muted-themeable rounded-2xl flex flex-col items-center justify-center p-8 text-center bg-secondary-themeable opacity-40 min-h-[250px]">
-          <Terminal size={32} className="text-secondary-themeable/40 mb-4" />
-          <p className="text-secondary-themeable italic">{t('projects.future')}</p>
+      <Section>
+        <SectionHead index="fig. 02a" title="Registry" />
+        <div className="bg-black border border-amber-400/25 rounded-2xl overflow-hidden">
+          <div className="hidden sm:grid grid-cols-[minmax(0,1fr)_5rem_7rem_5rem] gap-4 px-5 py-2.5 border-b border-amber-400/15 text-[9px] font-mono uppercase tracking-[0.2em] text-amber-400/40">
+            <span>package</span>
+            <span>lang</span>
+            <span>pushed</span>
+            <span className="text-right">status</span>
+          </div>
+          <ul>
+            {ARTIFACTS.map((a) => {
+              const isActive = active.id === a.id;
+              return (
+                <li key={a.id}>
+                  <button
+                    type="button"
+                    onClick={() => setActive(a)}
+                    className={`w-full text-left grid sm:grid-cols-[minmax(0,1fr)_5rem_7rem_5rem] gap-x-4 items-center gap-y-1 px-5 py-3.5 border-b border-amber-400/[0.07] last:border-0 transition-colors ${
+                      isActive ? 'bg-amber-500/[0.06]' : 'hover:bg-amber-500/[0.03]'
+                    }`}
+                  >
+                    <span className="flex items-center gap-3 min-w-0">
+                      <a.Icon size={15} className={`shrink-0 ${isActive ? 'text-amber-300' : 'text-amber-300/50'}`} />
+                      <span className="min-w-0">
+                        <span className={`block text-sm font-mono font-bold tracking-tight truncate ${isActive ? 'text-amber-200' : 'text-amber-100/60'}`}>
+                          {a.label}
+                        </span>
+                        <span className="block text-[10px] text-amber-100/30 truncate">{a.role}</span>
+                      </span>
+                    </span>
+                    <span className="text-[10px] font-mono text-amber-400/50">{a.lang}</span>
+                    <span className="text-[10px] font-mono text-amber-100/35">{live ? relativeTime(live.pushed_at) : '—'}</span>
+                    <span className={`text-[10px] font-mono text-right ${statusTone[liveStatus(a.status, liveFor(a))]}`}>
+                      {liveStatus(a.status, liveFor(a))}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
         </div>
-      </div>
+      </Section>
+
+      <Section className="!pt-0">
+        <SectionHead index="fig. 02b" title={`${active.label}`} />
+
+        <div className="grid lg:grid-cols-5 gap-8">
+          <div className="lg:col-span-3 relative bg-black border border-amber-400/20 rounded-2xl overflow-hidden">
+            <Brackets />
+            <BlueprintGrid />
+            <div className="relative p-6 sm:p-8">
+              <div className="flex items-start justify-between gap-5">
+                <div className="min-w-0">
+                  <h3 className="text-2xl sm:text-3xl font-black text-amber-200 tracking-tighter font-mono">
+                    {active.name}
+                  </h3>
+                  <p className="text-sm text-amber-100/40 mt-2">{t(active.descKey)}</p>
+                </div>
+                <ActiveIcon size={26} className="text-amber-300/70 shrink-0" />
+              </div>
+
+              <div className="flex flex-wrap gap-1.5 mt-6">
+                {active.topics.map((topic) => (
+                  <span key={topic} className="text-[10px] font-mono px-2 py-1 rounded border border-amber-400/20 text-amber-300/70 bg-amber-500/[0.04]">
+                    {topic}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-amber-400/15">
+                <SpecList items={[
+                  ['language', live?.language ?? active.lang],
+                  ['licence', live?.license?.spdx_id ?? active.licence],
+                  ['stars', live ? String(live.stargazers_count) : '—'],
+                  ['pushed', live ? relativeTime(live.pushed_at) : '—'],
+                ]} />
+              </div>
+
+              <a
+                href={`https://github.com/Veridian-Zenith/${active.name}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-7 inline-flex items-center gap-2 text-amber-300 hover:text-amber-200 font-bold text-sm transition-colors"
+              >
+                {t('projects.inspect')}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div className="lg:col-span-2">
+            {liveSignal.length > 0 ? (
+              <SignalFeed rows={liveSignal} />
+            ) : (
+              <div className="text-amber-100/30 text-sm font-mono border border-amber-400/15 rounded-2xl p-6">
+                {loading ? 'reading forge…' : 'no recent activity for this artifact'}
+              </div>
+            )}
+          </div>
+        </div>
+      </Section>
+
+      <Section className="!pt-0">
+        <div className="relative overflow-hidden rounded-2xl border border-amber-400/20 bg-black/40">
+          <BlueprintGrid />
+          <div className="relative p-8 sm:p-10 text-center">
+            <p className="text-amber-100/40 text-sm max-w-md mx-auto leading-relaxed">
+              {t('projects.future')}
+            </p>
+          </div>
+        </div>
+      </Section>
     </div>
   );
 };

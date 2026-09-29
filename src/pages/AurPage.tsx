@@ -1,201 +1,129 @@
 //! License: Open Software License 3.0 (OSL-3.0)
 //! Copyright (c) 2026 Dae Euhwa
 
-import { motion } from 'framer-motion';
-import { AnimatedCard } from '../components';
-import { Package, Terminal, Shield, Download, ExternalLink, AlertTriangle } from 'lucide-react';
+import { PageHeader, Section, SectionHead, Panel, Specimen } from '../components/Forge';
+import { Package, Terminal, Shield, Download, ExternalLink, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useIsMobile } from '../hooks';
-import { Link } from 'react-router-dom';
+
+const TILE = 'w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-400/25 flex items-center justify-center shrink-0';
 
 export const AurPage = () => {
   const { t } = useTranslation();
-  const isMobile = useIsMobile();
-
-  if (isMobile) {
-    return (
-      <div className="min-h-screen flex items-center justify-center px-6">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="text-center bg-secondary-themeable/20 backdrop-blur-xl border border-muted-themeable p-10 rounded-3xl max-w-sm"
-        >
-          <AlertTriangle className="mx-auto text-amber-500 mb-6" size={48} />
-          <h2 className="text-2xl font-bold mb-4 text-primary-themeable">Desktop Feature</h2>
-          <p className="text-secondary-themeable mb-8 leading-relaxed">
-            The AUR (Arch User Repository) management page is optimized for desktop view.
-          </p>
-          <Link
-            to="/"
-            className="inline-block bg-[var(--vz-accent-vibrant)] text-black font-black px-8 py-3 rounded-full shadow-glow-themeable"
-          >
-            Return Home
-          </Link>
-        </motion.div>
-      </div>
-    );
-  }
 
   const packages = [
-    {
-      id: 'meshiji',
-      icon: <Package className="text-amber-500" size={32} />,
-      title: 'meshiji',
-      description: t('projects.meshiji.description'),
-      url: 'https://aur.archlinux.org/packages/meshiji',
-      deprecated: true
-    },
-    {
-      id: 'voix',
-      icon: <Download className="text-red-500" size={32} />,
-      title: 'voix',
-      description: t('projects.voix.description'),
-      url: 'https://aur.archlinux.org/packages/voix'
-    },
-    {
-      id: 'peguni_draem-la',
-      icon: <Shield className="text-gold-500" size={32} />,
-      title: 'peguni_draem-la',
-      description: t('projects.peguni.description'),
-      url: 'https://aur.archlinux.org/packages/peguni_draem-la'
-    },
-    {
-      id: 'ddsh-bin',
-      icon: <Package className="text-purple-500" size={32} />,
-      title: 'ddsh-bin',
-      description: t('aur.packages.ddsh-bin.description'),
-      url: 'https://aur.archlinux.org/packages/ddsh-bin'
-    },
-    {
-      id: 'ddsh-git',
-      icon: <Package className="text-purple-500" size={32} />,
-      title: 'ddsh-git',
-      description: t('aur.packages.ddsh-git.description'),
-      url: 'https://aur.archlinux.org/packages/ddsh-git'
-    },
-    {
-      id: 'ddsc-bin',
-      icon: <Package className="text-blue-500" size={32} />,
-      title: 'ddsc-bin',
-      description: t('aur.packages.ddsc-bin.description'),
-      url: 'https://aur.archlinux.org/packages/ddsc-bin'
-    },
-    {
-      id: 'ddsc-git',
-      icon: <Package className="text-blue-500" size={32} />,
-      title: 'ddsc-git',
-      description: t('aur.packages.ddsc-git.description'),
-      url: 'https://aur.archlinux.org/packages/ddsc-git'
-    }
+    { id: 'voix', Icon: Download, title: 'voix', description: t('projects.voix.description'), url: 'https://aur.archlinux.org/packages/voix' },
+    { id: 'meshiji', Icon: Package, title: 'meshiji', description: t('projects.meshiji.description'), url: 'https://aur.archlinux.org/packages/meshiji' },
+    { id: 'peguni_draem-la', Icon: Shield, title: 'peguni_draem-la', description: t('projects.peguni.description'), url: 'https://aur.archlinux.org/packages/peguni_draem-la' },
+    { id: 'ddsh-bin', Icon: Package, title: 'ddsh-bin', description: t('aur.packages.ddsh-bin.description'), url: 'https://aur.archlinux.org/packages/ddsh-bin' },
+    { id: 'ddsh-git', Icon: Package, title: 'ddsh-git', description: t('aur.packages.ddsh-git.description'), url: 'https://aur.archlinux.org/packages/ddsh-git' },
+    { id: 'ddsc-bin', Icon: Package, title: 'ddsc-bin', description: t('aur.packages.ddsc-bin.description'), url: 'https://aur.archlinux.org/packages/ddsc-bin' },
+    { id: 'ddsc-git', Icon: Package, title: 'ddsc-git', description: t('aur.packages.ddsc-git.description'), url: 'https://aur.archlinux.org/packages/ddsc-git' },
+    { id: 'veridian-zenith-git', Icon: Package, title: 'veridian-zenith-git', description: t('aur.packages.veridian-zenith-git.description'), url: 'https://aur.archlinux.org/packages/veridian-zenith-git' },
+    { id: 'veridian-icons-git', Icon: Package, title: 'veridian-icons-git', description: t('aur.packages.veridian-icons-git.description'), url: 'https://aur.archlinux.org/packages/veridian-icons-git' },
+    { id: 'veridian-cursors', Icon: Package, title: 'veridian-cursors', description: t('aur.packages.veridian-cursors.description'), url: 'https://aur.archlinux.org/packages/veridian-cursors' },
   ];
 
   return (
-    <div className="min-h-screen pt-32 pb-20 px-6 sm:px-10 max-w-7xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-20"
-      >
-        <h1 className="text-5xl sm:text-7xl font-black mb-6 gradient-themeable filter brightness-110 tracking-tight">
-          {t('aur.title')}
-        </h1>
-        <p className="text-xl text-secondary-themeable max-w-2xl mx-auto leading-relaxed">
-          {t('aur.subtitle')}
-        </p>
-      </motion.div>
+    <div className="min-h-screen">
+      <PageHeader fig="fig. 08 · aur" title={t('aur.title')} lede={t('aur.subtitle')} />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-        {packages.map((pkg, i) => (
-          <AnimatedCard key={pkg.id} delay={i * 0.1}>
-            <div className="flex flex-col h-full">
-              <div className="mb-6">
-                <div className="p-3 bg-primary-themeable/10 rounded-2xl w-fit border border-muted-themeable text-primary-themeable">
-                  {pkg.icon}
+      <Section>
+        <SectionHead index="fig. 08a" title="Packages" />
+
+        {/* h-full on the grid child + flex on the inner column is what keeps
+            descriptions and links aligned across rows of differing text length. */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {packages.map(({ id, Icon, title, description, url }) => (
+            <Panel key={id} className="group h-full !border-amber-400/20">
+              <div className="flex h-full flex-col p-5 sm:p-6">
+                <div className={TILE}>
+                  <Icon size={18} className="text-amber-300 transition-colors group-hover:text-amber-200" />
                 </div>
+
+                <h3 className="mt-5 text-sm sm:text-base font-mono font-bold text-amber-200 tracking-tight break-all">
+                  {title}
+                </h3>
+
+                <p className="mt-2.5 text-amber-100/40 text-sm leading-relaxed flex-1">
+                  {description}
+                </p>
+
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 pt-4 border-t border-amber-400/15 inline-flex items-center gap-2 text-amber-300 hover:text-amber-200 font-bold text-xs uppercase tracking-widest transition-colors"
+                >
+                  {t('projects.inspect')}
+                  <ExternalLink size={12} className="group-hover/link:translate-x-0.5 transition-transform" />
+                </a>
               </div>
-               <h3 className="text-2xl font-bold mb-4 text-primary-themeable group-hover:brightness-125 transition-all flex items-center gap-2">
-                 {pkg.title}
-                 {pkg.deprecated && (
-                   <span className="text-[10px] uppercase tracking-widest text-amber-500 font-black opacity-80">
-                     {t('projects.deprecated')}
-                   </span>
-                 )}
-               </h3>
-              <p className="text-secondary-themeable mb-6 leading-relaxed text-sm flex-grow">
-                {pkg.description}
-              </p>
+            </Panel>
+          ))}
+        </div>
+      </Section>
 
-              <a
-                href={pkg.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-primary-themeable font-bold hover:brightness-125 transition-all group/link mt-auto"
-              >
-                {t('projects.inspect')} <ExternalLink size={16} className="group-hover/link:translate-x-1 transition-transform" />
-              </a>
-            </div>
-          </AnimatedCard>
-        ))}
-      </div>
+      <Section className="!pt-0">
+        <SectionHead index="fig. 08b" title={t('aur.install.title')} />
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="max-w-3xl mx-auto"
-      >
-        <div className="bg-secondary-themeable/40 backdrop-blur-xl border border-muted-themeable rounded-3xl p-8 sm:p-12">
+        <Specimen className="p-6 sm:p-10">
           <div className="flex items-center gap-4 mb-8">
-            <Terminal className="text-primary-themeable" size={24} />
-            <h2 className="text-2xl font-bold text-primary-themeable uppercase tracking-widest">
+            <div className={TILE}>
+              <Terminal size={18} className="text-amber-300" />
+            </div>
+            <h2 className="text-lg font-black text-amber-200 uppercase tracking-widest">
               {t('aur.install.title')}
             </h2>
           </div>
 
-          {/* Installing paru section */}
-          <div className="mb-10 bg-secondary-themeable rounded-2xl p-6 border border-muted-themeable">
-            <h3 className="text-sm font-bold text-primary-themeable uppercase tracking-[0.2em] mb-4">First: Install paru (AUR Helper)</h3>
-            <div className="bg-primary-themeable/5 rounded-xl p-5 font-mono text-xs sm:text-sm text-secondary-themeable space-y-2 border border-muted-themeable/20">
-              <div className="flex gap-3"><span className="text-primary-themeable select-none">$</span><span>sudo pacman -S --needed base-devel</span></div>
-              <div className="flex gap-3"><span className="text-primary-themeable select-none">$</span><span>git clone https://aur.archlinux.org/paru.git</span></div>
-              <div className="flex gap-3"><span className="text-primary-themeable select-none">$</span><span>cd paru</span></div>
-              <div className="flex gap-3"><span className="text-primary-themeable select-none">$</span><span>makepkg -si</span></div>
+          <div className="mb-8 rounded-2xl border border-amber-400/20 p-5">
+            <h3 className="text-[10px] font-mono uppercase tracking-[0.2em] text-amber-300/80 mb-4">
+              First: install paru (AUR helper)
+            </h3>
+            <div className="rounded-xl border border-amber-400/10 bg-amber-500/[0.03] p-4 font-mono text-xs sm:text-sm text-amber-100/45 space-y-2">
+              {['sudo pacman -S --needed base-devel', 'git clone https://aur.archlinux.org/paru.git', 'cd paru', 'makepkg -si'].map((cmd) => (
+                <div key={cmd} className="flex gap-3">
+                  <span className="text-amber-400 select-none">$</span>
+                  <span className="break-all">{cmd}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-secondary-themeable/60 rounded-2xl p-6 font-mono text-sm border border-muted-themeable relative group overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-themeable/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative z-10">
-                <div className="text-secondary-themeable/40 mb-2"># Install with paru (Recommended)</div>
-                <div className="flex items-center gap-3">
-                  <span className="text-primary-themeable select-none">$</span>
-                  <span className="text-secondary-themeable">paru -S voix</span>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {[
+              { note: '# install with paru (recommended)', cmd: 'paru -S voix', dim: false },
+              { note: '# alternative: install with yay', cmd: 'yay -S voix', dim: true },
+            ].map(({ note, cmd, dim }) => (
+              <div
+                key={cmd}
+                className={`rounded-2xl border border-amber-400/20 p-5 font-mono text-xs sm:text-sm relative overflow-hidden group ${
+                  dim ? 'opacity-60 hover:opacity-100 transition-opacity' : ''
+                }`}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-500/[0.06] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative">
+                  <div className="text-amber-100/30 mb-2">{note}</div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-amber-400 select-none">$</span>
+                    <span className="text-amber-100/60">{cmd}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="bg-secondary-themeable/60 rounded-2xl p-6 font-mono text-sm border border-muted-themeable relative group overflow-hidden opacity-70 hover:opacity-100 transition-opacity">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-themeable/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative z-10">
-                <div className="text-secondary-themeable/40 mb-2"># Alternative: Install with yay</div>
-                <div className="flex items-center gap-3">
-                  <span className="text-primary-themeable select-none">$</span>
-                  <span className="text-secondary-themeable">yay -S voix</span>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
-          <div className="mt-8 flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-secondary-themeable/40">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+
+          <div className="mt-8 pt-6 border-t border-amber-400/15 flex flex-wrap items-center gap-4 justify-between text-[10px] font-mono uppercase tracking-[0.2em] text-amber-100/30">
+            <span className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
               {t('aur.maintainer')}: Dae Euhwa
-            </div>
-            <div className="hidden sm:block">
-              Architecture: x86_64
-            </div>
+            </span>
+            <span className="flex items-center gap-2">
+              <Globe size={11} /> Architecture: x86_64
+            </span>
           </div>
-        </div>
-      </motion.div>
+        </Specimen>
+      </Section>
     </div>
   );
 };

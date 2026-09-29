@@ -126,7 +126,7 @@ export const LoadingScreen = ({ onLoadingComplete }: Props) => {
 
   return (
     <div
-      className="fixed inset-0 z-[200] bg-primary-themeable flex flex-col items-center justify-center overflow-hidden font-mono"
+      className="fixed inset-0 z-[200] bg-black flex flex-col items-center justify-center overflow-hidden font-mono"
     >
       {/* CRT Scanlines Overlay */}
       <div className="absolute inset-0 pointer-events-none z-50 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] opacity-30" />
@@ -215,9 +215,9 @@ export const LoadingScreen = ({ onLoadingComplete }: Props) => {
                 {roundedProgress}%
               </motion.span>
             </div>
-            <div className="w-64 h-1 bg-secondary-themeable rounded-full overflow-hidden border border-primary-themeable/20">
+            <div className="w-64 h-1 bg-amber-500/10 rounded-full overflow-hidden border border-amber-400/25">
               <motion.div
-                className="h-full bg-gradient-to-r from-primary-themeable via-themeable to-primary-themeable shadow-primary-themeable"
+                className="h-full bg-gradient-to-r from-amber-600 via-amber-400 to-amber-600 shadow-[0_0_12px_rgba(255,179,71,0.4)]"
                 initial={{ width: 0 }}
                 animate={{ width: `${roundedProgress}%` }}
               />

@@ -23,6 +23,7 @@
   "stats.personal_artifacts": "Personal Artifacts",
   "stats.updating": "Updating...",
   "stats.force_refresh": "Force Refresh",
+  "stats.archived_artifacts": "Archived artifacts",
   "repo.no_description": "No description provided.",
   "repo.lang": "Lang:",
   "about.title": "The Nordic Zenith",

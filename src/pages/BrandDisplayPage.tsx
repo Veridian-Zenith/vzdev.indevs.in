@@ -46,13 +46,13 @@ export const BrandDisplayPage = () => {
         ref={containerRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="pt-32 pb-24 px-8 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] cursor-crosshair overflow-hidden"
+        className="pt-32 pb-24 px-6 sm:px-8 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] cursor-crosshair overflow-hidden"
       >
         <div className="text-center mb-12">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-3xl sm:text-5xl font-bold text-primary-themeable mb-2 tracking-tight"
+            className="text-3xl sm:text-5xl font-black text-amber-200 mb-2 tracking-tighter"
           >
             {t('footer.sigil')}
           </motion.h2>
@@ -60,7 +60,7 @@ export const BrandDisplayPage = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-secondary-themeable italic opacity-60"
+            className="text-amber-100/40 italic text-sm"
           >
             {t('sigil.subtitle')}
           </motion.p>

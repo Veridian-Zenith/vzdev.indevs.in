@@ -1,160 +1,134 @@
-import { motion } from 'framer-motion';
-import { AnimatedCard } from '../components';
-import { useTranslation } from 'react-i18next';
-import { Code, Wrench, Globe, Users, Server, Lock, Briefcase, BookOpen } from 'lucide-react';
+//! License: Open Software License 3.0 (OSL-3.0)
+//! Copyright (c) 2026 Dae Euhwa
+
+import { Code, Server, Wrench, Lock, Briefcase, BookOpen, Users, Globe } from 'lucide-react';
+import {
+  PageHeader, Section, SectionHead, Brackets, BlueprintGrid, SignalFeed,
+} from '../components/Forge';
+import type { SignalRow } from '../components/Forge';
+
+const CATEGORIES = [
+  {
+    Icon: Code, fig: 'A', title: 'Systems programming', level: 'primary',
+    skills: ['C++ (C++26)', 'C', 'Rust', 'TypeScript', 'Kotlin', 'Lua', 'Linux systems', 'Kernel dev (x86_64)', 'seccomp · capabilities · PAM'],
+  },
+  {
+    Icon: Server, fig: 'B', title: 'Infrastructure', level: 'primary',
+    skills: ['Linux administration', 'DNS server management', 'nftables', 'Initramfs generation', 'Wayland / compositor integration', 'CI/CD', 'Infrastructure automation'],
+  },
+  {
+    Icon: Lock, fig: 'C', title: 'Security', level: 'primary',
+    skills: ['Privilege enforcement', 'Syscall filtering', 'Capability reduction', 'PAM integration', 'Policy evaluation', 'DNS security', 'QNAME minimisation', 'Defense-in-depth'],
+  },
+  {
+    Icon: Wrench, fig: 'D', title: 'Tools & platforms', level: 'secondary',
+    skills: ['Git', 'AUR maintenance', 'Arch Linux', 'Hyprland', 'COSMIC', 'Niri', 'Flutter / Dart', 'React / TypeScript', 'Terminal workflows'],
+  },
+  {
+    Icon: Briefcase, fig: 'E', title: 'Experience', level: 'secondary',
+    skills: [
+      'Linux administrator — DNS, firewall, system security',
+      'Open source contributor — Voix, Galdr, DDS, Heimdallr, Verdandi',
+      'Operating system development — Verdandi',
+      'Subway sandwich artist / cashier (2022)',
+    ],
+  },
+  {
+    Icon: BookOpen, fig: 'F', title: 'Education', level: 'secondary',
+    skills: ['Riverside High School (2012–2024)', 'E.A.S.T. Program (2022–2023)'],
+  },
+];
+
+const RECENT: SignalRow[] = [
+  { t: '04:12', e: 'commit', m: 'verdandi — capability manifest enforcement', r: 'verdandi' },
+  { t: '03:21', e: 'merge', m: 'heimdallr — qname minimisation gate', r: 'heimdallr' },
+  { t: '02:47', e: 'commit', m: 'galdr — parallel module ordering', r: 'galdr' },
+  { t: '01:36', e: 'merge', m: 'meshiji — token-driven surface', r: 'meshiji' },
+  { t: '00:58', e: 'ci', m: 'codeql advanced — 0 findings on main', r: 'pipeline' },
+];
 
 export const SkillsPage = () => {
-  useTranslation();
-
-  const skillCategories = [
-    {
-      title: "Systems Programming",
-      icon: Code,
-      skills: [
-        "C++ (C++26)",
-        "C",
-        "Rust",
-        "TypeScript",
-        "Kotlin",
-        "Lua",
-        "Linux Systems Programming",
-        "Kernel Development (x86_64)",
-        "Security Hardening (seccomp, capabilities, PAM)",
-      ],
-    },
-    {
-      title: "DevOps & Infrastructure",
-      icon: Server,
-      skills: [
-        "Linux Administration",
-        "DNS Server Management",
-        "Network Firewall Configuration (nftables)",
-        "Initramfs Generation",
-        "Wayland / Compositor Integration (Hyprland, COSMIC, Niri)",
-        "CI/CD Pipelines",
-        "Infrastructure Automation",
-      ],
-    },
-    {
-      title: "Tools & Platforms",
-      icon: Wrench,
-      skills: [
-        "Git Version Control",
-        "AUR Package Maintenance",
-        "Arch Linux",
-        "Hyprland",
-        "COSMIC Desktop",
-        "Flutter / Dart",
-        "React / TypeScript Web Development",
-        "Terminal/CLI Workflows",
-      ],
-    },
-    {
-      title: "Security",
-      icon: Lock,
-      skills: [
-        "Privilege Enforcement",
-        "Syscall Filtering",
-        "Capability Reduction",
-        "PAM Integration",
-        "Policy Evaluation",
-        "Defense-in-Depth",
-        "DNS Security & Resolver Hardening",
-        "QNAME Minimization",
-      ],
-    },
-    {
-      title: "Work Experience",
-      icon: Briefcase,
-      skills: [
-        "Subway Sandwich Artist/Cashier (2022) - Multi-station rotation, customer service, inventory",
-        "Self-employed Linux Administrator - DNS server, firewall configuration, system security",
-        "Open Source Contributor - AUR package maintainer, Voix, Galdr, DDS, Heimdallr, Verdandi, meshiji projects",
-        "Operating System Development - Verdandi (x86_64 kernel, permission-based security model)",
-      ],
-    },
-    {
-      title: "Education",
-      icon: BookOpen,
-      skills: [
-        "Riverside High School (2012-2024) - Junior High School Education",
-        "E.A.S.T. Program (2022-2023) - Physical presence in professional environments",
-      ],
-    },
-    {
-      title: "Soft Skills",
-      icon: Users,
-      skills: [
-        "Customer Service",
-        "Multi-tasking Across Stations",
-        "Physical Stamina & Adaptability",
-        "Troubleshooting",
-        "Self-directed Learning",
-        "Problem Solving",
-      ],
-    },
-    {
-      title: "Languages",
-      icon: Globe,
-      skills: [
-        "English (Fluent)",
-      ],
-    },
-  ];
-
   return (
-    <div className="pt-32 pb-24 px-8 max-w-6xl mx-auto min-h-screen relative z-10">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-16"
-      >
-        <h1 className="text-5xl sm:text-7xl font-bold text-primary-themeable mb-6 drop-shadow-[0_0_20px_var(--vz-glow-color)]">
-          Skills & Expertise
-        </h1>
-        <p className="text-secondary-themeable max-w-2xl mx-auto text-xl italic leading-relaxed">
-          Technical capabilities forged in the digital void.
-        </p>
-      </motion.div>
+    <div className="min-h-screen">
+      <PageHeader
+        fig="fig. 03 · skills"
+        title="Skills & Expertise"
+        lede="Technical capabilities forged in the digital void — classified by depth, with the applied signal showing where the practice landed."
+      />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {skillCategories.map((category, index) => (
-          <AnimatedCard
-            key={category.title}
-            delay={index * 0.1}
-            className="bg-secondary-themeable/60 backdrop-blur-xl border-muted-themeable"
-          >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="p-3 bg-primary-themeable/10 rounded-xl text-primary-themeable">
-                <category.icon size={24} />
+      <Section>
+        <SectionHead index="fig. 03a" title="Classified" />
+        <div className="grid sm:grid-cols-2 gap-4">
+          {CATEGORIES.map((c) => (
+            <div
+              key={c.fig}
+              className={`relative bg-black border rounded-2xl overflow-hidden ${
+                c.level === 'primary' ? 'border-amber-400/30' : 'border-amber-400/15'
+              }`}
+            >
+              <span className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-400/60 to-transparent" />
+              <div className="p-5 sm:p-6">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-400/25 flex items-center justify-center shrink-0">
+                    <c.Icon size={18} className="text-amber-300" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-amber-400/40">{c.fig}</span>
+                    <h3 className="text-sm font-black text-amber-200 tracking-tight">{c.title}</h3>
+                  </div>
+                  <span className="ml-auto text-[9px] font-mono uppercase tracking-[0.2em] text-amber-400/30 shrink-0">
+                    {c.level}
+                  </span>
+                </div>
+                <ul className="mt-5 flex flex-wrap gap-1.5">
+                  {c.skills.map((s) => (
+                    <li key={s} className="text-[10px] px-2 py-1 rounded border border-amber-400/15 text-amber-100/45 bg-amber-500/[0.04]">
+                      {s}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <h3 className="text-base sm:text-lg font-bold text-primary-themeable tracking-tight">{category.title}</h3>
             </div>
-            <ul className="space-y-3">
-              {category.skills.map((skill) => (
-                <li key={skill} className="flex items-center gap-3 text-secondary-themeable">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary-themeable/50" />
-                  {skill}
-                </li>
-              ))}
-            </ul>
-          </AnimatedCard>
-        ))}
-      </div>
+          ))}
+        </div>
+      </Section>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mt-16 text-center"
-      >
-        <a
-          href="/resume.md"
-          download
-          className="inline-flex items-center gap-2 px-6 py-3 bg-primary-themeable/10 hover:bg-primary-themeable/20 border border-primary-themeable/30 rounded-full text-primary-themeable font-bold transition-all"
-        >
-          Download Resume (Markdown)
-        </a>
-      </motion.div>
+      <Section className="!pt-0">
+        <SectionHead index="fig. 03b" title="Applied signal" />
+        <div className="grid lg:grid-cols-5 gap-8">
+          <div className="lg:col-span-3">
+            <SignalFeed rows={RECENT} />
+          </div>
+
+          <div className="lg:col-span-2 space-y-4">
+            <div className="relative bg-black border border-amber-400/20 rounded-2xl p-6">
+              <Brackets />
+              <div className="relative">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-400/25 flex items-center justify-center">
+                  <Globe size={17} className="text-amber-300" />
+                </div>
+                <h3 className="text-sm font-black text-amber-200 tracking-tight mt-4">Languages</h3>
+                <p className="text-xs text-amber-100/40 mt-2">English (fluent)</p>
+              </div>
+            </div>
+
+            <div className="relative bg-black border border-amber-400/20 rounded-2xl p-6 overflow-hidden">
+              <BlueprintGrid />
+              <div className="relative flex items-center gap-3.5">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-400/25 flex items-center justify-center shrink-0">
+                  <Users size={17} className="text-amber-300" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-black text-amber-200 tracking-tight">Resume</h3>
+                  <a href="/resume.md" download className="text-xs text-amber-100/40 hover:text-amber-300 transition-colors mt-1 inline-block">
+                    Download · markdown
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
     </div>
   );
 };

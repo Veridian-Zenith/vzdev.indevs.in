@@ -12,7 +12,6 @@ const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ defaul
 const AurPage = lazy(() => import('./pages/AurPage').then(m => ({ default: m.AurPage })));
 const BrandDisplayPage = lazy(() => import('./pages/BrandDisplayPage').then(m => ({ default: m.BrandDisplayPage })));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
-const PrototypePage = lazy(() => import('./pages/PrototypePage').then(m => ({ default: m.PrototypePage })));
 const StatsPage = lazy(() => import('./pages/StatsPage').then(m => ({ default: m.StatsPage })));
 const TrackerPage = lazy(() => import('./pages/TrackerPage').then(m => ({ default: m.TrackerPage })));
 const SkillsPage = lazy(() => import('./pages/SkillsPage').then(m => ({ default: m.SkillsPage })));
@@ -75,7 +74,7 @@ function AppContent() {
 return (
     <MotionConfig reducedMotion={reducedMotion ? 'always' : 'never'}>
       <div className={cn(
-        "min-h-screen bg-[var(--vz-bg-primary)] text-secondary-themeable selection:bg-[var(--vz-accent-vibrant)]/30 font-rosemary transition-all duration-75 relative overflow-x-hidden",
+        "min-h-screen bg-black text-amber-100/50 selection:bg-amber-400/30 font-rosemary transition-all duration-75 relative overflow-x-hidden",
         isGlitching && "will-change-transform animate-glitch-intense"
       )}>
         {isLoading && (
@@ -92,8 +91,8 @@ return (
         <KonamiEffect />
 
         {showDiagnostics && (
-          <div className="fixed top-20 right-4 z-[100] bg-black/80 border border-primary-themeable p-4 rounded-lg font-mono text-[10px] text-primary-themeable backdrop-blur-xl shadow-2xl">
-            <h3 className="text-xs font-bold mb-2 border-b border-primary-themeable/30 pb-1">REAL-TIME DIAGNOSTICS</h3>
+          <div className="fixed top-20 right-4 z-[100] bg-black/90 border border-amber-400/30 p-4 rounded-2xl font-mono text-[10px] text-amber-300/80 backdrop-blur-xl shadow-2xl">
+            <h3 className="text-xs font-bold mb-2 border-b border-amber-400/25 pb-1 text-amber-200">REAL-TIME DIAGNOSTICS</h3>
             <p>FPS: 60</p>
             <p>MEM: {(performance as Performance & { memory?: { usedJSHeapSize: number } }).memory?.usedJSHeapSize ? Math.round((performance as Performance & { memory?: { usedJSHeapSize: number } }).memory!.usedJSHeapSize / 1048576) + 'MB' : 'N/A'}</p>
             <p>DOM: {document.querySelectorAll('*').length}</p>
@@ -116,7 +115,6 @@ return (
               <Route path="/skills" element={<SkillsPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/brand" element={<BrandDisplayPage />} />
-              <Route path="/prototype" element={<PrototypePage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>
@@ -124,11 +122,11 @@ return (
           {!isMobile && <TerminalEmulator isOpen={isTerminalOpen} onClose={() => setIsTerminalOpen(false)} />}
 
 
-          <footer className="fixed bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 w-[92vw] sm:w-auto max-w-3xl px-4 sm:px-6 py-2 sm:py-2 bg-[var(--vz-bg-secondary)]/80 sm:bg-[var(--vz-bg-secondary)]/60 backdrop-blur-md border border-muted-themeable rounded-xl sm:rounded-full text-[9px] sm:text-[10px] uppercase tracking-[0.12em] sm:tracking-[0.2em] text-secondary-themeable/50 shadow-xl flex flex-nowrap sm:flex-nowrap items-center justify-center gap-x-2 sm:gap-x-3 overflow-x-auto">
+          <footer className="fixed bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 w-[92vw] sm:w-auto max-w-3xl px-4 sm:px-6 py-2 bg-black/70 sm:bg-black/50 backdrop-blur-md border border-amber-400/20 rounded-2xl sm:rounded-full text-[9px] sm:text-[10px] uppercase tracking-[0.12em] sm:tracking-[0.2em] text-amber-100/30 shadow-xl flex flex-nowrap items-center justify-center gap-x-2 sm:gap-x-3 overflow-x-auto">
 
             <button
               onClick={triggerGlitch}
-              className="text-[var(--vz-accent-vibrant)] font-bold hover:scale-110 transition-transform cursor-pointer relative overflow-hidden px-1 group whitespace-nowrap"
+              className="text-amber-300 font-bold hover:text-amber-200 transition-colors cursor-pointer relative overflow-hidden px-1 group whitespace-nowrap"
             >
               <span className="relative z-10">© {CURRENT_YEAR} Veridian Zenith</span>
               <AnimatePresence>
@@ -138,32 +136,32 @@ return (
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1.2 }}
                     exit={{ opacity: 0 }}
-                    className="absolute inset-0 bg-[var(--vz-accent-vibrant)]/40 blur-md mix-blend-screen pointer-events-none"
+                    className="absolute inset-0 bg-amber-400/40 blur-md mix-blend-screen pointer-events-none"
                   />
                 )}
               </AnimatePresence>
               <motion.div
-                className="absolute inset-0 bg-[var(--vz-accent-vibrant)]/0 group-hover:bg-[var(--vz-accent-vibrant)]/10 transition-colors duration-300"
+                className="absolute inset-0 bg-amber-400/0 group-hover:bg-amber-400/10 transition-colors duration-300"
               />
             </button>
-            <span className="w-[1px] h-3 bg-muted-themeable hidden sm:block"></span>
-            <a href="https://opensource.org/licenses/OSL-3.0" target="_blank" rel="noopener noreferrer" className="text-[var(--vz-accent-vibrant)]/80 hover:text-[var(--vz-accent-vibrant)] transition-colors font-bold whitespace-nowrap px-1">
+            <span className="w-[1px] h-3 bg-amber-400/25 hidden sm:block"></span>
+            <a href="https://opensource.org/licenses/OSL-3.0" target="_blank" rel="noopener noreferrer" className="text-amber-400/70 hover:text-amber-300 transition-colors font-bold whitespace-nowrap px-1">
               OSL-3.0
             </a>
-            <span className="w-[1px] h-3 bg-muted-themeable hidden sm:block shrink-0"></span>
-            <a href="https://stuff.mit.edu/doc/counter-howto.html" target="_blank" rel="noopener noreferrer" className="flex items-center hover:opacity-80 transition-opacity shrink-0">
-              <div className="relative mix-blend-screen overflow-hidden rounded opacity-70">
-                <img src="https://stuff.mit.edu/cgi/counter/veridiandotzenithdotqzzdotio" alt="counter" className="h-4 sm:h-6 invert relative z-10 block" style={{ imageRendering: 'pixelated', filter: 'invert(1) contrast(200%) grayscale(100%)' }} loading="lazy" decoding="async" />
+            <span className="w-[1px] h-3 bg-amber-400/25 hidden sm:block shrink-0"></span>
+            <a href="https://stuff.mit.edu/doc/counter-howto.html" target="_blank" rel="noopener noreferrer" className="flex items-center hover:opacity-80 transition-opacity shrink-0" title="Visit counter">
+              <div className="relative overflow-hidden rounded opacity-60">
+                <img src="https://stuff.mit.edu/cgi/counter/veridiandotzenithdotqzzdotio" alt="counter" className="h-3 sm:h-4 block" style={{ imageRendering: 'pixelated', filter: 'sepia(1) saturate(6) hue-rotate(-15deg) brightness(1.1)' }} loading="lazy" decoding="async" />
               </div>
             </a>
-            <span className="w-[1px] h-3 bg-muted-themeable hidden sm:block shrink-0"></span>
+            <span className="w-[1px] h-3 bg-amber-400/25 hidden sm:block shrink-0"></span>
             <button
               onClick={() => navigate('/brand')}
-              className="flex items-center gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1 bg-[var(--vz-accent-vibrant)]/10 hover:bg-[var(--vz-accent-vibrant)]/20 border border-[var(--vz-accent-vibrant)]/20 rounded-lg transition-all group/sigil cursor-pointer"
+              className="flex items-center gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/25 rounded-lg transition-all group/sigil cursor-pointer"
               title="View Brand Assets"
             >
-              <img src="/assets/brand-image.png" alt="Sigil" className="w-3 h-3 sm:w-4 sm:h-4 object-contain filter drop-shadow-[0_0_5px_var(--vz-glow-color)] group-hover/sigil:scale-110 transition-transform" />
-              <span className="text-[var(--vz-accent-vibrant)] font-bold group-hover/sigil:text-[var(--vz-accent-vibrant)]/80 transition-colors">SIGIL</span>
+              <img src="/assets/brand-image.png" alt="Sigil" className="w-3 h-3 sm:w-4 sm:h-4 object-contain group-hover/sigil:scale-110 transition-transform" />
+              <span className="text-amber-300 font-bold">SIGIL</span>
             </button>
           </footer>
         </div>

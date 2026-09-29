@@ -4,11 +4,11 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  PageHeader, Section, SectionHead, Brackets, BlueprintGrid, SpecList, SignalFeed,
+  PageHeader, Section, SectionHead, Brackets, BlueprintGrid, SpecList,
 } from '../components/Forge';
 import { ARTIFACTS, type Status } from '../data/artifacts';
 import { useOrgRepos, type Repo } from '../hooks/useOrgRepos';
-import { useForgeActivity } from '../hooks/useForgeActivity';
+import { RepoHistoryPanel } from '../components/RepoHistoryPanel';
 import { relativeTime } from '../utils/relativeTime';
 import { resolveLicence } from '../utils/licence';
 
@@ -21,21 +21,15 @@ const statusTone: Record<Status, string> = {
   archived: 'text-red-400/70',
 };
 
-const shortName = (full: string) => (full.includes('/') ? full.split('/').pop()! : full);
-
 export const ProjectsPage = () => {
   const { t } = useTranslation();
-  const { repos, loading } = useOrgRepos();
-  const { activities } = useForgeActivity();
+  const { repos } = useOrgRepos();
   const [active, setActive] = useState(ARTIFACTS[0]);
   const ActiveIcon = active.Icon;
 
   // Live metadata for the selected artifact, when the API knows about it.
   const liveFor = (a: { name: string }) => repos.find((r) => r.name.toLowerCase() === a.name.toLowerCase());
   const live = liveFor(active);
-  const liveSignal = activities
-    .filter((a) => shortName(a.repo).toLowerCase() === active.name.toLowerCase())
-    .map((a) => ({ t: a.date, e: a.type.toLowerCase(), m: a.message, r: a.repo }));
 
   return (
     <div className="min-h-screen">
@@ -89,7 +83,7 @@ export const ProjectsPage = () => {
       </Section>
 
       <Section className="!pt-0">
-        <SectionHead index="fig. 02b" title={`${active.label}`} />
+        <SectionHead index="fig. 02b" title={`${active.label} · 3 month history`} />
 
         <div className="grid lg:grid-cols-5 gap-8">
           <div className="lg:col-span-3 relative bg-black border border-amber-400/20 rounded-2xl overflow-hidden">
@@ -138,13 +132,7 @@ export const ProjectsPage = () => {
           </div>
 
           <div className="lg:col-span-2">
-            {liveSignal.length > 0 ? (
-              <SignalFeed rows={liveSignal} />
-            ) : (
-              <div className="text-amber-100/30 text-sm font-mono border border-amber-400/15 rounded-2xl p-6">
-                {loading ? 'reading forge…' : 'no recent activity for this artifact'}
-              </div>
-            )}
+            <RepoHistoryPanel repoName={active.name} />
           </div>
         </div>
       </Section>

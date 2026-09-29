@@ -28,6 +28,12 @@ const USER = 'daedaevibin';
 const CACHE_KEY = 'vz_repos_cache';
 const CACHE_DURATION = 10 * 60 * 1000;
 
+/**
+ * Most forks are noise, so they're filtered out — but a few are genuinely ours
+ * and are worth showing. Matched case-insensitively.
+ */
+const FORK_ALLOWLIST = new Set(['wuming']);
+
 const isRepo = (v: unknown): v is Repo =>
   typeof v === 'object' && v !== null && 'full_name' in v && 'pushed_at' in v;
 
@@ -70,7 +76,7 @@ export const useOrgRepos = () => {
       // Org repos win on name collision; newest push first.
       const seen = new Set<string>();
       const merged = [...org, ...personal]
-        .filter((r) => !r.fork)
+        .filter((r) => !r.fork || FORK_ALLOWLIST.has(r.name.toLowerCase()))
         .filter((r) => {
           if (seen.has(r.name.toLowerCase())) return false;
           seen.add(r.name.toLowerCase());

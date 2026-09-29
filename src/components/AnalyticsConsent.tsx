@@ -3,15 +3,17 @@
 
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { analyticsEnabled, readConsent, setConsent } from '../lib/analytics';
+import { analyticsAvailable, readPreference, setConsent, trackingBlocked } from '../lib/analytics';
 
 export const AnalyticsConsent = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (!analyticsEnabled) return;
-    // Give the page a moment to settle before asking.
-    const id = setTimeout(() => setVisible(readConsent() === 'unknown'), 1200);
+    if (!analyticsAvailable) return;
+    // Never prompt against a machine-readable opt-out.
+    if (trackingBlocked()) return;
+
+    const id = setTimeout(() => setVisible(readPreference() === 'unknown'), 1200);
     return () => clearTimeout(id);
   }, []);
 
@@ -37,6 +39,8 @@ export const AnalyticsConsent = () => {
 
             <p className="text-amber-100/55 text-xs sm:text-sm leading-relaxed">
               Anonymous usage analytics help improve the forge. No personal data, no advertising.
+              Your browser&rsquo;s Do Not Track or Global Privacy Control setting is always
+              respected and overrides this choice.
             </p>
 
             <div className="mt-4 flex flex-col sm:flex-row gap-2">

@@ -51,6 +51,10 @@ export const ProjectsPage = () => {
           <ul>
             {ARTIFACTS.map((a) => {
               const isActive = active.id === a.id;
+              // Resolve this row's own live repo — not the selected one — so
+              // every column reflects the artifact being rendered.
+              const rowLive = liveFor(a);
+              const rowStatus = liveStatus(a.status, rowLive);
               return (
                 <li key={a.id}>
                   <button
@@ -69,10 +73,12 @@ export const ProjectsPage = () => {
                         <span className="block text-[10px] text-amber-100/30 truncate">{a.role}</span>
                       </span>
                     </span>
-                    <span className="text-[10px] font-mono text-amber-400/50">{a.lang}</span>
-                    <span className="text-[10px] font-mono text-amber-100/35">{live ? relativeTime(live.pushed_at) : '—'}</span>
-                    <span className={`text-[10px] font-mono text-right ${statusTone[liveStatus(a.status, liveFor(a))]}`}>
-                      {liveStatus(a.status, liveFor(a))}
+                    <span className="text-[10px] font-mono text-amber-400/50">{rowLive?.language ?? a.lang}</span>
+                    <span className="text-[10px] font-mono text-amber-100/35">
+                      {rowLive ? relativeTime(rowLive.pushed_at) : '—'}
+                    </span>
+                    <span className={`text-[10px] font-mono text-right ${statusTone[rowStatus]}`}>
+                      {rowStatus}
                     </span>
                   </button>
                 </li>

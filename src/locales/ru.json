@@ -48,6 +48,7 @@
   "projects.peguni.description": "Текстовый симулятор виртуального питомца с уникальным искусственным языком (Vaesktöng). Компаньон в терминале, созданный для пустоты.",
   "projects.dds.description": "Динамический Discord Rich Presence на основе активных окон Hyprland и COSMIC. Автоматически обновляет статус Discord из активного окна с поддержкой Hyprland (Wayland) и COSMIC.",
   "projects.wuming.description": "Простой графический интерфейс для ClamAV, написанный на C с использованием GTK4/LibAdwaita.",
+  "projects.mimir.description": "Современный лёгкий графический интерфейс для ClamAV, написанный на C++26. Два фронтенда — GTK4 и Qt6 — поверх единого ядра, с темой AMOLED BlackxRed, оптимизированной для OLED-дисплеев.",
   "projects.deprecated": "Устарело",
   "aur.title": "Репозитории AUR",
   "aur.subtitle": "Предварительно скомпилированные артефакты для Arch Linux, готовые к прямой интеграции.",

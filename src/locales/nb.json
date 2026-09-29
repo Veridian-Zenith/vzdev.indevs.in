@@ -49,6 +49,7 @@
   "projects.peguni.description": "En tekstbasert virtuell kjæledyrsimulator med et unikt konstruert språk (Vaesktöng). En følgesvenn i terminalen, bygget for tomrommet.",
   "projects.dds.description": "Dynamisk Discord Rich Presence basert på aktive Hyprland- og COSMIC-vinduer. Oppdaterer Discord-statusen din automatisk fra det aktive vinduet, med støtte for Hyprland (Wayland) og COSMIC skrivebord.",
   "projects.wuming.description": "Et enkelt ClamAV-grensesnitt skrevet i C med GTK4/LibAdwaita.",
+  "projects.mimir.description": "Moderne, lett GUI-frontends for ClamAV, skrevet i C++26. Duale GTK4- og Qt6-frontends over én kjerne, med et BlackxRed AMOLED-tema optimalisert for OLED-skjermer.",
   "aur.title": "AUR-depoter",
   "aur.subtitle": "Pre-kompilerte gjenstander for Arch Linux, klare for direkte integrasjon.",
   "aur.loading": "Henter pakkedata fra AUR...",

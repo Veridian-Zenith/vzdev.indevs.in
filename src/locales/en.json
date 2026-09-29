@@ -51,6 +51,7 @@
   "projects.heimdallr.description": "Privacy and security-focused DNS server written in Rust. Implements QNAME minimization, minimal attack surface, and modern resolver architecture.",
   "projects.verdandi.description": "An operating system built from scratch for x86_64. Every program holds an explicit permission list; the kernel enforces it directly.",
   "projects.wuming.description": "A simple ClamAV GUI frontend written in C using GTK4/LibAdwaita.",
+  "projects.mimir.description": "A modern, lightweight GUI frontend for ClamAV written in C++26. Dual GTK4 and Qt6 frontends over one core, with a BlackxRed AMOLED theme tuned for OLED displays.",
   "aur.title": "AUR Repositories",
   "aur.subtitle": "Pre-compiled artifacts for Arch Linux, ready for direct integration.",
   "aur.loading": "Fetching package data from the AUR...",

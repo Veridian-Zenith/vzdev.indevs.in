@@ -2,7 +2,7 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import {
-  Shield, Cog, Music, Brain, Folder, PawPrint, MonitorDot, Terminal, Server, Cpu,
+  Shield, Cog, Music, Brain, Folder, PawPrint, MonitorDot, Terminal, Server, Cpu, ScanLine,
 } from 'lucide-react';
 
 export type Status = 'stable' | 'early' | 'archived';
@@ -37,6 +37,13 @@ export const ARTIFACTS = [
     status: 'stable' as Status, Icon: Cog,
     descKey: 'projects.galdr.description',
     topics: ['system', 'initramfs'],
+  },
+  {
+    id: 'mimir', name: 'Mimir', label: 'Mimir', lang: 'C++',
+    role: 'antivirus frontend', licence: 'OSL-3.0',
+    status: 'early' as Status, Icon: ScanLine,
+    descKey: 'projects.mimir.description',
+    topics: ['gtk', 'qt', 'security', 'c++'],
   },
   {
     id: 'wuming', name: 'wuming', label: 'WuMing', lang: 'C',

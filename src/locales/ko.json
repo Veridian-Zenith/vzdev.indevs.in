@@ -48,6 +48,7 @@
   "projects.peguni.description": "독특한 인공 언어(Vaesktöng)를 특징으로 하는 텍스트 기반 가상 애완 동물 시뮬레이터. 공허를 위해 만들어진 터미널의 동반자입니다.",
   "projects.dds.description": "활성 Hyprland 및 COSMIC 창을 기반으로 한 동적 Discord Rich Presence. 활성 창에서 Discord 상태를 자동 업데이트하며, Hyprland (Wayland) 및 COSMIC 데스크톱을 지원합니다.",
   "projects.wuming.description": "C와 GTK4/LibAdwaita로 작성된 간단한 ClamAV GUI 프론트엔드.",
+  "projects.mimir.description": "C++26으로 작성한 가볍고 현대적인 ClamAV GUI 프런트엔드. 하나의 코어 위에 GTK4와 Qt6 프런트엔드를 모두 제공하며, OLED 디스플레이에 최적화된 BlackxRed AMOLED 테마를 적용했습니다.",
   "projects.deprecated": "지원 종료",
   "aur.title": "AUR 저장소",
   "aur.subtitle": "Arch Linux용으로 사전 컴파일된 아티팩트로, 직접 통합할 준비가 되어 있습니다.",

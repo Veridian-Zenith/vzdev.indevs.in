@@ -10,6 +10,7 @@ import { ARTIFACTS, type Status } from '../data/artifacts';
 import { useOrgRepos, type Repo } from '../hooks/useOrgRepos';
 import { useForgeActivity } from '../hooks/useForgeActivity';
 import { relativeTime } from '../utils/relativeTime';
+import { resolveLicence } from '../utils/licence';
 
 /** The API's `archived` flag wins over our editorial status. */
 const liveStatus = (fallback: Status, repo?: Repo): Status => (repo?.archived ? 'archived' : fallback);
@@ -116,7 +117,7 @@ export const ProjectsPage = () => {
               <div className="mt-8 pt-6 border-t border-amber-400/15">
                 <SpecList items={[
                   ['language', live?.language ?? active.lang],
-                  ['licence', live?.license?.spdx_id ?? active.licence],
+                  ['licence', resolveLicence(live?.license?.spdx_id, active.licence)],
                   ['stars', live ? String(live.stargazers_count) : '—'],
                   ['pushed', live ? relativeTime(live.pushed_at) : '—'],
                 ]} />

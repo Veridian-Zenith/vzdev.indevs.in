@@ -7,7 +7,9 @@ import { useTranslation } from 'react-i18next';
 import { BlueprintGrid, Brackets, SectionHead, Section, SignalFeed, PillButton, SpecList } from './Forge';
 import { useActiveArtifact } from '../hooks/useActiveArtifact';
 import { useOrgRepos } from '../hooks/useOrgRepos';
+import { ARTIFACTS } from '../data/artifacts';
 import { relativeTime } from '../utils/relativeTime';
+import { resolveLicence } from '../utils/licence';
 
 export const HeroSection = () => {
   const { t } = useTranslation();
@@ -17,7 +19,13 @@ export const HeroSection = () => {
   const specItems: [string, string][] = repo
     ? [
         ['language', repo.language ?? '—'],
-        ['licence', repo.license?.spdx_id ?? repo.license?.name ?? '—'],
+        [
+          'licence',
+          resolveLicence(
+            repo.license?.spdx_id ?? repo.license?.name,
+            ARTIFACTS.find((a) => a.name.toLowerCase() === repo.name.toLowerCase())?.licence ?? 'see repository',
+          ),
+        ],
         ['stars', String(repo.stargazers_count)],
         ['pushed', relativeTime(repo.pushed_at)],
       ]

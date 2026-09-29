@@ -74,7 +74,7 @@ export const ARTIFACTS = [
     topics: ['wayland', 'rust'],
   },
   {
-    id: 'llamacpp-ui', name: 'llamacpp-ui', label: 'llama.cpp UI', lang: 'TypeScript',
+    id: 'llamacpp-ui', name: 'llama.cpp-ui', label: 'llama.cpp UI', lang: 'TypeScript',
     role: 'local ai interface', licence: 'OSL-3.0',
     status: 'early' as Status, Icon: Brain,
     descKey: 'projects.llamacpp_ui.description',

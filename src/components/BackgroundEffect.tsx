@@ -2,8 +2,9 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { gsap } from "gsap";
 import { useIsMobile } from "../hooks";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 const RUNES = [
@@ -24,6 +25,15 @@ type Rune = {
 
 export const BackgroundEffect = () => {
   const isMobile = useIsMobile();
+
+  // GSAP passive animation layer
+  useEffect(() => {
+    if (isMobile) return;
+    const timeline = gsap.timeline({ repeat: -1, yoyo: true });
+    timeline.to(".bg-gradient-vibrant", { opacity: 0.25, duration: 3, ease: "sine.inOut" });
+    return () => { timeline.kill(); };
+  }, [isMobile]);
+
   const { scrollYProgress } = useScroll();
   const yRange = useTransform(scrollYProgress, [0, 1], [0, -200]);
   const ySpring = useSpring(yRange, { stiffness: 50, damping: 20 });
@@ -62,7 +72,7 @@ export const BackgroundEffect = () => {
 
       {/* 1. Base Layer: vibrant gradients */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 bg-gradient-vibrant"
         style={{
           background: "linear-gradient(135deg, var(--vz-gradient-1) 0%, var(--vz-gradient-2) 50%, var(--vz-gradient-3) 100%)",
           opacity: 0.15

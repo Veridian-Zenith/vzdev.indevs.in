@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { loadTranslations } from '../lib/i18n';
-import { AtmosphereSelector } from './AtmosphereSelector';
 import { useApp } from '../context/AppContext';
 
 export const Navbar = () => {
@@ -101,8 +100,7 @@ export const Navbar = () => {
               <motion.div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-primary-themeable group-hover/link:w-1/2 transition-all" />
             </Link>
           ))}
-          <AtmosphereSelector />
-           <div className="relative group/lang">
+          <div className="relative group/lang">
              <button className="p-2 rounded-full hover:bg-primary-themeable/10 transition-colors">
                <Languages size={20} className="text-secondary-themeable group-hover/lang:text-primary-themeable" />
              </button>
@@ -170,11 +168,6 @@ export const Navbar = () => {
 
             <div className="w-full h-px bg-[var(--vz-accent-vibrant)]/10" />
 
-            <div className="flex flex-col items-center gap-3 w-full">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[var(--vz-accent-vibrant)]/60">Atmosphere</span>
-              <AtmosphereSelector />
-            </div>
-
             <div className="w-full h-px bg-[var(--vz-accent-vibrant)]/10" />
 
             <button
@@ -190,7 +183,6 @@ export const Navbar = () => {
               <button onClick={() => changeLanguage('ru')} className="px-3 py-1.5 text-xs rounded-md bg-secondary-themeable/50 hover:bg-primary-themeable/20 text-secondary-themeable hover:text-primary-themeable font-bold transition-colors">RU</button>
               <button onClick={() => changeLanguage('nb')} className="px-3 py-1.5 text-xs rounded-md bg-secondary-themeable/50 hover:bg-primary-themeable/20 text-secondary-themeable hover:text-primary-themeable font-bold transition-colors">NO</button>
             </div>
-            <p className="text-[10px] text-center text-secondary-themeable/40 mt-2">Best viewed on desktop.</p>
           </motion.div>
         )}
       </AnimatePresence>

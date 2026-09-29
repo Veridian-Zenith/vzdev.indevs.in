@@ -96,5 +96,7 @@
   "loading.connection.flux": "흐름 무결성 정상",
   "loading.connection.noise": "공허 간섭 감지됨",
   "loading.toggle": "클릭하여 진단 전환",
-  "loading.welcome": "Veridian Zenith OS에 오신 것을 환영합니다."
+  "loading.welcome": "Veridian Zenith OS에 오신 것을 환영합니다.",
+  "projects.heimdallr.description": "Privacy and security-focused DNS server written in Rust. Implements QNAME minimization, minimal attack surface, and modern resolver architecture.",
+  "projects.verdandi.description": "An operating system built from scratch for x86_64. Every program holds an explicit permission list; the kernel enforces it directly."
 }

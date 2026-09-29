@@ -96,5 +96,7 @@
   "loading.connection.flux": "Целостность потока номинальна",
   "loading.connection.noise": "Обнаружена помеха пустоты",
   "loading.toggle": "Нажмите для переключения диагностики",
-  "loading.welcome": "Добро пожаловать в Veridian Zenith OS."
+  "loading.welcome": "Добро пожаловать в Veridian Zenith OS.",
+  "projects.heimdallr.description": "Privacy and security-focused DNS server written in Rust. Implements QNAME minimization, minimal attack surface, and modern resolver architecture.",
+  "projects.verdandi.description": "An operating system built from scratch for x86_64. Every program holds an explicit permission list; the kernel enforces it directly."
 }

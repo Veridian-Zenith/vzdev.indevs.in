@@ -31,6 +31,11 @@ jobs:
       - name: Export Firebase service account key
         run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MAIN_WEBSITE_BA2DA }}' > "$RUNNER_TEMP/service-account.json"
 
+      - name: Create Firebase Hosting site (if needed)
+        run: bunx firebase-tools@latest hosting:sites:create vzdev.indevs.in --project=main-website-ba2da || true
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/service-account.json
+
       - name: Deploy to Firebase Hosting and Firestore
         run: bunx firebase-tools@latest deploy --only hosting,firestore --project main-website-ba2da --force
         env:

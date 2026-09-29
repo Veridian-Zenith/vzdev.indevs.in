@@ -27,8 +27,11 @@ import { AppProvider } from './context/AppProvider';
 import { useApp } from './context/AppContext';
 import { MotionConfig } from 'framer-motion';
 import { useIsMobile } from './hooks';
-import { useAtmosphere } from './hooks';
+
 import { KonamiEffect } from './components';
+import Lenis from '@studio-freight/lenis';
+
+const CURRENT_YEAR = new Date().getFullYear();
 
 function AppContent() {
   const { reducedMotion, triggerGlitch, isGlitching } = useApp();
@@ -39,14 +42,18 @@ function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Initialize atmosphere on app load
-  useAtmosphere();
-
-  // Privacy-focused Analytics (Mock)
+  // Analytics mock suppressed for clean console
   useEffect(() => {
-    console.log(`[Analytics] Page View: ${location.pathname}`);
-    // In a real app, you'd send this to a privacy-first provider like Plausible or Fathom
+    // console.log(`[Analytics] Page View: ${location.pathname}`);
   }, [location]);
+
+  // Modern smooth scroll (performance focused)
+  useEffect(() => {
+    const lenis = new Lenis({ duration: 1.2, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    function raf(time: number) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    return () => { lenis.destroy(); };
+  }, []);
 
   useEffect(() => {
     if (isMobile) return;
@@ -119,7 +126,7 @@ return (
               onClick={triggerGlitch}
               className="text-[var(--vz-accent-vibrant)] font-bold hover:scale-110 transition-transform cursor-pointer relative overflow-hidden px-1 group whitespace-nowrap"
             >
-              <span className="relative z-10">© {new Date().getFullYear()} Veridian Zenith</span>
+              <span className="relative z-10">© {CURRENT_YEAR} Veridian Zenith</span>
               <AnimatePresence>
                 {isGlitching && (
                   <motion.div

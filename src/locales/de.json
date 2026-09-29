@@ -96,5 +96,7 @@
   "loading.connection.flux": "Fluss-Integrität nominal",
   "loading.connection.noise": "Leeren-Interferenz erkannt",
   "loading.toggle": "Klicken Sie, um Diagnose umzuschalten",
-  "loading.welcome": "Willkommen bei Veridian Zenith OS."
+  "loading.welcome": "Willkommen bei Veridian Zenith OS.",
+  "projects.heimdallr.description": "Privacy and security-focused DNS server written in Rust. Implements QNAME minimization, minimal attack surface, and modern resolver architecture.",
+  "projects.verdandi.description": "An operating system built from scratch for x86_64. Every program holds an explicit permission list; the kernel enforces it directly."
 }

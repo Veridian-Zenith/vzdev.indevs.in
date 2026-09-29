@@ -5,14 +5,8 @@
   --color-red: #D72638;
   --color-gold: #FFD700;
 
-  --animate-float-slow: float-slow 6s ease-in-out infinite;
   --animate-shimmer: shimmer 2s linear infinite;
   --animate-glitch-intense: glitch-intense 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
-
-  @keyframes float-slow {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-  }
 
   @keyframes shimmer {
     0% { transform: translateX(-100%); }
@@ -29,39 +23,35 @@
   }
 }
 
+/* Centralized vibrant gold/amber on pure black theme */
 :root {
   font-family: "Iosevka Charon", system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: dark;
   color: #f3f4f6;
   background-color: #000000;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  /* Default (Veridian/Amber) Theme Variables */
-  --vz-bg-primary: #050200;
-  --vz-bg-secondary: #0f0a05;
+  --vz-bg-primary: #000000;
+  --vz-bg-secondary: #0a0000;
   --vz-accent-vibrant: #FFB347;
   --vz-accent-muted: rgba(255, 179, 71, 0.6);
-  --vz-glow-color: rgba(255, 179, 71, 0.8);
+  --vz-glow-color: rgba(255, 179, 71, 0.9);
   --vz-gradient-1: #FFB347;
   --vz-gradient-2: #D72638;
   --vz-gradient-3: #FFB347;
 
-  /* Legacy/Compatibility Variables - can be phased out */
   --vz-background-color: var(--vz-bg-primary);
-  --vz-background-color-transparent: rgba(5, 2, 0, 0.85);
-  --vz-border-color: rgba(255, 179, 71, 0.2);
-  --vz-text-color-secondary: #d1d5db;
+  --vz-background-color-transparent: rgba(0, 0, 0, 0.85);
+  --vz-border-color: rgba(255, 179, 71, 0.3);
+  --vz-text-color-secondary: rgba(255, 179, 71, 0.85);
   --vz-shadow-color: var(--vz-glow-color);
   --vz-gradient-via-color: #D72638;
-  --vz-card-bg: var(--vz-bg-secondary);
-  --vz-card-border: var(--vz-border-color);
+  --vz-card-bg: #050200;
+  --vz-card-border: rgba(255, 179, 71, 0.25);
 }
 
 body {
@@ -115,71 +105,6 @@ body {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
-}
-
-/* Atmosphere Overrides */
-
-/* Midnight Void Atmosphere (Purple/Indigo) */
-html.atmosphere-midnight-void {
-  --vz-bg-primary: #020008;
-  --vz-bg-secondary: #0c0a1f;
-  --vz-accent-vibrant: #818cf8;
-  --vz-accent-muted: rgba(129, 140, 248, 0.6);
-  --vz-glow-color: rgba(139, 92, 246, 0.8);
-  --vz-gradient-1: #818cf8;
-  --vz-gradient-2: #c084fc;
-  --vz-gradient-3: #818cf8;
-
-  --vz-background-color: var(--vz-bg-primary);
-  --vz-background-color-transparent: rgba(2, 0, 8, 0.85);
-  --vz-border-color: rgba(139, 92, 246, 0.2);
-  --vz-text-color-secondary: #a78bfa;
-  --vz-shadow-color: var(--vz-glow-color);
-  --vz-gradient-via-color: #c084fc;
-  --vz-card-bg: var(--vz-bg-secondary);
-  --vz-card-border: rgba(129, 140, 248, 0.4);
-}
-
-/* Blood Moon Atmosphere (Deep Red) */
-html.atmosphere-blood-moon {
-  --vz-bg-primary: #080000;
-  --vz-bg-secondary: #1a0808;
-  --vz-accent-vibrant: #ef4444;
-  --vz-accent-muted: rgba(239, 68, 68, 0.6);
-  --vz-glow-color: rgba(220, 38, 38, 0.8);
-  --vz-gradient-1: #ef4444;
-  --vz-gradient-2: #7f1d1d;
-  --vz-gradient-3: #ef4444;
-
-  --vz-background-color: var(--vz-bg-primary);
-  --vz-background-color-transparent: rgba(8, 0, 0, 0.85);
-  --vz-border-color: rgba(220, 38, 38, 0.2);
-  --vz-text-color-secondary: #f87171;
-  --vz-shadow-color: var(--vz-glow-color);
-  --vz-gradient-via-color: #7f1d1d;
-  --vz-card-bg: var(--vz-bg-secondary);
-  --vz-card-border: rgba(239, 68, 68, 0.4);
-}
-
-/* Golden Zenith Atmosphere (Gold/Brown) */
-html.atmosphere-golden-zenith {
-  --vz-bg-primary: #0a0800;
-  --vz-bg-secondary: #1a1205;
-  --vz-accent-vibrant: #FFD700;
-  --vz-accent-muted: rgba(255, 215, 0, 0.6);
-  --vz-glow-color: rgba(255, 215, 0, 0.8);
-  --vz-gradient-1: #FFD700;
-  --vz-gradient-2: #b45309;
-  --vz-gradient-3: #FFD700;
-
-  --vz-background-color: var(--vz-bg-primary);
-  --vz-background-color-transparent: rgba(10, 8, 0, 0.85);
-  --vz-border-color: rgba(255, 215, 0, 0.3);
-  --vz-text-color-secondary: #e6c895;
-  --vz-shadow-color: var(--vz-glow-color);
-  --vz-gradient-via-color: #b45309;
-  --vz-card-bg: var(--vz-bg-secondary);
-  --vz-card-border: rgba(255, 215, 0, 0.4);
 }
 
 /* Global Theme Utilities */
@@ -267,4 +192,26 @@ html.atmosphere-golden-zenith {
 .bg-white\/5 { background-color: var(--vz-bg-secondary) !important; }
 .bg-white\/10 { background-color: var(--vz-bg-secondary) !important; opacity: 0.8; }
 .border-white\/10 { border-color: var(--vz-accent-muted) !important; }
+
+/* Modern responsive fluid sizing */
+html {
+  font-size: clamp(14px, 1vw + 0.25rem, 16px);
+}
+
+h1, h2, h3 {
+  font-size: clamp(1.5rem, 3.5vw + 0.5rem, 2.8rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+p, li {
+  font-size: clamp(0.85rem, 0.9vw + 0.2rem, 1rem);
+  line-height: 1.6;
+}
+
+.container-fluid {
+  width: min(92%, 1400px);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
 

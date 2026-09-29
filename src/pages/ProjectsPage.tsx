@@ -4,7 +4,7 @@
 import { motion } from 'framer-motion';
 import { AnimatedCard } from '../components';
 import { cn } from '../utils';
-import { ExternalLink, Terminal, Shield, PawPrint, Folder, MonitorDot, Cog, Music, Brain } from 'lucide-react';
+import { ExternalLink, Terminal, Shield, PawPrint, Folder, MonitorDot, Cog, Music, Brain, Server, Cpu } from 'lucide-react';
 
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -84,6 +84,24 @@ const STATIC_PROJECTS = [
     topics: ["app", "security", "antivirus", "gtk", "linux"],
     language: "C",
     icon: Terminal
+  },
+  {
+    id: 'heimdallr',
+    name: "Heimdallr",
+    description: "projects.heimdallr.description",
+    html_url: "https://github.com/Veridian-Zenith/Heimdallr",
+    topics: ["system", "security", "dns", "rust", "linux"],
+    language: "Rust",
+    icon: Server
+  },
+  {
+    id: 'verdandi',
+    name: "Verdandi",
+    description: "projects.verdandi.description",
+    html_url: "https://github.com/Veridian-Zenith/Verdandi",
+    topics: ["system", "os", "security", "rust", "linux"],
+    language: "Rust",
+    icon: Cpu
   }
 ];
 
@@ -93,6 +111,8 @@ const topicColors: Record<string, string> = {
   game: 'border-gold-500/50 text-gold-500 shadow-[0_0_10px_rgba(255,215,0,0.2)]',
   system: 'border-purple-500/50 text-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.2)]',
   collection: 'border-blue-500/50 text-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.2)]',
+  dns: 'border-cyan-500/50 text-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.2)]',
+  os: 'border-orange-500/50 text-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.2)]',
 };
 
 export const ProjectsPage = () => {

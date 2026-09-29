@@ -1,4 +1,3 @@
-export * from './AtmosphereSelector';
 export * from './BackgroundEffect';
 export * from './Common';
 export * from './ErrorBoundary';

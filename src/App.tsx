@@ -30,6 +30,8 @@ import { MotionConfig } from 'framer-motion';
 import { useIsMobile } from './hooks';
 
 import { KonamiEffect } from './components';
+import { AnalyticsConsent } from './components/AnalyticsConsent';
+import { initAnalytics, trackPageView, analyticsEnabled } from './lib/analytics';
 import Lenis from '@studio-freight/lenis';
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -43,10 +45,13 @@ function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Analytics mock suppressed for clean console
   useEffect(() => {
-    // console.log(`[Analytics] Page View: ${location.pathname}`);
-  }, [location]);
+    initAnalytics();
+  }, []);
+
+  useEffect(() => {
+    if (analyticsEnabled) trackPageView(location.pathname);
+  }, [location.pathname]);
 
   // Modern smooth scroll (performance focused)
   useEffect(() => {
@@ -164,6 +169,8 @@ return (
               <span className="text-amber-300 font-bold">SIGIL</span>
             </button>
           </footer>
+
+          <AnalyticsConsent />
         </div>
       )}
       </div>

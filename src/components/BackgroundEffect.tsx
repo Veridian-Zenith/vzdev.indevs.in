@@ -1,145 +1,81 @@
 //! License: Open Software License 3.0 (OSL-3.0)
 //! Copyright (c) 2026 Dae Euhwa
 
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { gsap } from "gsap";
+import { motion } from "framer-motion";
 import { useIsMobile } from "../hooks";
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
 
 const RUNES = [
   "ᚦ", "ᚧ", "ᚨ", "ᚱ", "ᚷ", "ᚹ", "ᚺ", "ᚾ", "ᛁ", "ᛃ",
   "ᛈ", "ᛇ", "ᛉ", "ᛊ", "ᛏ", "ᛒ", "ᛖ", "ᛗ", "ᛚ", "ᛝ", "ᛟ", "ᛞ"
 ];
 
-type Rune = {
-  left: string;
-  top: string;
-  size: string;
-  speed: number;
-  direction?: number;
-  rune: string;
-  delay?: number;
-};
-
-
 export const BackgroundEffect = () => {
   const isMobile = useIsMobile();
 
-  // GSAP passive animation layer
-  useEffect(() => {
-    if (isMobile) return;
-    const timeline = gsap.timeline({ repeat: -1, yoyo: true });
-    timeline.to(".bg-gradient-vibrant", { opacity: 0.25, duration: 3, ease: "sine.inOut" });
-    return () => { timeline.kill(); };
-  }, [isMobile]);
-
-  const { scrollYProgress } = useScroll();
-  const yRange = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const ySpring = useSpring(yRange, { stiffness: 50, damping: 20 });
-
-  // Pre-generate positions for consistency using lazy useState to satisfy purity rules
-  const [massiveRunes] = useState(() => [...Array(15)].map((_, i) => ({
-    left: `${(i * 17) % 100}%`,
-    top: `${(i * 23) % 100}%`,
-    size: `${10 + Math.random() * 15}rem`,
-    speed: 35 + i * 5,
-    direction: i % 2 === 0 ? 1 : -1,
-    rune: RUNES[i % RUNES.length],
-  })));
-
-  const [tinyRunes] = useState(() => [...Array(60)].map((_, i) => ({
-    left: `${Math.random() * 100}%`,
-    top: `${Math.random() * 100}%`,
-    size: `${Math.random() * 0.8 + 0.5}rem`,
-    speed: 6 + Math.random() * 6,
-    delay: Math.random() * 5,
-    rune: RUNES[i % RUNES.length],
-  })));
-
-  // Performance optimizations for mobile
-  const activeMassiveRunes = isMobile ? massiveRunes.slice(0, 3) : massiveRunes;
-  const activeTinyRunes = isMobile ? [] : tinyRunes;
-  const showGrid = !isMobile;
-  const gridRunesCount = isMobile ? 0 : 200;
-  const gridCols = 10;
-
-
-
+  const [floatingRunes] = useState(() => {
+    const count = isMobile ? 8 : 24;
+    const cols = isMobile ? 4 : 6;
+    const rows = isMobile ? 2 : 4;
+    return Array.from({ length: count }, (_, i) => {
+      const col = i % cols;
+      const row = Math.floor(i / cols) % rows;
+      const offsetX = (Math.random() - 0.5) * 15; // small random jitter
+      const offsetY = (Math.random() - 0.5) * 15;
+      return {
+        left: `${((col / cols) * 100) + offsetX}%`,
+        top: `${((row / rows) * 100) + offsetY}%`,
+        size: isMobile ? `${0.6 + Math.random() * 0.8}rem` : `${1.2 + Math.random() * 2.2}rem`,
+        speed: isMobile ? 10 + Math.random() * 6 : 18 + Math.random() * 12,
+        delay: Math.random() * 4,
+        rune: RUNES[i % RUNES.length],
+        opacity: isMobile ? 0.25 : 0.45,
+      };
+    });
+  });
 
   return (
     <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[var(--vz-bg-primary)]">
-
-      {/* 1. Base Layer: vibrant gradients */}
+      {/* Subtle glass gradient layer */}
       <div
-        className="absolute inset-0 bg-gradient-vibrant"
+        className="absolute inset-0 opacity-[0.06]"
         style={{
           background: "linear-gradient(135deg, var(--vz-gradient-1) 0%, var(--vz-gradient-2) 50%, var(--vz-gradient-3) 100%)",
-          opacity: 0.15
         }}
       />
 
-      {/* 2. Middle Layer: Massive Runes (parallax drift) */}
-      <motion.div style={isMobile ? {} : { y: ySpring }} className="absolute inset-0">
-        {activeMassiveRunes.map((r: Rune, i: number) => (
-          <motion.div
-            key={`massive-${i}`}
-            className={`absolute text-[var(--vz-accent-vibrant)] font-serif select-none pointer-events-none transform-gpu ${!isMobile ? "filter blur-[0.5px] drop-shadow-[0_0_15px_var(--vz-accent-vibrant)]" : ""}`}
-            style={{ fontSize: r.size, left: r.left, top: r.top, opacity: isMobile ? 0.08 : 0.25 }}
-            animate={isMobile ? {} : {
-              x: [0, (r.direction ?? 1) * 50, 0],
-              rotate: [0, 360, 0],
-              opacity: [0.15, 0.35, 0.15]
-            }}
-            transition={isMobile ? {} : { duration: r.speed, repeat: Infinity, ease: "easeInOut" }}
-          >
-            {r.rune}
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* 3. Surface Layer: Microscopic Grid Runes */}
-      {showGrid && (
-        <div className={`absolute inset-0 opacity-[0.05] pointer-events-none grid gap-16 p-10 rotate-12 scale-150`} style={{ gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))` }}>
-          {[...Array(gridRunesCount)].map((_, i) => (
-            <motion.span
-              key={i}
-              className="text-2xl font-serif text-[var(--vz-accent-vibrant)] block text-center"
-              animate={{ opacity: [0.2, 0.7, 0.2] }}
-              transition={{ duration: 4, delay: i * 0.02, repeat: Infinity, ease: "easeInOut" }}
-            >
-              {RUNES[i % RUNES.length]}
-            </motion.span>
-          ))}
-        </div>
-      )}
-
-      {/* 4. Top Layer: Tiny Floating Runes */}
+      {/* Floating visible runes */}
       <div className="absolute inset-0">
-        {activeTinyRunes.map((r: Rune, i: number) => (
+        {floatingRunes.map((r, i) => (
           <motion.div
-            key={`tiny-${i}`}
-            className="absolute text-[var(--vz-accent-vibrant)]/60 select-none font-serif transform-gpu drop-shadow-[0_0_10px_var(--vz-shadow-color)]"
-            style={{ fontSize: r.size, left: r.left, top: r.top }}
+            key={`rune-${i}`}
+            className="absolute text-[var(--vz-accent-vibrant)] font-serif select-none pointer-events-none"
+            style={{
+              fontSize: r.size,
+              left: r.left,
+              top: r.top,
+              opacity: r.opacity,
+              filter: "drop-shadow(0 0 8px var(--vz-glow-color))",
+            }}
             animate={{
-              y: [0, -50, 0],
-              rotate: [0, 180, 0]
+              y: [0, -40, 0],
+              rotate: [0, 180, 0],
+              opacity: [r.opacity * 0.7, r.opacity, r.opacity * 0.7],
             }}
             transition={{
               duration: r.speed,
               repeat: Infinity,
-              ease: isMobile ? "linear" : "easeInOut",
-              delay: r.delay
+              ease: "easeInOut",
+              delay: r.delay,
             }}
           >
             {r.rune}
           </motion.div>
         ))}
-
       </div>
 
-      {/* 5. Depth Overlay: subtle dim only */}
-      <div className="absolute inset-0 bg-[var(--vz-bg-primary)]/60 pointer-events-none" />
+      {/* Soft depth overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--vz-bg-primary)]/30 to-[var(--vz-bg-primary)] pointer-events-none" />
     </div>
   );
 };

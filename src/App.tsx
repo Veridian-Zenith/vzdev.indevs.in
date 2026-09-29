@@ -11,6 +11,8 @@ const ProjectsPage = lazy(() => import('./pages/ProjectsPage').then(m => ({ defa
 const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 const AurPage = lazy(() => import('./pages/AurPage').then(m => ({ default: m.AurPage })));
 const BrandDisplayPage = lazy(() => import('./pages/BrandDisplayPage').then(m => ({ default: m.BrandDisplayPage })));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
+const PrototypePage = lazy(() => import('./pages/PrototypePage').then(m => ({ default: m.PrototypePage })));
 const StatsPage = lazy(() => import('./pages/StatsPage').then(m => ({ default: m.StatsPage })));
 const TrackerPage = lazy(() => import('./pages/TrackerPage').then(m => ({ default: m.TrackerPage })));
 const SkillsPage = lazy(() => import('./pages/SkillsPage').then(m => ({ default: m.SkillsPage })));
@@ -114,6 +116,8 @@ return (
               <Route path="/skills" element={<SkillsPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/brand" element={<BrandDisplayPage />} />
+              <Route path="/prototype" element={<PrototypePage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>
 

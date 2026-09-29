@@ -160,7 +160,7 @@ export const ProjectsPage = () => {
                         <repo.icon size={24} />
                       </motion.div>
                       <div className="flex flex-col">
-                        <h3 className="text-xl font-bold text-primary-themeable tracking-tight">{repo.name}</h3>
+                        <h3 className="text-base sm:text-lg font-bold text-primary-themeable tracking-tight">{repo.name}</h3>
                         {repo.deprecated && (
                           <span className="text-[9px] uppercase tracking-widest text-red-500 font-black opacity-80">
                             {t('projects.deprecated')}

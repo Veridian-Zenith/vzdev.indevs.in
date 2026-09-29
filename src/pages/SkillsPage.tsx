@@ -128,7 +128,7 @@ export const SkillsPage = () => {
               <div className="p-3 bg-primary-themeable/10 rounded-xl text-primary-themeable">
                 <category.icon size={24} />
               </div>
-              <h3 className="text-xl font-bold text-primary-themeable">{category.title}</h3>
+              <h3 className="text-base sm:text-lg font-bold text-primary-themeable tracking-tight">{category.title}</h3>
             </div>
             <ul className="space-y-3">
               {category.skills.map((skill) => (

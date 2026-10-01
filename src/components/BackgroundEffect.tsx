@@ -14,7 +14,7 @@ export const BackgroundEffect = () => {
   const isMobile = useIsMobile();
 
   const [floatingRunes] = useState(() => {
-    const count = isMobile ? 8 : 24;
+    const count = isMobile ? 14 : 24;
     const cols = isMobile ? 4 : 6;
     const rows = isMobile ? 2 : 4;
     return Array.from({ length: count }, (_, i) => {
@@ -29,7 +29,7 @@ export const BackgroundEffect = () => {
         speed: isMobile ? 10 + Math.random() * 6 : 18 + Math.random() * 12,
         delay: Math.random() * 4,
         rune: RUNES[i % RUNES.length],
-        opacity: isMobile ? 0.25 : 0.45,
+        opacity: isMobile ? 0.4 : 0.45,
       };
     });
   });

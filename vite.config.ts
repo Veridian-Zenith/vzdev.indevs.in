@@ -10,7 +10,29 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-        manifest: {
+      workbox: {
+        // Don't serve navigations from the precached index.html. index.html
+        // references content-hashed asset filenames, so serving a precached
+        // shell pins a client to a previous deploy's CSS/JS — which shows up
+        // as stale styling, most visibly on mobile where the service worker
+        // survives for days between foregroundings.
+        // Network-first keeps HTML fresh and falls back to cache when offline.
+        navigateFallback: null,
+        globPatterns: ['assets/**/*.{js,css,woff2,png,svg,webp}', '*.js', 'manifest.webmanifest'],
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }: { request: Request }) => request.mode === 'navigate',
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'vz-pages',
+              networkTimeoutSeconds: 3,
+              cacheableResponse: { statuses: [200] },
+              expiration: { maxEntries: 16, maxAgeSeconds: 60 * 60 * 24 * 7 },
+            },
+          },
+        ],
+      },
+      manifest: {
           name: 'Veridian Zenith',
           short_name: 'VZ',
           description: 'A high-end, mystical Nordic-inspired digital realm showcasing the artifacts and technologies forged by Veridian Zenith.',

@@ -4,14 +4,7 @@
 import type { ReactNode } from 'react';
 
 export const BlueprintGrid = ({ className = '' }: { className?: string }) => (
-  <div
-    className={`absolute inset-0 opacity-[0.07] pointer-events-none ${className}`}
-    style={{
-      backgroundImage:
-        'linear-gradient(rgba(255,179,71,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,179,71,0.6) 1px, transparent 1px)',
-      backgroundSize: '28px 28px',
-    }}
-  />
+  <div className={`vz-blueprint absolute inset-0 pointer-events-none ${className}`} />
 );
 
 export const Brackets = () => (

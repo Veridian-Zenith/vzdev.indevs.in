@@ -132,3 +132,26 @@ p, li {
   font-size: clamp(0.85rem, 0.9vw + 0.2rem, 1rem);
   line-height: 1.6;
 }
+
+/* Blueprint substrate.
+   High-DPI phones render a 1px line at a fraction of a device pixel, so the
+   desktop values wash out almost entirely on mobile. Thicken and strengthen
+   the grid below the sm breakpoint to keep the texture legible. */
+.vz-blueprint {
+  --vz-bp-opacity: 0.07;
+  --vz-bp-line: 1px;
+  --vz-bp-step: 28px;
+  opacity: var(--vz-bp-opacity);
+  background-image:
+    linear-gradient(rgba(255, 179, 71, 0.6) var(--vz-bp-line), transparent var(--vz-bp-line)),
+    linear-gradient(90deg, rgba(255, 179, 71, 0.6) var(--vz-bp-line), transparent var(--vz-bp-line));
+  background-size: var(--vz-bp-step) var(--vz-bp-step);
+}
+
+@media (width < 40rem) {
+  .vz-blueprint {
+    --vz-bp-opacity: 0.16;
+    --vz-bp-line: 1.5px;
+    --vz-bp-step: 24px;
+  }
+}

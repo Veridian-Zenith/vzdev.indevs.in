@@ -12,7 +12,7 @@
         return;
       }
       window.history.replaceState({}, document.title, decoded);
-    } catch (e) {
+    } catch {
       // Ignore invalid URI
     }
   }

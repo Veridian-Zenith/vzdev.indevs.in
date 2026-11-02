@@ -3,7 +3,8 @@
 
 import { useState, useEffect } from 'react';
 import { useForgeActivity, type Activity } from './useForgeActivity';
-import { useOrgRepos, type Repo } from './useOrgRepos';
+import { useOrgRepos } from './useOrgRepos';
+import { forge, toRepo, type Repo } from '../lib/forgejo';
 
 const shortName = (full: string) => (full.includes('/') ? full.split('/').pop()! : full);
 
@@ -17,13 +18,6 @@ export interface ActiveArtifact {
   loading: boolean;
   error: string | null;
 }
-
-const readRepo = (v: unknown): Repo | null => {
-  if (typeof v !== 'object' || v === null) return null;
-  const r = v as Record<string, unknown>;
-  if (typeof r.full_name !== 'string' || typeof r.pushed_at !== 'string') return null;
-  return r as unknown as Repo;
-};
 
 /**
  * The active artifact is whatever was pushed to most recently — resolved from the
@@ -39,17 +33,17 @@ export const useActiveArtifact = (): ActiveArtifact => {
   const repoKey = latest ? shortName(latest.repo).toLowerCase() : null;
 
   // Prefer the entry already in the shared repo list; only fall back to a
-  // direct lookup if the events feed names something the list doesn't have.
+  // direct lookup if the feed names something the list doesn't have.
   const fromList = repoKey ? repos.find((r) => r.name.toLowerCase() === repoKey) ?? null : null;
 
   useEffect(() => {
-    if (!repoKey || fromList) return;
+    if (!repoKey || fromList || !latest) return;
     let cancelled = false;
     void (async () => {
       try {
-        const res = await fetch(`https://api.github.com/repos/${latest!.repo}`);
+        const res = await forge(`/repos/${latest.repo}`);
         if (!res.ok) return;
-        const parsed = readRepo(await res.json());
+        const parsed = toRepo(await res.json());
         if (!cancelled) setDetail(parsed);
       } catch {
         if (!cancelled) setDetail(null);

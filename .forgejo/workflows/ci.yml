@@ -1,0 +1,32 @@
+# Forgejo Actions reads `.forgejo/workflows` — `.github/workflows` is ignored on
+# git.gay, so CI lives here now. Everything is a plain build check; the CodeQL job
+# this replaced only exists on GitHub.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: https://github.com/actions/checkout@v4
+
+      - name: Set up Bun
+        uses: https://github.com/oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Build
+        run: bun run build

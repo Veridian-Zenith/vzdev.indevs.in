@@ -27,6 +27,9 @@ Thumbs.db
 # Environment
 .env*
 !.env.example
+# Deploy credential — never commit a service-account key
+service-account.json
+*-service-account*.json
 
 # Misc
 *.tsbuildinfo

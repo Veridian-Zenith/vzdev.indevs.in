@@ -2,6 +2,7 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { useState, useEffect, useCallback } from 'react';
+import { ORG, forge, isRecord, repoUrl } from '../lib/forgejo';
 
 export interface Commit {
   sha: string;
@@ -29,10 +30,11 @@ export interface RepoHistory {
   error: string | null;
 }
 
-const ORG = 'Veridian-Zenith';
 const MONTHS = 3;
-const CACHE_PREFIX = 'vz_hist_';
+const CACHE_PREFIX = 'vz_hist_v2_';
 const CACHE_DURATION = 60 * 60 * 1000; // 1h — history changes slowly
+/** Forgejo caps a page at 50 items. */
+const LIMIT = 50;
 
 const sinceDate = () => {
   const d = new Date();
@@ -40,21 +42,29 @@ const sinceDate = () => {
   return d.toISOString();
 };
 
-const readCommit = (v: unknown): Commit | null => {
-  if (typeof v !== 'object' || v === null) return null;
-  const c = v as Record<string, any>;
-  if (typeof c.sha !== 'string') return null;
-  const raw = c.commit?.author?.date ?? c.commit?.committer?.date;
+const readCommit = (v: unknown, repoName: string): Commit | null => {
+  if (!isRecord(v) || typeof v.sha !== 'string') return null;
+  const commit = isRecord(v.commit) ? v.commit : {};
+  const author = isRecord(commit.author) ? commit.author : {};
+
+  const raw =
+    (typeof author.date === 'string' ? author.date : '') ||
+    (typeof v.created === 'string' ? v.created : '');
   const at = raw ? new Date(raw).getTime() : 0;
   if (!at) return null;
-  const message = String(c.commit?.message ?? '').split('\n')[0].trim();
+
+  const message = String(commit.message ?? '').split('\n')[0].trim();
   return {
-    sha: c.sha,
+    sha: v.sha,
     message: message || 'commit',
-    author: c.author?.login ?? c.commit?.author?.name ?? 'unknown',
+    // Forgejo does not attach an account to a commit, only its git identity.
+    author: typeof author.name === 'string' && author.name ? author.name : 'unknown',
     date: new Date(at).toLocaleDateString(),
     at,
-    url: c.html_url ?? `https://github.com/${ORG}/${c.sha}`,
+    url:
+      typeof v.html_url === 'string'
+        ? v.html_url
+        : `${repoUrl(repoName)}/commit/${v.sha}`,
   };
 };
 
@@ -77,9 +87,8 @@ const bucket = (commits: Commit[]): MonthBucket[] => {
 /**
  * Commit history for one repository over the last 3 months.
  *
- * Fetched per selection rather than up front for every repo: the unauthenticated
- * GitHub API allows 60 requests/hour per IP, so eagerly loading a dozen repos
- * would exhaust the budget on first paint. Results are cached for an hour.
+ * Fetched per selection rather than up front for every repo, so only the
+ * artifact being inspected costs a request. Results are cached for an hour.
  */
 interface Loaded {
   /** Which repo these commits belong to, so stale data is never shown. */
@@ -120,14 +129,16 @@ export const useRepoHistory = (repoName: string | null): RepoHistory => {
     setError(null);
     try {
       const sinceIso = sinceDate();
-      const url = `https://api.github.com/repos/${ORG}/${encodeURIComponent(repoName)}/commits?since=${sinceIso}&per_page=100`;
-      const res = await fetch(url);
+      const url =
+        `/repos/${ORG}/${encodeURIComponent(repoName)}/commits` +
+        `?since=${encodeURIComponent(sinceIso)}&limit=${LIMIT}`;
+      const res = await forge(url);
       if (res.status === 404 || res.status === 409) { setLoaded({ repo: key, commits: [] }); return; }
-      if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+      if (!res.ok) throw new Error(`git.gay API ${res.status}`);
 
       const data: unknown = await res.json();
       const parsed = (Array.isArray(data) ? data : [])
-        .map(readCommit)
+        .map((c) => readCommit(c, repoName))
         .filter((c): c is Commit => c !== null)
         .sort((a, b) => b.at - a.at);
 

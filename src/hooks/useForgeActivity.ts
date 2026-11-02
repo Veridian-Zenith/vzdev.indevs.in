@@ -2,8 +2,17 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { ORG, forge, isRecord, repoUrl } from '../lib/forgejo';
 
-export type ActivityType = 'Commit' | 'PR' | 'Fork' | 'Create' | 'Delete';
+export type ActivityType =
+  | 'Commit'
+  | 'Tag'
+  | 'Release'
+  | 'PR'
+  | 'Issue'
+  | 'Fork'
+  | 'Create'
+  | 'Delete';
 
 export interface Activity {
   id: string;
@@ -16,79 +25,126 @@ export interface Activity {
   at: number;
 }
 
-interface GitHubEvent {
-  id: string;
-  type: string;
-  repo: { name: string };
-  created_at: string;
-  payload: Record<string, unknown>;
-}
-
-const ENDPOINT = 'https://api.github.com/users/daedaevibin/events?per_page=30';
-const CACHE_KEY = 'vz_tracker_cache';
+const FEED_LIMIT = 30;
+const ENDPOINT = `/orgs/${ORG}/activities/feeds?limit=${FEED_LIMIT}`;
+const CACHE_KEY = 'vz_tracker_cache_v2';
 const CACHE_DURATION = 10 * 60 * 1000;
 export const REFRESH_INTERVAL = 5 * 60 * 1000;
+const MAX_MESSAGE = 140;
 
-const INTERESTING = ['PushEvent', 'PullRequestEvent', 'ForkEvent', 'CreateEvent', 'DeleteEvent'];
+const oneLine = (text: string): string => {
+  const first = text.split('\n')[0].trim();
+  return first.length > MAX_MESSAGE ? `${first.slice(0, MAX_MESSAGE)}…` : first;
+};
 
-const parseEvent = (event: GitHubEvent): Activity | null => {
-  const at = new Date(event.created_at).getTime();
-  const base = { id: event.id, repo: event.repo.name, date: new Date(event.created_at).toLocaleDateString(), at };
+/**
+ * Push actions store a JSON blob in `content`; everything else stores a plain
+ * human-readable string. This reads whichever arrived and never throws.
+ */
+const readPush = (content: string): { message: string | null; sha: string | null } => {
+  if (!content) return { message: null, sha: null };
+  try {
+    const parsed = JSON.parse(content) as {
+      HeadCommit?: { Message?: string; Sha1?: string };
+      Commits?: Array<{ Message?: string; Sha1?: string }>;
+    };
+    const head = parsed.HeadCommit ?? parsed.Commits?.[parsed.Commits.length - 1];
+    return {
+      message: head?.Message ? oneLine(head.Message) : null,
+      sha: head?.Sha1 ?? null,
+    };
+  } catch {
+    return { message: oneLine(content), sha: null };
+  }
+};
 
-  switch (event.type) {
-    case 'PushEvent': {
-      const payload = event.payload as { commits?: Array<{ message: string; sha: string }>; ref?: string };
-      const commit = payload.commits?.[0];
+const parseAction = (v: unknown): Activity | null => {
+  if (!isRecord(v)) return null;
+  if (typeof v.id !== 'number') return null;
+
+  const created = typeof v.created === 'string' ? v.created : '';
+  const at = new Date(created).getTime();
+  if (!at) return null;
+
+  const repo = isRecord(v.repo) ? v.repo : null;
+  if (!repo || typeof repo.full_name !== 'string') return null;
+
+  const base = {
+    id: String(v.id),
+    repo: repo.full_name,
+    date: new Date(at).toLocaleDateString(),
+    at,
+  };
+  const repoLink =
+    typeof repo.html_url === 'string' ? repo.html_url : repoUrl(repo.name as string);
+
+  // `ref_name` arrives fully qualified: `refs/heads/main`, `refs/tags/v1.0`.
+  const ref = (typeof v.ref_name === 'string' ? v.ref_name : '')
+    .replace(/^refs\/(heads|tags)\//, '');
+  const content = typeof v.content === 'string' ? v.content : '';
+  const push = readPush(content);
+  const commitLink = push.sha ? `${repoLink}/commit/${push.sha}` : repoLink;
+
+  switch (v.op_type) {
+    case 'commit_repo':
       return {
         ...base,
         type: 'Commit',
-        message: commit?.message ?? `Pushed to ${(payload.ref ?? '').replace('refs/heads/', '')}`,
-        url: commit ? `https://github.com/${event.repo.name}/commit/${commit.sha}` : `https://github.com/${event.repo.name}`,
+        message: push.message ?? `Pushed to ${ref || 'the default branch'}`,
+        url: commitLink,
       };
-    }
-    case 'PullRequestEvent': {
-      const payload = event.payload as {
-        pull_request?: { title?: string };
-        number?: number;
-        action?: string;
+    case 'push_tag':
+      return {
+        ...base,
+        type: 'Tag',
+        message: push.message ?? `Tagged ${ref}`,
+        url: commitLink,
       };
-      const action = payload.action ?? 'unknown';
-      const title = payload.pull_request?.title ?? `PR #${payload.number}`;
+    case 'create_branch':
+      return { ...base, type: 'Create', message: `Created branch ${ref}`, url: repoLink };
+    case 'delete_branch':
+      return { ...base, type: 'Delete', message: `Deleted branch ${ref}`, url: repoLink };
+    case 'delete_tag':
+      return { ...base, type: 'Delete', message: `Deleted tag ${ref}`, url: repoLink };
+    case 'publish_release':
+      return {
+        ...base,
+        type: 'Release',
+        message: `Released ${oneLine(content) || ref || 'a new version'}`,
+        url: `${repoLink}/releases`,
+      };
+    case 'create_pull_request':
+    case 'merge_pull_request':
+    case 'close_pull_request': {
+      const verb =
+        v.op_type === 'create_pull_request'
+          ? 'Opened'
+          : v.op_type === 'merge_pull_request'
+            ? 'Merged'
+            : 'Closed';
       return {
         ...base,
         type: 'PR',
-        message: `${action.charAt(0).toUpperCase() + action.slice(1)}: ${title}`,
-        url: `https://github.com/${event.repo.name}/pull/${payload.number}`,
+        message: `${verb}: ${oneLine(content) || 'pull request'}`,
+        url: `${repoLink}/pulls`,
       };
     }
-    case 'ForkEvent': {
-      const payload = event.payload as { forkee?: { html_url?: string } };
+    case 'create_issue':
+    case 'close_issue': {
+      const verb = v.op_type === 'create_issue' ? 'Opened' : 'Closed';
       return {
         ...base,
-        type: 'Fork',
-        message: `Forked ${event.repo.name}`,
-        url: payload.forkee?.html_url ?? `https://github.com/${event.repo.name}`,
+        type: 'Issue',
+        message: `${verb} issue: ${oneLine(content) || 'untitled'}`,
+        url: `${repoLink}/issues`,
       };
     }
-    case 'CreateEvent': {
-      const payload = event.payload as { ref_type?: string; ref?: string };
-      return {
-        ...base,
-        type: 'Create',
-        message: `Created ${payload.ref_type} ${payload.ref ?? ''} in ${event.repo.name}`,
-        url: `https://github.com/${event.repo.name}`,
-      };
-    }
-    case 'DeleteEvent': {
-      const payload = event.payload as { ref_type?: string; ref?: string };
-      return {
-        ...base,
-        type: 'Delete',
-        message: `Deleted ${payload.ref_type} ${payload.ref ?? ''} in ${event.repo.name}`,
-        url: `https://github.com/${event.repo.name}`,
-      };
-    }
+    case 'fork_repo':
+      return { ...base, type: 'Fork', message: `Forked ${base.repo}`, url: repoLink };
+    case 'create_repo':
+      return { ...base, type: 'Create', message: `Created ${base.repo}`, url: repoLink };
     default:
+      // Star/watch/repo-transfer noise and anything newer than this mapping.
       return null;
   }
 };
@@ -117,7 +173,7 @@ export const useForgeActivity = () => {
         }
       }
 
-      const res = await fetch(ENDPOINT);
+      const res = await forge(ENDPOINT);
       const remaining = res.headers.get('X-RateLimit-Remaining');
       const reset = res.headers.get('X-RateLimit-Reset');
       if (remaining && reset) {
@@ -126,16 +182,15 @@ export const useForgeActivity = () => {
 
       if (res.status === 403 || res.status === 429) {
         const resetTime = reset ? new Date(Number(reset) * 1000).toLocaleTimeString() : 'unknown';
-        throw new Error(`Rate limited by GitHub API. Resets at ${resetTime}.`);
+        throw new Error(`Rate limited by git.gay. Resets at ${resetTime}.`);
       }
-      if (!res.ok) throw new Error('Failed to fetch activity');
+      if (!res.ok) throw new Error(`git.gay API ${res.status}`);
 
       const data: unknown = await res.json();
       if (!Array.isArray(data)) throw new Error('Invalid data format');
 
-      const parsed = (data as GitHubEvent[])
-        .filter((e) => INTERESTING.includes(e.type))
-        .map(parseEvent)
+      const parsed = data
+        .map(parseAction)
         .filter((a): a is Activity => a !== null)
         .sort((a, b) => b.at - a.at);
 

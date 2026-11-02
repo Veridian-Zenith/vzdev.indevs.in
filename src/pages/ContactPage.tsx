@@ -9,6 +9,7 @@ import { db } from '../firebase';
 import {
   PageHeader, Section, SectionHead, Brackets, BlueprintGrid, fieldClass, labelClass,
 } from '../components/Forge';
+import { orgUrl } from '../lib/forgejo';
 
 export const ContactPage = () => {
   const { t } = useTranslation();
@@ -24,7 +25,7 @@ export const ContactPage = () => {
   const contactInfo = [
     { icon: User, label: t('contact.architect.label'), value: 'Dae Euhwa', sub: t('contact.architect.sub') },
     { icon: Mail, label: t('contact.email.label'), value: 'daedaevibin@ik.me', href: 'mailto:daedaevibin@ik.me' },
-    { icon: Terminal, label: t('contact.forge.label'), value: 'Veridian-Zenith', href: 'https://github.com/Veridian-Zenith' },
+    { icon: Terminal, label: t('contact.forge.label'), value: 'Veridian-Zenith', href: orgUrl },
     { icon: ExternalLink, label: 'Instagram', value: '@daedaevibin', href: 'https://www.instagram.com/daedaevibin?igsh=aTg3cjFmbzdiY2s0' },
     { icon: MessageSquare, label: 'Matrix', value: '@daedaevibin:matrix.org', href: 'https://matrix.to/@daedaevibin:matrix.org#/@daedaevibin:matrix.org' },
     { icon: AtSign, label: 'Mastodon', value: '@daedaevibin@defcon.social', href: 'https://defcon.social/@daedaevibin' },

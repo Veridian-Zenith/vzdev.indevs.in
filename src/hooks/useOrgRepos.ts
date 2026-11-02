@@ -2,40 +2,20 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { useState, useEffect, useCallback } from 'react';
+import { ORG, USER, forge, toRepo, type Repo } from '../lib/forgejo';
 
-/** Shape of the fields we actually read off a GitHub repo payload. */
-export interface Repo {
-  id: number;
-  name: string;
-  full_name: string;
-  html_url: string;
-  description: string | null;
-  language: string | null;
-  license: { spdx_id: string | null; name: string } | null;
-  stargazers_count: number;
-  forks_count: number;
-  open_issues_count: number;
-  topics: string[];
-  pushed_at: string;
-  updated_at: string;
-  archived: boolean;
-  fork: boolean;
-  default_branch: string;
-}
+export type { Repo };
 
-const ORG = 'Veridian-Zenith';
-const USER = 'daedaevibin';
-const CACHE_KEY = 'vz_repos_cache';
+const CACHE_KEY = 'vz_repos_cache_v2';
 const CACHE_DURATION = 10 * 60 * 1000;
+/** Forgejo caps a page at 50 items. */
+const LIMIT = 50;
 
 /**
- * Most forks are noise, so they're filtered out — but a few are genuinely ours
- * and are worth showing. Matched case-insensitively.
+ * Forge mirrors are noise, so they're filtered out — but a few are genuinely
+ * ours and are worth showing. Matched case-insensitively.
  */
 const FORK_ALLOWLIST = new Set(['wuming']);
-
-const isRepo = (v: unknown): v is Repo =>
-  typeof v === 'object' && v !== null && 'full_name' in v && 'pushed_at' in v;
 
 export const useOrgRepos = () => {
   const [repos, setRepos] = useState<Repo[]>([]);
@@ -59,16 +39,19 @@ export const useOrgRepos = () => {
       }
 
       const [orgRes, userRes] = await Promise.all([
-        fetch(`https://api.github.com/orgs/${ORG}/repos?per_page=100&sort=pushed`),
-        fetch(`https://api.github.com/users/${USER}/repos?per_page=100&sort=pushed`),
+        forge(`/orgs/${ORG}/repos?limit=${LIMIT}&page=1`),
+        forge(`/users/${USER}/repos?limit=${LIMIT}&page=1`),
       ]);
 
-      if (!orgRes.ok && !userRes.ok) throw new Error('Failed to reach the forge API');
+      if (!orgRes.ok && !userRes.ok) throw new Error('Failed to reach git.gay');
 
       const collect = async (res: Response) => {
         if (!res.ok) return [] as Repo[];
         const data: unknown = await res.json();
-        return Array.isArray(data) ? data.filter(isRepo) : [];
+        if (!Array.isArray(data)) return [] as Repo[];
+        return data
+          .map(toRepo)
+          .filter((r): r is Repo => r !== null);
       };
 
       const [org, personal] = await Promise.all([collect(orgRes), collect(userRes)]);

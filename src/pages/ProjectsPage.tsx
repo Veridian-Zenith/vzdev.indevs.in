@@ -8,6 +8,7 @@ import {
 } from '../components/Forge';
 import { ARTIFACTS, type Status } from '../data/artifacts';
 import { useOrgRepos, type Repo } from '../hooks/useOrgRepos';
+import { orgUrl } from '../lib/forgejo';
 import { RepoHistoryPanel } from '../components/RepoHistoryPanel';
 import { relativeTime } from '../utils/relativeTime';
 import { resolveLicence } from '../utils/licence';
@@ -124,7 +125,7 @@ export const ProjectsPage = () => {
               </div>
 
               <a
-                href={`https://github.com/Veridian-Zenith/${active.name}`}
+                href={live?.html_url ?? orgUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-7 inline-flex items-center gap-2 text-amber-300 hover:text-amber-200 font-bold text-sm transition-colors"

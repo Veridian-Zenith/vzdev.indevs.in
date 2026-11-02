@@ -29,7 +29,6 @@ export const Navbar = () => {
     { key: 'about', path: '/about' },
     { key: 'projects', path: '/projects' },
     { key: 'aur', path: '/aur' },
-    { key: 'stats', path: '/stats' },
     { key: 'tracker', path: '/tracker' },
     { key: 'skills', path: '/skills' },
   ];

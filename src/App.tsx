@@ -12,7 +12,6 @@ const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ defaul
 const AurPage = lazy(() => import('./pages/AurPage').then(m => ({ default: m.AurPage })));
 const BrandDisplayPage = lazy(() => import('./pages/BrandDisplayPage').then(m => ({ default: m.BrandDisplayPage })));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
-const StatsPage = lazy(() => import('./pages/StatsPage').then(m => ({ default: m.StatsPage })));
 const TrackerPage = lazy(() => import('./pages/TrackerPage').then(m => ({ default: m.TrackerPage })));
 const SkillsPage = lazy(() => import('./pages/SkillsPage').then(m => ({ default: m.SkillsPage })));
 
@@ -115,7 +114,6 @@ return (
               <Route path="/about" element={<AboutPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/aur" element={<AurPage />} />
-              <Route path="/stats" element={<StatsPage />} />
               <Route path="/tracker" element={<TrackerPage />} />
               <Route path="/skills" element={<SkillsPage />} />
               <Route path="/contact" element={<ContactPage />} />

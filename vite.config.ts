@@ -18,7 +18,12 @@ export default defineConfig({
         // survives for days between foregroundings.
         // Network-first keeps HTML fresh and falls back to cache when offline.
         navigateFallback: null,
-        globPatterns: ['assets/**/*.{js,css,woff2,png,svg,webp}', '*.js', 'manifest.webmanifest'],
+        // vite-plugin-pwa injects the web app manifest icons as unversioned
+        // (revision: null) precache entries. When the glob matches them too,
+        // Workbox receives two entries for one URL and aborts the whole
+        // precache with add-to-cache-list-conflicting-entries.
+        globIgnores: ['assets/android-chrome-192x192.png', 'assets/android-chrome-512x512.png'],
+        globPatterns: ['assets/**/*.{js,css,woff2,png,svg,webp}', '*.js'],
         runtimeCaching: [
           {
             urlPattern: ({ request }: { request: Request }) => request.mode === 'navigate',

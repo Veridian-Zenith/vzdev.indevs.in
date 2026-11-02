@@ -2,7 +2,7 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { useState, useEffect } from 'react';
-import { RefreshCw, Clock, AlertTriangle } from 'lucide-react';
+import { RefreshCw, Clock, AlertTriangle, Rss } from 'lucide-react';
 import { PageHeader, Section, SectionHead, SignalFeed } from '../components/Forge';
 import { useForgeActivity } from '../hooks/useForgeActivity';
 
@@ -51,6 +51,17 @@ export const TrackerPage = () => {
             <RefreshCw size={14} className={loading ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-500'} />
             {cooldown > 0 ? formatTime(cooldown) : loading ? 'refreshing' : 'refresh'}
           </button>
+
+          <a
+            href="https://git.gay/Veridian-Zenith.rss"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-amber-400/30 text-amber-100/50 hover:text-amber-300 hover:border-amber-400/60 hover:bg-amber-500/5 transition-all text-xs font-bold uppercase tracking-widest"
+            title="Subscribe to the forge activity feed"
+          >
+            <Rss size={14} />
+            rss
+          </a>
 
           {lastUpdated && (
             <span className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-amber-100/30 font-bold">

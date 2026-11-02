@@ -64,7 +64,7 @@ Enter them by hand under **Settings → Actions → Secrets** in the repository.
 | `VITE_FIREBASE_STORAGE_BUCKET` | `.env`, same key |
 | `VITE_FIREBASE_MESSAGING_SENDER_ID` | `.env`, same key |
 | `VITE_FIREBASE_APP_ID` | `.env`, same key |
-| `FIREBASE_SERVICE_ACCOUNT_MAIN_WEBSITE_BA2DA` | the whole of `service-account.json`, on one line |
+| `FIREBASE_SERVICE_ACCOUNT_MAIN_WEBSITE_BA2DA` | the whole of `service-account.json`, newlines included |
 
 `VITE_FIREBASE_MEASUREMENT_ID` is optional: `src/firebase.ts` never reads it.
 

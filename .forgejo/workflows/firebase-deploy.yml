@@ -67,9 +67,16 @@ jobs:
           umask 077
           key="$GITHUB_WORKSPACE/service-account.json"
           printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$key"
-          if ! jq -e '.type == "service_account" and .private_key and .client_email' "$key" > /dev/null 2>&1; then
-            echo "::error::FIREBASE_SERVICE_ACCOUNT_MAIN_WEBSITE_BA2DA is not a usable service-account key. Paste the whole of service-account.json, newlines included."
-            exit 1
+          valid() { jq -e '.type == "service_account" and .private_key and .client_email' "$1" > /dev/null 2>&1; }
+          if ! valid "$key"; then
+            # Secret stores may strip newlines; base64 of the key survives that.
+            if base64 -d "$key" > "$key.dec" 2>/dev/null && valid "$key.dec"; then
+              mv "$key.dec" "$key"
+            else
+              rm -f "$key.dec"
+              echo "::error::FIREBASE_SERVICE_ACCOUNT_MAIN_WEBSITE_BA2DA is not a usable service-account key. Paste the raw JSON of service-account.json, or its base64 encoding."
+              exit 1
+            fi
           fi
           echo "service account key accepted for $(jq -r .client_email "$key")"
         env:

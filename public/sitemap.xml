@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://vzdev.indevs.in/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://verz.group/</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://vzdev.indevs.in/about</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://verz.group/about</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://vzdev.indevs.in/projects</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://verz.group/projects</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://vzdev.indevs.in/aur</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://verz.group/aur</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vzdev.indevs.in/tracker</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://verz.group/tracker</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://vzdev.indevs.in/skills</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://verz.group/skills</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vzdev.indevs.in/contact</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://verz.group/contact</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://vzdev.indevs.in/brand</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://verz.group/brand</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

@@ -49,7 +49,7 @@
           },
           {
             "key": "Access-Control-Allow-Origin",
-            "value": "https://vzdev.indevs.in"
+            "value": "https://verz.group"
           }
         ]
       }

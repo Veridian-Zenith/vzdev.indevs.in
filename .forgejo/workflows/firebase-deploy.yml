@@ -1,11 +1,12 @@
 # Deploys Firebase Hosting + Firestore rules from git.gay.
-# Forgejo Actions only reads `.forgejo/workflows`, so this replaces the former
-# `.github/workflows/firebase-deploy.yml`.
+#
+# Manual only. GitHub is the deploying forge now and every commit is pushed to
+# both forges, so a `push` trigger here raced the GitHub deploy against this one
+# for the same Firebase project. Workflows are read from the first directory
+# that exists (.forgejo > .gitea > .github), so this file is the git.gay copy.
 name: Firebase Deploy
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:

@@ -2,7 +2,7 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { useState, useEffect, useCallback } from 'react';
-import { ORG, forge, isRecord, repoUrl } from '../lib/forgejo';
+import { ORG, forge, isRecord, repoUrl } from '../lib/github';
 
 export interface Commit {
   sha: string;
@@ -31,10 +31,10 @@ export interface RepoHistory {
 }
 
 const MONTHS = 3;
-const CACHE_PREFIX = 'vz_hist_v2_';
+const CACHE_PREFIX = 'vz_hist_v3_';
 const CACHE_DURATION = 60 * 60 * 1000; // 1h — history changes slowly
-/** Forgejo caps a page at 50 items. */
-const LIMIT = 50;
+/** GitHub caps a page at 100 items. */
+const LIMIT = 100;
 
 const sinceDate = () => {
   const d = new Date();
@@ -53,12 +53,18 @@ const readCommit = (v: unknown, repoName: string): Commit | null => {
   const at = raw ? new Date(raw).getTime() : 0;
   if (!at) return null;
 
+  // A commit pushed by an email GitHub cannot match has `author: null`; fall
+  // back to the git identity it was committed with.
+  const account = isRecord(v.author) ? v.author : null;
+  const login = account && typeof account.login === 'string' ? account.login : '';
+
   const message = String(commit.message ?? '').split('\n')[0].trim();
   return {
     sha: v.sha,
     message: message || 'commit',
-    // Forgejo does not attach an account to a commit, only its git identity.
-    author: typeof author.name === 'string' && author.name ? author.name : 'unknown',
+    author:
+      login ||
+      (typeof author.name === 'string' && author.name ? author.name : 'unknown'),
     date: new Date(at).toLocaleDateString(),
     at,
     url:
@@ -131,10 +137,10 @@ export const useRepoHistory = (repoName: string | null): RepoHistory => {
       const sinceIso = sinceDate();
       const url =
         `/repos/${ORG}/${encodeURIComponent(repoName)}/commits` +
-        `?since=${encodeURIComponent(sinceIso)}&limit=${LIMIT}`;
+        `?since=${encodeURIComponent(sinceIso)}&per_page=${LIMIT}`;
       const res = await forge(url);
       if (res.status === 404 || res.status === 409) { setLoaded({ repo: key, commits: [] }); return; }
-      if (!res.ok) throw new Error(`git.gay API ${res.status}`);
+      if (!res.ok) throw new Error(`GitHub API ${res.status}`);
 
       const data: unknown = await res.json();
       const parsed = (Array.isArray(data) ? data : [])

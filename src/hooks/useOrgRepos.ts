@@ -2,14 +2,14 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { useState, useEffect, useCallback } from 'react';
-import { ORG, USER, forge, toRepo, type Repo } from '../lib/forgejo';
+import { ORG, USER, forge, toRepo, type Repo } from '../lib/github';
 
 export type { Repo };
 
-const CACHE_KEY = 'vz_repos_cache_v2';
+const CACHE_KEY = 'vz_repos_cache_v3';
 const CACHE_DURATION = 10 * 60 * 1000;
-/** Forgejo caps a page at 50 items. */
-const LIMIT = 50;
+/** GitHub caps a page at 100 items. */
+const LIMIT = 100;
 
 /**
  * Forge mirrors are noise, so they're filtered out — but a few are genuinely
@@ -39,11 +39,11 @@ export const useOrgRepos = () => {
       }
 
       const [orgRes, userRes] = await Promise.all([
-        forge(`/orgs/${ORG}/repos?limit=${LIMIT}&page=1`),
-        forge(`/users/${USER}/repos?limit=${LIMIT}&page=1`),
+        forge(`/orgs/${ORG}/repos?per_page=${LIMIT}&page=1`),
+        forge(`/users/${USER}/repos?per_page=${LIMIT}&page=1`),
       ]);
 
-      if (!orgRes.ok && !userRes.ok) throw new Error('Failed to reach git.gay');
+      if (!orgRes.ok && !userRes.ok) throw new Error('Failed to reach GitHub');
 
       const collect = async (res: Response) => {
         if (!res.ok) return [] as Repo[];

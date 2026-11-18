@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import { useForgeActivity, type Activity } from './useForgeActivity';
 import { useOrgRepos } from './useOrgRepos';
-import { forge, toRepo, type Repo } from '../lib/forgejo';
+import { forge, toRepo, type Repo } from '../lib/github';
 
 const shortName = (full: string) => (full.includes('/') ? full.split('/').pop()! : full);
 

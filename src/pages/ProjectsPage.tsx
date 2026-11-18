@@ -8,7 +8,7 @@ import {
 } from '../components/Forge';
 import { ARTIFACTS, type Status } from '../data/artifacts';
 import { useOrgRepos, type Repo } from '../hooks/useOrgRepos';
-import { orgUrl } from '../lib/forgejo';
+import { orgUrl } from '../lib/github';
 import { RepoHistoryPanel } from '../components/RepoHistoryPanel';
 import { relativeTime } from '../utils/relativeTime';
 import { resolveLicence } from '../utils/licence';

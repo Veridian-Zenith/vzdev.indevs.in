@@ -9,7 +9,7 @@ import { db } from '../firebase';
 import {
   PageHeader, Section, SectionHead, Brackets, BlueprintGrid, fieldClass, labelClass,
 } from '../components/Forge';
-import { orgUrl } from '../lib/forgejo';
+import { orgUrl } from '../lib/github';
 
 export const ContactPage = () => {
   const { t } = useTranslation();

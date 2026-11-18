@@ -53,14 +53,14 @@ export const TrackerPage = () => {
           </button>
 
           <a
-            href="https://git.gay/Veridian-Zenith.rss"
+            href="https://github.com/Veridian-Zenith.atom"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-amber-400/30 text-amber-100/50 hover:text-amber-300 hover:border-amber-400/60 hover:bg-amber-500/5 transition-all text-xs font-bold uppercase tracking-widest"
             title="Subscribe to the forge activity feed"
           >
             <Rss size={14} />
-            rss
+            atom
           </a>
 
           {lastUpdated && (

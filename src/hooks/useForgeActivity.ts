@@ -2,7 +2,7 @@
 //! Copyright (c) 2026 Dae Euhwa
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { ORG, forge, isRecord, repoUrl } from '../lib/forgejo';
+import { ORG, forge, isRecord, num, repoUrlFromFullName } from '../lib/github';
 
 export type ActivityType =
   | 'Commit'
@@ -25,11 +25,16 @@ export interface Activity {
   at: number;
 }
 
+/** GitHub serves 30 events per page for an org feed. */
 const FEED_LIMIT = 30;
-const ENDPOINT = `/orgs/${ORG}/activities/feeds?limit=${FEED_LIMIT}`;
-const CACHE_KEY = 'vz_tracker_cache_v2';
+const ENDPOINT = `/orgs/${ORG}/events?per_page=${FEED_LIMIT}`;
+const CACHE_KEY = 'vz_tracker_cache_v3';
 const CACHE_DURATION = 10 * 60 * 1000;
-export const REFRESH_INTERVAL = 5 * 60 * 1000;
+/**
+ * Unauthenticated requests are capped at 60/hour per visitor IP, and the feed is
+ * the one polled endpoint, so it refreshes slowly: 4 requests/hour.
+ */
+export const REFRESH_INTERVAL = 15 * 60 * 1000;
 const MAX_MESSAGE = 140;
 
 const oneLine = (text: string): string => {
@@ -38,113 +43,137 @@ const oneLine = (text: string): string => {
 };
 
 /**
- * Push actions store a JSON blob in `content`; everything else stores a plain
- * human-readable string. This reads whichever arrived and never throws.
+ * Maps one `/orgs/{org}/events` item onto the shape the tracker renders.
+ * Anything GitHub emits that this does not model (stars, watches, comments,
+ * membership) returns null rather than inventing a row.
  */
-const readPush = (content: string): { message: string | null; sha: string | null } => {
-  if (!content) return { message: null, sha: null };
-  try {
-    const parsed = JSON.parse(content) as {
-      HeadCommit?: { Message?: string; Sha1?: string };
-      Commits?: Array<{ Message?: string; Sha1?: string }>;
-    };
-    const head = parsed.HeadCommit ?? parsed.Commits?.[parsed.Commits.length - 1];
-    return {
-      message: head?.Message ? oneLine(head.Message) : null,
-      sha: head?.Sha1 ?? null,
-    };
-  } catch {
-    return { message: oneLine(content), sha: null };
-  }
-};
-
-const parseAction = (v: unknown): Activity | null => {
+const parseEvent = (v: unknown): Activity | null => {
   if (!isRecord(v)) return null;
-  if (typeof v.id !== 'number') return null;
+  if (typeof v.id !== 'string' && typeof v.id !== 'number') return null;
 
-  const created = typeof v.created === 'string' ? v.created : '';
+  const created = typeof v.created_at === 'string' ? v.created_at : '';
   const at = new Date(created).getTime();
   if (!at) return null;
 
   const repo = isRecord(v.repo) ? v.repo : null;
-  if (!repo || typeof repo.full_name !== 'string') return null;
+  if (!repo || typeof repo.name !== 'string') return null;
 
+  const repoLink = repoUrlFromFullName(repo.name);
+  const payload = isRecord(v.payload) ? v.payload : {};
   const base = {
     id: String(v.id),
-    repo: repo.full_name,
+    repo: repo.name,
     date: new Date(at).toLocaleDateString(),
     at,
   };
-  const repoLink =
-    typeof repo.html_url === 'string' ? repo.html_url : repoUrl(repo.name as string);
 
-  // `ref_name` arrives fully qualified: `refs/heads/main`, `refs/tags/v1.0`.
-  const ref = (typeof v.ref_name === 'string' ? v.ref_name : '')
-    .replace(/^refs\/(heads|tags)\//, '');
-  const content = typeof v.content === 'string' ? v.content : '';
-  const push = readPush(content);
-  const commitLink = push.sha ? `${repoLink}/commit/${push.sha}` : repoLink;
+  // `ref` arrives fully qualified: `refs/heads/main`, `refs/tags/v1.0`.
+  const rawRef = typeof payload.ref === 'string' ? payload.ref : '';
+  const ref = rawRef.replace(/^refs\/(heads|tags)\//, '');
+  const isTag = rawRef.startsWith('refs/tags/');
 
-  switch (v.op_type) {
-    case 'commit_repo':
+  const head = typeof payload.head === 'string' ? payload.head : '';
+  const commits = Array.isArray(payload.commits) ? payload.commits : [];
+  const lastCommit = commits.length ? commits[commits.length - 1] : null;
+  const headMessage =
+    isRecord(lastCommit) && typeof lastCommit.message === 'string'
+      ? oneLine(lastCommit.message)
+      : null;
+  const commitLink = head ? `${repoLink}/commit/${head}` : repoLink;
+
+  switch (v.type) {
+    case 'PushEvent': {
+      if (isTag) {
+        return {
+          ...base,
+          type: 'Tag',
+          message: headMessage ?? `Tagged ${ref || 'a release'}`,
+          url: commitLink,
+        };
+      }
+      const count = num(payload.size) || commits.length;
       return {
         ...base,
         type: 'Commit',
-        message: push.message ?? `Pushed to ${ref || 'the default branch'}`,
+        message:
+          headMessage ??
+          `Pushed ${count || 'a'} commit${count === 1 ? '' : 's'} to ${ref || 'the default branch'}`,
         url: commitLink,
       };
-    case 'push_tag':
+    }
+    case 'CreateEvent': {
+      const refType = typeof payload.ref_type === 'string' ? payload.ref_type : 'branch';
+      if (refType === 'tag') {
+        return { ...base, type: 'Tag', message: `Tagged ${ref || 'a release'}`, url: commitLink };
+      }
+      if (refType === 'repository') {
+        return { ...base, type: 'Create', message: `Created ${base.repo}`, url: repoLink };
+      }
+      return { ...base, type: 'Create', message: `Created branch ${ref}`, url: repoLink };
+    }
+    case 'DeleteEvent': {
+      const refType = typeof payload.ref_type === 'string' ? payload.ref_type : 'branch';
       return {
         ...base,
-        type: 'Tag',
-        message: push.message ?? `Tagged ${ref}`,
-        url: commitLink,
+        type: 'Delete',
+        message: `Deleted ${refType === 'tag' ? 'tag' : 'branch'} ${ref}`,
+        url: repoLink,
       };
-    case 'create_branch':
-      return { ...base, type: 'Create', message: `Created branch ${ref}`, url: repoLink };
-    case 'delete_branch':
-      return { ...base, type: 'Delete', message: `Deleted branch ${ref}`, url: repoLink };
-    case 'delete_tag':
-      return { ...base, type: 'Delete', message: `Deleted tag ${ref}`, url: repoLink };
-    case 'publish_release':
+    }
+    case 'ReleaseEvent': {
+      const release = isRecord(payload.release) ? payload.release : {};
+      const title =
+        (typeof release.name === 'string' && release.name.trim()) ||
+        (typeof release.tag_name === 'string' && release.tag_name) ||
+        'a new version';
       return {
         ...base,
         type: 'Release',
-        message: `Released ${oneLine(content) || ref || 'a new version'}`,
-        url: `${repoLink}/releases`,
+        message: `Released ${oneLine(title)}`,
+        url:
+          typeof release.html_url === 'string' ? release.html_url : `${repoLink}/releases`,
       };
-    case 'create_pull_request':
-    case 'merge_pull_request':
-    case 'close_pull_request': {
+    }
+    case 'PullRequestEvent': {
+      const pr = isRecord(payload.pull_request) ? payload.pull_request : {};
+      const action = typeof payload.action === 'string' ? payload.action : '';
       const verb =
-        v.op_type === 'create_pull_request'
-          ? 'Opened'
-          : v.op_type === 'merge_pull_request'
-            ? 'Merged'
-            : 'Closed';
+        pr.merged === true ? 'Merged' : action === 'closed' ? 'Closed' : action === 'opened' ? 'Opened' : 'Updated';
       return {
         ...base,
         type: 'PR',
-        message: `${verb}: ${oneLine(content) || 'pull request'}`,
-        url: `${repoLink}/pulls`,
+        message: `${verb}: ${oneLine(
+          typeof pr.title === 'string' && pr.title ? pr.title : 'pull request',
+        )}`,
+        url: typeof pr.html_url === 'string' ? pr.html_url : `${repoLink}/pulls`,
       };
     }
-    case 'create_issue':
-    case 'close_issue': {
-      const verb = v.op_type === 'create_issue' ? 'Opened' : 'Closed';
+    case 'IssuesEvent': {
+      const issue = isRecord(payload.issue) ? payload.issue : {};
+      const verb =
+        payload.action === 'opened' ? 'Opened' : payload.action === 'closed' ? 'Closed' : 'Updated';
       return {
         ...base,
         type: 'Issue',
-        message: `${verb} issue: ${oneLine(content) || 'untitled'}`,
-        url: `${repoLink}/issues`,
+        message: `${verb} issue: ${oneLine(
+          typeof issue.title === 'string' && issue.title ? issue.title : 'untitled',
+        )}`,
+        url: typeof issue.html_url === 'string' ? issue.html_url : `${repoLink}/issues`,
       };
     }
-    case 'fork_repo':
-      return { ...base, type: 'Fork', message: `Forked ${base.repo}`, url: repoLink };
-    case 'create_repo':
-      return { ...base, type: 'Create', message: `Created ${base.repo}`, url: repoLink };
+    case 'ForkEvent': {
+      const forkee = isRecord(payload.forkee) ? payload.forkee : {};
+      const target =
+        typeof forkee.full_name === 'string' && forkee.full_name ? forkee.full_name : 'a fork';
+      return {
+        ...base,
+        type: 'Fork',
+        message: `Forked to ${target}`,
+        url: typeof forkee.html_url === 'string' ? forkee.html_url : repoLink,
+      };
+    }
     default:
-      // Star/watch/repo-transfer noise and anything newer than this mapping.
+      // Star/watch/comment/member noise and anything newer than this mapping.
       return null;
   }
 };
@@ -182,15 +211,15 @@ export const useForgeActivity = () => {
 
       if (res.status === 403 || res.status === 429) {
         const resetTime = reset ? new Date(Number(reset) * 1000).toLocaleTimeString() : 'unknown';
-        throw new Error(`Rate limited by git.gay. Resets at ${resetTime}.`);
+        throw new Error(`Rate limited by GitHub. Resets at ${resetTime}.`);
       }
-      if (!res.ok) throw new Error(`git.gay API ${res.status}`);
+      if (!res.ok) throw new Error(`GitHub API ${res.status}`);
 
       const data: unknown = await res.json();
       if (!Array.isArray(data)) throw new Error('Invalid data format');
 
       const parsed = data
-        .map(parseAction)
+        .map(parseEvent)
         .filter((a): a is Activity => a !== null)
         .sort((a, b) => b.at - a.at);
 

@@ -132,7 +132,7 @@ export const HeroSection = () => {
                   rel="noopener noreferrer"
                   className="mt-7 inline-flex items-center gap-2 text-amber-300 hover:text-amber-200 font-bold text-sm transition-colors"
                 >
-                  Inspect on git.gay
+                  Inspect on GitHub
                   <ArrowUpRight size={14} />
                 </a>
               )}

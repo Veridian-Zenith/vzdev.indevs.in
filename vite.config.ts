@@ -22,7 +22,14 @@ export default defineConfig({
         // (revision: null) precache entries. When the glob matches them too,
         // Workbox receives two entries for one URL and aborts the whole
         // precache with add-to-cache-list-conflicting-entries.
-        globIgnores: ['assets/android-chrome-192x192.png', 'assets/android-chrome-512x512.png'],
+        // The console chunk is deliberately left out of the precache: an admin
+        // surface should load the code of the deployment it is talking to, not a
+        // week-old copy served from the device.
+        globIgnores: [
+          'assets/android-chrome-192x192.png',
+          'assets/android-chrome-512x512.png',
+          'assets/ConsolePage-*.js',
+        ],
         globPatterns: ['assets/**/*.{js,css,woff2,png,svg,webp}', '*.js'],
         runtimeCaching: [
           {

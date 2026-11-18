@@ -50,7 +50,10 @@ function AppContent() {
   }, []);
 
   useEffect(() => {
-    if (analyticsEnabled) trackPageView(location.pathname);
+    // The console is an admin surface: its visits are not traffic worth counting.
+    if (analyticsEnabled && !location.pathname.startsWith('/console')) {
+      trackPageView(location.pathname);
+    }
   }, [location.pathname]);
 
   // Modern smooth scroll (performance focused)

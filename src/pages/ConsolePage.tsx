@@ -123,6 +123,7 @@ export const ConsolePage = () => {
   const [detailError, setDetailError] = useState<string | null>(null);
 
   const [notice, setNotice] = useState<Notice | null>(null);
+  const [journal, setJournal] = useState<{ at: string; ok: boolean; text: string }[]>([]);
   const [busy, setBusy] = useState<string | null>(null);
   const [armed, setArmed] = useState<string | null>(null);
   const [composer, setComposer] = useState<string | null>(null);
@@ -136,6 +137,8 @@ export const ConsolePage = () => {
   ]);
   const [cmd, setCmd] = useState('');
   const feedRef = useRef<HTMLDivElement>(null);
+  /** Per-repo read cache: switching tabs back and forth costs nothing. */
+  const cacheRef = useRef(new Map<string, { at: number; pulls: Pull[]; issues: Issue[]; runs: Run[] }>());
 
   const push = useCallback((...next: Line[]) => {
     setLines((prev) => [...prev, ...next].slice(-400));
@@ -189,8 +192,18 @@ export const ConsolePage = () => {
     push({ kind: 'out', text: 'session cleared — token removed from this tab' });
   };
 
-  const loadDetail = useCallback(async (repo: string) => {
+  const loadDetail = useCallback(async (repo: string, force = false) => {
     if (!token || !repo) return;
+
+    const hit = cacheRef.current.get(repo);
+    if (!force && hit && Date.now() - hit.at < 60_000) {
+      setPulls(hit.pulls);
+      setIssues(hit.issues);
+      setRuns(hit.runs);
+      setDetailError(null);
+      return;
+    }
+
     setDetailLoading(true);
     setDetailError(null);
     try {
@@ -199,6 +212,7 @@ export const ConsolePage = () => {
         consoleApi.issues(token, repo),
         consoleApi.runs(token, repo),
       ]);
+      cacheRef.current.set(repo, { at: Date.now(), pulls: p, issues: i, runs: r });
       setPulls(p);
       setIssues(i);
       setRuns(r);
@@ -219,6 +233,15 @@ export const ConsolePage = () => {
   useEffect(() => {
     feedRef.current?.scrollTo({ top: feedRef.current.scrollHeight });
   }, [lines]);
+
+  // Not a page to be found in a search result.
+  useEffect(() => {
+    const meta = document.createElement('meta');
+    meta.name = 'robots';
+    meta.content = 'noindex, nofollow';
+    document.head.appendChild(meta);
+    return () => { meta.remove(); };
+  }, []);
 
   // A second click confirms; the arming expires so it cannot be clicked later by accident.
   useEffect(() => {
@@ -245,13 +268,16 @@ export const ConsolePage = () => {
       await fn();
       markCap(cap, 'granted');
       setNotice({ tone: 'ok', text: okText });
-      if (selected) await loadDetail(selected);
+      setJournal((prev) => [{ at: new Date().toLocaleTimeString(), ok: true, text: okText }, ...prev].slice(0, 50));
+      if (selected) await loadDetail(selected, true);
     } catch (err) {
       if (isGhFailure(err)) {
         const missing = capForPermission(err.needs);
         if (missing) markCap(missing, 'denied');
       }
-      setNotice({ tone: 'err', text: describe(err) });
+      const message = describe(err);
+      setNotice({ tone: 'err', text: message });
+      setJournal((prev) => [{ at: new Date().toLocaleTimeString(), ok: false, text: `${CAP_LABEL[cap]}: ${message}` }, ...prev].slice(0, 50));
     } finally {
       setBusy(null);
       setArmed(null);
@@ -473,7 +499,7 @@ export const ConsolePage = () => {
 
               <div className="ml-auto flex items-center gap-2">
                 <button
-                  onClick={() => void loadDetail(selected)}
+                  onClick={() => void loadDetail(selected, true)}
                   disabled={!selected || detailLoading}
                   className="flex items-center gap-2 px-4 py-2 rounded-full border border-amber-400/25 text-amber-100/50 hover:text-amber-300 hover:border-amber-400/50 transition-colors text-[10px] font-bold uppercase tracking-widest disabled:opacity-40"
                 >
@@ -840,6 +866,19 @@ export const ConsolePage = () => {
               )}
             </div>
           </Section>
+
+          {journal.length > 0 && (
+            <Section className="pt-10 pb-0">
+              <SectionHead index="fig. 07f" title="Action log" />
+              <ul className="space-y-1.5 font-mono text-[10px] leading-relaxed">
+                {journal.map((entry, idx) => (
+                  <li key={idx} className={entry.ok ? 'text-emerald-300/60' : 'text-red-400/70'}>
+                    <span className="text-amber-400/30">{entry.at}</span> · {entry.text}
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          )}
 
           <Section className="pt-12">
             <SectionHead index="fig. 07e" title="Console" />

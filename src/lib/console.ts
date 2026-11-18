@@ -191,6 +191,8 @@ const gh = async <T>(path: string, token: string, init: RequestInit = {}): Promi
     if (res.status === 401) throw fail('token rejected — check it has not expired', 401, res);
     if (res.status === 404) throw fail('not found — the repo may be private or outside the token scope', 404, res);
     if (res.status === 403) throw fail('forbidden by token permissions', 403, res);
+    if (res.status === 405) throw fail('not mergeable — conflicts or required checks are still pending', 405, res);
+    if (res.status === 409) throw fail('conflict (409) — the branch changed or the item is already in that state', 409, res);
     if (res.status === 422) throw fail('GitHub rejected the change (422) — usually an already-merged or already-closed item', 422, res);
     throw fail(`GitHub API ${res.status}`, res.status, res);
   }

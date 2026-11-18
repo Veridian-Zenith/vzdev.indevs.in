@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X, Languages, EyeOff } from 'lucide-react';
+import { Menu, X, Languages, EyeOff, Terminal } from 'lucide-react';
 import { loadTranslations } from '../lib/i18n';
 import { useApp } from '../context/AppContext';
 
@@ -117,6 +117,15 @@ export const Navbar = () => {
             </div>
 
             <button
+              onClick={() => navigate('/console')}
+              className="p-2 rounded-full text-amber-100/45 hover:text-amber-300 hover:bg-amber-500/10 transition-colors"
+              title="Management console"
+              aria-label="Management console"
+            >
+              <Terminal size={16} />
+            </button>
+
+            <button
               onClick={() => setReducedMotion(!reducedMotion)}
               className={`p-2 rounded-full transition-colors ${
                 reducedMotion
@@ -185,6 +194,13 @@ export const Navbar = () => {
                 className="px-4 py-3 rounded-xl text-sm font-bold bg-amber-500/10 border border-amber-400/30 text-amber-300"
               >
                 {t('nav.contact')}
+              </button>
+
+              <button
+                onClick={() => { navigate('/console'); setIsOpen(false); }}
+                className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-bold border border-amber-400/15 text-amber-100/50"
+              >
+                <Terminal size={14} /> console
               </button>
 
               <div className="flex flex-wrap items-center gap-2 mt-3">

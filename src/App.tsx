@@ -14,6 +14,7 @@ const BrandDisplayPage = lazy(() => import('./pages/BrandDisplayPage').then(m =>
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
 const TrackerPage = lazy(() => import('./pages/TrackerPage').then(m => ({ default: m.TrackerPage })));
 const SkillsPage = lazy(() => import('./pages/SkillsPage').then(m => ({ default: m.SkillsPage })));
+const ConsolePage = lazy(() => import('./pages/ConsolePage').then(m => ({ default: m.ConsolePage })));
 
 import { LoadingScreen } from './components';
 import { ErrorBoundary } from './components';
@@ -116,6 +117,7 @@ return (
               <Route path="/aur" element={<AurPage />} />
               <Route path="/tracker" element={<TrackerPage />} />
               <Route path="/skills" element={<SkillsPage />} />
+              <Route path="/console" element={<ConsolePage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/brand" element={<BrandDisplayPage />} />
               <Route path="*" element={<NotFoundPage />} />
